@@ -1,0 +1,19 @@
+{
+  "name": "thegamersshelf",
+  "version": "1.0.0",
+  "description": "Collection tracker with tailored suggestions for every kind of gamer.",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zachMcCain/theGamersShelf.git"
+  },
+  "author": "Zach McCain",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zachMcCain/theGamersShelf/issues"
+  },
+  "homepage": "https://github.com/zachMcCain/theGamersShelf#readme"
+}
