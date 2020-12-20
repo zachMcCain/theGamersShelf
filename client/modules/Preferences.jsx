@@ -1,7 +1,7 @@
 import React from 'react';
 
-const Preferences = function({open}) {
-  return <h4 id="preferences" onClick={open}>Preferences</h4>
+const Preferences = function({openShelf}) {
+  return <h4 id="preferences" onClick={openShelf}>Preferences</h4>
 }
 
 export default Preferences;

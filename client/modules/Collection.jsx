@@ -1,4 +1,5 @@
 import React from 'react';
+import Game from './collection/Game.jsx'
 
 class Collection extends React.Component {
   constructor(props) {
@@ -7,7 +8,21 @@ class Collection extends React.Component {
 
 
   render() {
-    return <h4 id="collection" onClick={this.props.open}>My Collection</h4>
+    let games;
+    if (this.props.open) {
+      games = this.props.games.map((game) => {
+        return <Game game={game}/>;
+      })
+    } else {
+      games = <Game />;
+    }
+    console.log('Games: ', games)
+    return (
+      <div>
+        <h4 id="collection" onClick={this.props.openShelf}>My Collection</h4>
+        {games}
+      </div>
+    )
   }
 }
 

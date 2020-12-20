@@ -9,7 +9,8 @@ class App extends React.Component {
     this.state = {
       collection: false,
       suggestions: false,
-      preferences: false
+      preferences: false,
+      games: ['Gloomhaven', 'Scyth']
     }
     this.openShelf = this.openShelf.bind(this);
   }
@@ -26,9 +27,9 @@ class App extends React.Component {
       <div>
         <h1>The Gamer's Shelf</h1>
         <div className="shelf">
-          <Collection open={this.openShelf}/>
-          <Suggestions open={this.openShelf}/>
-          <Preferences open={this.openShelf}/>
+          <Collection openShelf={this.openShelf} games={this.state.games} open={this.state.collection}/>
+          <Suggestions openShelf={this.openShelf} open={this.state.suggestions}/>
+          <Preferences openShelf={this.openShelf} open={this.state.preferences}/>
         </div>
       </div>
     )
