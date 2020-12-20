@@ -9,7 +9,7 @@ h1 {
 }
 
 h4 {
-  border-bottom: solid;
+  border-bottom: 5px solid;
   border-color: rgb(226, 218, 198);
   font-size: 35px;
   font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -18,12 +18,8 @@ h4 {
 }
 
 .shelf {
-  border: solid;
-  border-color: whitesmoke;
-  margin: 20px;
-  width: 600px;
   margin: auto;
   width: 50%;
-  border: 3px solid whitesmoke;
-  padding: 10px;
+  border: 5px solid whitesmoke;
+  border-radius: 5px;
 }
