@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "test",
-    "build": "npx webpack --config webpack.config.js"
+    "build": "npx webpack --config webpack.config.js",
+    "start": "nodemon server/index.js",
+    "listen": "node server/index.js"
   },
   "repository": {
     "type": "git",
@@ -24,6 +26,7 @@
     "axios": "^0.21.0",
     "babel-loader": "^8.2.2",
     "express": "^4.17.1",
+    "nodemon": "^2.0.6",
     "react": "^17.0.1",
     "react-dom": "^17.0.1"
   },
