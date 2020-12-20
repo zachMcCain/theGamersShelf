@@ -1,7 +1,7 @@
 import React from 'react';
 
-const Suggestions = function() {
-  return <h4>Suggestions Here</h4>
+const Suggestions = function({open}) {
+  return <h4 id="suggestions" onClick={open}>Suggestions</h4>
 }
 
 export default Suggestions;

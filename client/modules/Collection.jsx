@@ -1,7 +1,14 @@
 import React from 'react';
 
-const Collection = function() {
-  return <h4>Collection Here</h4>
+class Collection extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+
+  render() {
+    return <h4 id="collection" onClick={this.props.open}>My Collection</h4>
+  }
 }
 
 

@@ -1,0 +1,29 @@
+body {
+  background-color: rgb(32, 31, 31);
+}
+
+h1 {
+  font-size: 50px;
+  color: rgb(200, 182, 137);
+  text-align: center;
+}
+
+h4 {
+  border-bottom: solid;
+  border-color: rgb(226, 218, 198);
+  font-size: 35px;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: whitesmoke;
+  text-align: center;
+}
+
+.shelf {
+  border: solid;
+  border-color: whitesmoke;
+  margin: 20px;
+  width: 600px;
+  margin: auto;
+  width: 50%;
+  border: 3px solid whitesmoke;
+  padding: 10px;
+}
