@@ -10,19 +10,24 @@ class Collection extends React.Component {
 
   render() {
     let games;
+    let newGame;
     if (this.props.open) {
       games = this.props.games.map((game) => {
         return <Game game={game} key={game}/>;
       })
+      newGame = <AddGame />;
     } else {
       games = <Game />;
     }
 
     return (
-      <div>
-        <AddGame />
-        <h4 id="collection" onClick={this.props.openShelf}>My Collection</h4>
-        {games}
+      <div id="collection">
+        <div onClick={this.props.openShelf}>home</div>
+        <div>
+          <h4>My Collection</h4>
+          {newGame}
+          {games}
+        </div>
       </div>
     )
   }

@@ -17,9 +17,21 @@ h4 {
   text-align: center;
 }
 
-.shelf {
+#shelf {
   margin: auto;
   width: 50%;
   border: 5px solid whitesmoke;
   border-radius: 5px;
+}
+
+#openShelf {
+  margin: auto;
+  width: 80%;
+  border: 5px solid whitesmoke;
+  border-radius: 5px;
+  background-color: orange;
+}
+
+#collection {
+  display: none;
 }
