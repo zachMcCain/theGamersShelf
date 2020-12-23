@@ -53,7 +53,8 @@ class App extends React.Component {
       )
     .then(results => {
       console.log(results);
-      this.setState({ownedGames: results.data.games})
+      // Right now we are concating the first result
+      this.setState({ownedGames: this.state.ownedGames.concat(results.data.games[0])})
     })
   }
 
