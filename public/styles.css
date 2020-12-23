@@ -24,14 +24,43 @@ h4 {
   border-radius: 5px;
 }
 
-#openShelf {
-  margin: auto;
-  width: 80%;
-  border: 5px solid whitesmoke;
-  border-radius: 5px;
-  background-color: orange;
+#collection {
+  display: none;
 }
 
-#collection {
+.game {
+  margin: 30px;
+  padding: 10px;
+}
+
+.gameTitle {
+  color: whitesmoke;
+  font-size: 40px;
+}
+
+.gameDescription {
+  color: whitesmoke;
+  font-size: 20px;
+}
+
+.addGameContainer {
+  width: 300px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 8px 0;
+  position: absolute;
+  z-index: 1;
+  /* bottom: 75%; */
+  left: 50%;
+  margin-left: -80px;
+}
+
+#suggestions {
+  display: none;
+}
+
+#preferences {
   display: none;
 }

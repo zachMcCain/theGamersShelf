@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 
 class AddGame extends React.Component {
   constructor(props) {
@@ -10,10 +11,13 @@ class AddGame extends React.Component {
 
   render() {
     return (
-      <form>
-        <input type="text"></input>
-        <input type="text"></input>
-      </form>
+      <div className="addGameContainer">
+        <form id="addGame">
+          <div>Search Game</div>
+          <input type="text" name="Search" onChange={this.props.changeSearch}></input><button onClick={this.props.addGame}>Search</button>
+          <div onClick={this.props.close}>Close</div>
+        </form>
+      </div>
     )
   }
 }

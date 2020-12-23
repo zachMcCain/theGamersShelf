@@ -5,26 +5,29 @@ import AddGame from './collection/AddGame.jsx';
 class Collection extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      addGameWindow: false
+    }
+    this.openAddGame = this.openAddGame.bind(this);
   }
 
+  openAddGame() {
+    this.setState({addGameWindow: !this.state.addGameWindow})
+  }
 
   render() {
-    let games;
+    let games = this.props.games.map((game) => {return <Game game={game.name} key={game.id} image={game.images.medium} description={game.description_preview}/>;
+    })
     let newGame;
-    if (this.props.open) {
-      games = this.props.games.map((game) => {
-        return <Game game={game} key={game}/>;
-      })
-      newGame = <AddGame />;
-    } else {
-      games = <Game />;
+    if (this.state.addGameWindow) {
+      newGame = <AddGame close={this.openAddGame} changeSearch={this.props.changeSearch} addGame={this.props.addGame}/>;
     }
 
     return (
       <div id="collection">
-        <div onClick={this.props.openShelf}>home</div>
         <div>
           <h4>My Collection</h4>
+          <div onClick={this.openAddGame}>Add Game</div>
           {newGame}
           {games}
         </div>
