@@ -28,6 +28,17 @@ h4 {
   display: none;
 }
 
+.addGameButton {
+  color: whitesmoke;
+  font-size: large;
+  border: solid;
+  border-radius: 5px;
+  border-color: steelblue;
+  background-color: steelblue;
+  padding: 10px;
+  text-align: center;
+}
+
 .game {
   margin: 30px;
   padding: 10px;
@@ -38,9 +49,11 @@ h4 {
   font-size: 40px;
 }
 
-.gameDescription {
+.gameDetails {
   color: whitesmoke;
   font-size: 20px;
+  position: absolute;
+  width: 80%;
 }
 
 .addGameContainer {

@@ -16,7 +16,13 @@ class Collection extends React.Component {
   }
 
   render() {
-    let games = this.props.games.map((game) => {return <Game game={game.name} key={game.id} image={game.images.medium} description={game.description_preview}/>;
+    let games = this.props.games.map((game) => {
+      return <Game
+        game={game}
+        key={game.id}
+        image={game.images.medium}
+        description={game.description_preview}
+        removeGame={this.props.removeGame}/>;
     })
     let newGame;
     if (this.state.addGameWindow) {
@@ -27,7 +33,7 @@ class Collection extends React.Component {
       <div id="collection">
         <div>
           <h4>My Collection</h4>
-          <div onClick={this.openAddGame}>Add Game</div>
+          <span className="addGameButton" onClick={this.openAddGame}>Add Game</span>
           {newGame}
           {games}
         </div>

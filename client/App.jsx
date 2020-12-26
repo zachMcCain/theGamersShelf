@@ -19,8 +19,9 @@ class App extends React.Component {
     this.renderCollection = this.renderCollection.bind(this);
     this.renderSuggestions = this.renderSuggestions.bind(this);
     this.renderPreferences = this.renderPreferences.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleAddGame = this.handleAddGame.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.handleRemoveGame = this.handleRemoveGame.bind(this);
   }
 
   openShelf(e) {
@@ -43,19 +44,35 @@ class App extends React.Component {
     this.setState({name: e.target.value})
   }
 
-  handleSubmit(e) {
-    e.preventDefault();
-    let game = this.state.name;
-    console.log('game: ', game)
-    axios.get(
-      `https://api.boardgameatlas.com/api/search?name=${game}&client_id=qkHJZ2akQa`
-      //'https://api.boardgameatlas.com/api/search?order_by=popularity&ascending=false&client_id=qkHJZ2akQa'
-      )
-    .then(results => {
-      console.log(results);
-      // Right now we are concating the first result
-      this.setState({ownedGames: this.state.ownedGames.concat(results.data.games[0])})
-    })
+  handleAddGame(game) {
+    // console.log('the game from handle add game: ', game)
+    // console.log('the props from handle add game: ', this.props)
+    let games = this.state.ownedGames;
+    games.unshift(game);
+    // console.log('The unshifted set of games: ', games);
+    this.setState({ownedGames: games})
+    // e.preventDefault();
+    // let game = this.state.name;
+    // console.log('game: ', game)
+    // axios.get(
+    //   `https://api.boardgameatlas.com/api/search?name=${game}&client_id=qkHJZ2akQa`
+    //   //'https://api.boardgameatlas.com/api/search?order_by=popularity&ascending=false&client_id=qkHJZ2akQa'
+    //   )
+    // .then(results => {
+    //   console.log(results);
+    //   // Right now we are concating the first result
+    //   this.setState({ownedGames: this.state.ownedGames.concat(results.data.games[0])})
+    // })
+  }
+
+  handleRemoveGame(gameId) {
+    var games = [];
+    for (var i = 0; i < this.state.ownedGames.length; i++) {
+      if (this.state.ownedGames[i].id !== gameId) {
+        games.push(this.state.ownedGames[i]);
+      }
+    }
+    this.setState({ownedGames: games});
   }
 
   renderCollection(e) {
@@ -90,8 +107,9 @@ class App extends React.Component {
           <Collection
           games={this.state.ownedGames}
           open={this.state.collection}
-          addGame={this.handleSubmit}
-          changeSearch={this.handleChange}/>
+          addGame={this.handleAddGame}
+          changeSearch={this.handleChange}
+          removeGame={this.handleRemoveGame}/>
 
           <Suggestions
           open={this.state.suggestions}/>

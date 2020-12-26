@@ -15,28 +15,27 @@ class AddGame extends React.Component {
 
   searchGame(e) {
     e.preventDefault();
-    console.log('Searching for: ', this.state.name)
+    // console.log('Searching for: ', this.state.name)
     axios.get(
-      `https://api.boardgameatlas.com/api/search?name=${this.state.name}&client_id=qkHJZ2akQa`
-      //'https://api.boardgameatlas.com/api/search?order_by=popularity&ascending=false&client_id=qkHJZ2akQa'
+      `https://api.boardgameatlas.com/api/search?name=${this.state.name}&client_id=qkHJZ2akQa&fuzzy_match=true`
       )
       .then((results) => {
-        console.log('results of search: ', results.data.games)
+        // console.log('results of search: ', results.data.games)
         this.setState({searchResults: results.data.games})
       })
   }
 
   handleChange(e) {
-    console.log(e.target.value);
+    // console.log(e.target.value);
     this.setState({name: e.target.value})
   }
 
   render() {
     let results = <div></div>
     if (this.state.searchResults.length > 0) {
-      console.log('Search results should render')
+      // console.log('Search results should render')
       results = this.state.searchResults.map((result) => {
-        return <Results result={result}/>
+        return <Results result={result} addGame={this.props.addGame} key={result.id} close={this.props.close}/>
       })
     }
 
