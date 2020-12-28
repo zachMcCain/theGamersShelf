@@ -20,9 +20,9 @@ h1 {
 
 h4 {
   border-bottom: 5px solid;
-  border-color: rgb(226, 218, 198);
+  border-color: whitesmoke;
   font-size: 35px;
-  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Montserrat', sans-serif, Tahoma, Geneva, Verdana, sans-serif;
   color: whitesmoke;
   text-align: center;
   cursor: pointer;
@@ -87,6 +87,7 @@ img {
   margin: 5px;
   border-color: whitesmoke;
   width: auto;
+  max-width: 80%;
   height: 350px;
 }
 
@@ -124,7 +125,7 @@ img {
   left:50%;
   transform: translate(-50%, -200px);
   color:rgb(32, 31, 31);
-  border-radius: 5px;
+  border-radius: 15px;
 }
 
 .close {
@@ -162,10 +163,10 @@ img {
 
 .left {
   float: left;
-  margin: 15px;
+  margin: 25px;
 }
 
 .right {
   float: right;
-  margin: 15px;
+  margin: 25px;
 }

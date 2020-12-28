@@ -45,8 +45,6 @@ class App extends React.Component {
   }
 
   handleAddGame(game) {
-    // console.log('the game from handle add game: ', game)
-    // console.log('the props from handle add game: ', this.props)
     let games = this.state.ownedGames;
     let gameOwned = false;
     for (var i = 0; i < games.length; i++) {
@@ -56,23 +54,10 @@ class App extends React.Component {
     }
     if (!gameOwned) {
       games.unshift(game);
-      // console.log('The unshifted set of games: ', games);
       this.setState({ownedGames: games})
     } else {
       window.alert('Error: Game already in collection!')
     }
-    // e.preventDefault();
-    // let game = this.state.name;
-    // console.log('game: ', game)
-    // axios.get(
-    //   `https://api.boardgameatlas.com/api/search?name=${game}&client_id=qkHJZ2akQa`
-    //   //'https://api.boardgameatlas.com/api/search?order_by=popularity&ascending=false&client_id=qkHJZ2akQa'
-    //   )
-    // .then(results => {
-    //   console.log(results);
-    //   // Right now we are concating the first result
-    //   this.setState({ownedGames: this.state.ownedGames.concat(results.data.games[0])})
-    // })
   }
 
   handleRemoveGame(gameId) {
