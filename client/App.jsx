@@ -48,9 +48,19 @@ class App extends React.Component {
     // console.log('the game from handle add game: ', game)
     // console.log('the props from handle add game: ', this.props)
     let games = this.state.ownedGames;
-    games.unshift(game);
-    // console.log('The unshifted set of games: ', games);
-    this.setState({ownedGames: games})
+    let gameOwned = false;
+    for (var i = 0; i < games.length; i++) {
+      if (games[i].id === game.id) {
+        gameOwned = true;
+      }
+    }
+    if (!gameOwned) {
+      games.unshift(game);
+      // console.log('The unshifted set of games: ', games);
+      this.setState({ownedGames: games})
+    } else {
+      window.alert('Error: Game already in collection!')
+    }
     // e.preventDefault();
     // let game = this.state.name;
     // console.log('game: ', game)
@@ -66,6 +76,7 @@ class App extends React.Component {
   }
 
   handleRemoveGame(gameId) {
+
     var games = [];
     for (var i = 0; i < this.state.ownedGames.length; i++) {
       if (this.state.ownedGames[i].id !== gameId) {
@@ -96,7 +107,7 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <h1 onClick={this.openShelf}>The Gamer's Shelf</h1>
+        <h1 className="site_title" onClick={this.openShelf}>The Gamer's Shelf</h1>
         <div id="shelf">
           <h4
           onClick={this.renderCollection}>My Collection</h4>

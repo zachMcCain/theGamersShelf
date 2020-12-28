@@ -24,10 +24,10 @@ class Game extends React.Component {
 
     return (
       <div className="game">
-        <span className="gameTitle">{this.props.game.name}</span>
-        <span onClick={this.openDetails}>details</span>
+      {/* //   <span className="gameTitle">{this.props.game.name}</span>
+      //   <span onClick={this.openDetails}>details</span> */}
         {/* <div className="gameDescription">{this.props.description}</div> */}
-        <img src={this.props.image}/>
+        <img onClick={this.openDetails} src={this.props.image}/>
         {detailsPanel}
       </div>
     )

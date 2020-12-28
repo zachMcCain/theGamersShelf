@@ -33,8 +33,10 @@ class Collection extends React.Component {
       <div id="collection">
         <div>
           <h4>My Collection</h4>
-          <span className="addGameButton" onClick={this.openAddGame}>Add Game</span>
-          {newGame}
+          <div className="centeringDiv">
+            <button className="addGameButton" onClick={this.openAddGame}>Add Game</button>
+            {newGame}
+          </div>
           {games}
         </div>
       </div>

@@ -20,9 +20,9 @@ class Results extends React.Component {
     // console.log(this.props.result)
     return (
       <div className="results">
-        <div>{this.props.result.name}</div>
-        <div onClick={this.captureGame}>Add to Collection</div>
-        <img src={this.props.result.images.small}/>
+        <button className="addGameButton" onClick={this.captureGame}>Add to Collection</button>
+        <h1>{this.props.result.name}</h1>
+        <img src={this.props.result.images.medium}/>
       </div>
     )
   }

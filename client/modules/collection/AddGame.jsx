@@ -17,7 +17,7 @@ class AddGame extends React.Component {
     e.preventDefault();
     // console.log('Searching for: ', this.state.name)
     axios.get(
-      `https://api.boardgameatlas.com/api/search?name=${this.state.name}&client_id=qkHJZ2akQa&fuzzy_match=true`
+      `https://api.boardgameatlas.com/api/search?name=${this.state.name}&client_id=qkHJZ2akQa&fuzzy_match=true&limit=20`
       )
       .then((results) => {
         // console.log('results of search: ', results.data.games)
@@ -40,18 +40,25 @@ class AddGame extends React.Component {
     }
 
     return (
-      <div className="addGameContainer">
-        <form id="addGame">
-          <div>Search Game</div>
+      // <div className="addGameContainer">
+      <div className="modal">
+        <form className="modal-main">
+          <button className="right close" onClick={this.props.close}>x</button>
+          <br></br>
+          <br></br>
+          <h3>Find Your Game</h3>
+
+          <br/>
           <input
             type="text"
             name="Search"
             onChange={this.handleChange}></input>
+            <br/>
           <button
-            onClick={this.searchGame}>
+            onClick={this.searchGame}
+            className="addGameButton">
             Search
           </button>
-          <div onClick={this.props.close}>Close</div>
           {results}
         </form>
       </div>

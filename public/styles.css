@@ -1,11 +1,21 @@
+/* font-family: 'Bangers', cursive;
+font-family: 'Montserrat', sans-serif; */
+
+
 body {
   background-color: rgb(32, 31, 31);
+  font-family: 'Montserrat', sans-serif;
 }
 
 h1 {
   font-size: 50px;
   color: rgb(200, 182, 137);
   text-align: center;
+  font-family: 'Bangers', cursive;
+}
+
+.site_title {
+  cursor: pointer;
 }
 
 h4 {
@@ -15,17 +25,23 @@ h4 {
   font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: whitesmoke;
   text-align: center;
+  cursor: pointer;
 }
 
 #shelf {
   margin: auto;
-  width: 50%;
+  min-width: 275px;
+  max-width: 700px;
   border: 5px solid whitesmoke;
   border-radius: 5px;
 }
 
 #collection {
   display: none;
+}
+
+.centeringDiv {
+  text-align: center;
 }
 
 .addGameButton {
@@ -35,13 +51,52 @@ h4 {
   border-radius: 5px;
   border-color: steelblue;
   background-color: steelblue;
-  padding: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin: 5px;
   text-align: center;
+  width: 150px;
+  min-height: 45px;
+  cursor: pointer;
+}
+
+.results {
+  border-top: solid;
+  border-color: rgb(32, 31, 31);
+  margin: 20px;
+  padding: 40px;
 }
 
 .game {
-  margin: 30px;
+  margin: 10px;
   padding: 10px;
+  display: inline-block;
+}
+
+input {
+  margin: 10px;
+  padding-left: 15px;
+  padding-right: 15px;
+  text-align: center;
+  font-size: 18px;
+}
+
+img {
+  padding: 10px;
+  border: solid;
+  margin: 5px;
+  border-color: whitesmoke;
+  width: auto;
+  height: 350px;
+}
+
+.results img {
+  height: auto;
+  width: auto;
+}
+
+.details img {
+  display: inline-block;
 }
 
 .gameTitle {
@@ -49,14 +104,41 @@ h4 {
   font-size: 40px;
 }
 
-.gameDetails {
-  color: whitesmoke;
+.modal {
   font-size: 20px;
   position: absolute;
-  width: 80%;
+  top: 0;
+  left: 0;
+  width:100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
 }
 
-.addGameContainer {
+.modal-main {
+  position:absolute;
+  background: white;
+  width: 80%;
+  height: auto;
+  min-height: 500px;
+  top:30%;
+  left:50%;
+  transform: translate(-50%, -200px);
+  color:rgb(32, 31, 31);
+  border-radius: 5px;
+}
+
+.close {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.details p {
+  padding: 10px;
+}
+
+
+/* .addGameContainer {
   width: 300px;
   background-color: #555;
   color: #fff;
@@ -66,9 +148,9 @@ h4 {
   position: absolute;
   z-index: 1;
   /* bottom: 75%; */
-  left: 50%;
+  /* left: 50%;
   margin-left: -80px;
-}
+} */
 
 #suggestions {
   display: none;
@@ -76,4 +158,14 @@ h4 {
 
 #preferences {
   display: none;
+}
+
+.left {
+  float: left;
+  margin: 15px;
+}
+
+.right {
+  float: right;
+  margin: 15px;
 }
