@@ -1,0 +1,8 @@
+// Command Line Interface //
+/~ Install CLI ~/
+brew install cleishm/neo4j/neo4j-client
+(found at https://neo4j-client.net/)
+
+/~ Connect to neo4j ~/
+neo4j-client -u neo4j localhost
+
