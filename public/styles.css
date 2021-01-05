@@ -142,6 +142,13 @@ img {
   padding: 10px;
 }
 
+.modal p {
+  margin: 20px;
+}
+
+.modal span {
+  margin: 30px;
+}
 
 /* .addGameContainer {
   width: 300px;

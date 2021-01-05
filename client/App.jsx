@@ -53,7 +53,9 @@ class App extends React.Component {
       }
     }
     if (!gameOwned) {
+      game.images_medium = game.images.medium;
       games.unshift(game);
+      axios.post('http://localhost:3000/api/addToUserCollection', game)
       this.setState({ownedGames: games})
     } else {
       window.alert('Error: Game already in collection!')
@@ -87,6 +89,20 @@ class App extends React.Component {
     this.openShelf();
     let preferences = document.getElementById('preferences');
     preferences.style.display = "block"
+  }
+
+  componentDidMount() {
+    axios.get('http://localhost:3000/api/getUserCollection')
+    .then(result => {
+      console.log(result.data.records)
+      let records = result.data.records;
+      let games = []
+      for (var i = 0; i < records.length; i++) {
+        games.push(records[i]._fields[0].properties);
+      }
+      this.setState({ownedGames: games})
+      // Each record is stored at result.data.records[i]._fields[0].properties
+    });
   }
 
   render() {

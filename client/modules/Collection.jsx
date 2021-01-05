@@ -20,7 +20,7 @@ class Collection extends React.Component {
       return <Game
         game={game}
         key={game.id}
-        image={game.images.medium}
+        image={game.images_medium}
         description={game.description_preview}
         removeGame={this.props.removeGame}/>;
     })

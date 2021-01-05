@@ -35,10 +35,11 @@ class Results extends React.Component {
     // console.log(this.props.result)
     return (
       <div className="results">
-        <button className="addGameButton" onClick={this.captureGame}>Add to Collection</button>
+
         <h1>{this.props.result.name}</h1>
         <img onClick={this.openDetails} src={this.props.result.images.medium}/>
         {detailsPanel}
+        <button className="addGameButton" onClick={this.captureGame}>Add to Collection</button>
       </div>
     )
   }
