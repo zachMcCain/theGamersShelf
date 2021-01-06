@@ -6,8 +6,8 @@ Have you ever wanted to explore the vast ocean of board games but didn't know wh
 ### Getting Started
 - - -
 Navigate to the directory './theGamersShelf' and run the following commands:
-$ npm install
-$ npm start
+    $ npm install
+    $ npm start
 
 Proceed to http://localhost:3000 in your browser and experience the power of The Gamer's Shelf.
 
