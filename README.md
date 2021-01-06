@@ -6,6 +6,7 @@ Have you ever wanted to explore the vast ocean of board games but didn't know wh
 ### Getting Started
 - - -
 Navigate to the directory './theGamersShelf' and run the following commands:
+
     $ npm install
     $ npm start
 
