@@ -108,7 +108,7 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <h1 className="site_title" onClick={this.openShelf}>The Gamer's Shelf</h1>
+        <h1 className="site_title" onClick={this.openShelf}>Game On!</h1>
         <div id="shelf">
           <h4
           onClick={this.renderCollection}>My Collection</h4>
