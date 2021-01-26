@@ -26,7 +26,43 @@ const getUserInfo = (id, cb) => {
 
 // Add a game to a user's collection
 const addUserGame = (userId, gameInfo, cb) => {
-  const cypher = `CREATE (n: Game {name: $name, id: $id, url: $url, year_published: $year_published, min_players: $min_players, max_players: $max_players, min_playtime: $min_playtime, max_playtime: $max_playtime, min_age: $min_age, description: $description, description_preview: $description_preview, image_url: $image_url, images_thumb: $images.thumb, images_small: $images.small, images_medium: $images.medium, images_large: $images.large, images_original: $images.original, price_US: $msrps[0].price, primary_publisher: $primary_publisher.name, avg_usr_rating: $average_user_rating, primary_designer: $primary_designer.name}) RETURN n`
+  // Changes needed:
+    // Break Out Nodes:
+    /*
+    Designer (relationship: designed)
+    Publisher (relationship: published)
+    Players (relationship: playable with)
+    Playtime (relationship: playable in)
+    Learn Complexity (relationship: learning curve)
+    Strategy Complexity (relationship: strategy complexity)
+    User Rating (relationship: user rating)
+    Age (relationship: minimum age)
+    */
+  const cypher = `MERGE (n: Game
+      {
+        name: $name,
+        id: $id,
+        url: $url,
+        year_published: $year_published,
+        min_players: $min_players,
+        max_players: $max_players,
+        min_playtime: $min_playtime,
+        max_playtime: $max_playtime,
+        min_age: $min_age,
+        description: $description,
+        description_preview: $description_preview,
+        image_url: $image_url,
+        images_thumb: $images.thumb,
+        images_small: $images.small,
+        images_medium: $images.medium,
+        images_large: $images.large,
+        images_original: $images.original,
+        price_US: $msrps[0].price,
+        primary_publisher: $primary_publisher.name,
+        avg_usr_rating: $average_user_rating,
+        primary_designer: $primary_designer.name
+      }
+    ) RETURN n`
   const resultPromise = session.writeTransaction(tx => tx.run(cypher, gameInfo));
 
   resultPromise.then(result => {
@@ -80,6 +116,17 @@ CREATE p =(andy { name:'Andy' })-[:WORKS_AT]->(neo)<-[:WORKS_AT]-(michael { name
 MATCH (a:Designer) WHERE a.name="Isaac Childress" CREATE n=(:Game {name: "Testing"})-[:Designed]->(a)
 
 
+///// CREATE A NEW NODE WITH RELATIONSHIP TO EXISTING NODE OR TO NEW NODE IF NODE DOESN'T EXIST ///////
+
+MERGE (p:Person{name:"Marina"})
+
+MERGE (l:Game{name:"fim"}) return l
+
+MERGE (l:Game{name:"fim"})
+CREATE (n:Game {name:"new test"})-[:tested]->(l)
+
+
+
 IDEA
 Create node
 .then
@@ -94,4 +141,15 @@ Get match to .....
 REPEAT
 
 
+
+
+ACTUALLY
+Merge all the potentially existing nodes
+Create the new game connected to those nodes
+SO
+MERGE (a:designer{name:"fim"})
+MERGE (b:publisher{name:"fam"})
+MERGE (c:game{name:"flam"})
+MERGE (a)-[:designed]->(c)
+MERGE (b)-[:published]->(c)
 */
