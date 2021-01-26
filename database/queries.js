@@ -66,3 +66,32 @@ const changeSuggestions = (id, preferences) => {
 
 module.exports.getUserInfo = getUserInfo;
 module.exports.addUserGame = addUserGame;
+
+
+
+
+/* Query Parameters
+
+
+//// CREATE A FULL PATH ////
+CREATE p =(andy { name:'Andy' })-[:WORKS_AT]->(neo)<-[:WORKS_AT]-(michael { name: 'Michael' })
+
+///// CREATE A NEW NODE WITH RELATIONSHIP FOR EVERY EXISTING MATCHED NODE ///////
+MATCH (a:Designer) WHERE a.name="Isaac Childress" CREATE n=(:Game {name: "Testing"})-[:Designed]->(a)
+
+
+IDEA
+Create node
+.then
+Get match to ....
+.then
+if result.length >0
+  create relationship to node
+else
+  create relationship and node
+.then
+Get match to .....
+REPEAT
+
+
+*/
