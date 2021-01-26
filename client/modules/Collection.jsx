@@ -37,7 +37,9 @@ class Collection extends React.Component {
             <button className="addGameButton" onClick={this.openAddGame}>Add Game</button>
             {newGame}
           </div>
-          {games}
+          <div className="gameContainer">
+            {games}
+          </div>
         </div>
       </div>
     )

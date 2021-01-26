@@ -108,6 +108,11 @@ img {
   color: whitesmoke;
   font-size: 40px;
 }
+/*
+.gameContainer {
+  display: grid;
+  grid-template-columns: 1fr, 1fr, 1fr, 1fr;
+} */
 
 .modal {
   font-size: 20px;

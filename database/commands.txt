@@ -6,3 +6,10 @@ brew install cleishm/neo4j/neo4j-client
 /~ Connect to neo4j ~/
 neo4j-client -u neo4j localhost
 
+
+
+/~ Navigate to Config File ~/
+Open neo4j desktop
+Go to database instance and select drop down menu next to the "Open" button
+Select terminal
+Navigate to conf/neo4j.conf

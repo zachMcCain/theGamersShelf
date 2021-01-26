@@ -1,0 +1,2 @@
+Currently the database has to be manually initialized in the Neo4j Desktop. Need to research how to initialize it via the code in the app.
+
