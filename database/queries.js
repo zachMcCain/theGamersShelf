@@ -31,6 +31,7 @@ const addUserGame = (userId, gameInfo, cb) => {
     /*
     Designer (relationship: designed)
     Publisher (relationship: published)
+
     Players (relationship: playable with)
     Playtime (relationship: playable in)
     Learn Complexity (relationship: learning curve)
@@ -38,6 +39,34 @@ const addUserGame = (userId, gameInfo, cb) => {
     User Rating (relationship: user rating)
     Age (relationship: minimum age)
     */
+  const altCypher = `MERGE (a: Designer {name: $primary_designer.name})
+  MERGE (b: Publisher {name: $primary_publisher.name})
+  MERGE (a)-[:designed]->(g: Game
+    {
+      name: $name,
+      id: $id,
+      url: $url,
+      year_published: $year_published,
+      min_players: $min_players,
+      max_players: $max_players,
+      min_playtime: $min_playtime,
+      max_playtime: $max_playtime,
+      min_age: $min_age,
+      description: $description,
+      description_preview: $description_preview,
+      image_url: $image_url,
+      images_thumb: $images.thumb,
+      images_small: $images.small,
+      images_medium: $images.medium,
+      images_large: $images.large,
+      images_original: $images.original,
+      price_US: $msrps[0].price,
+      primary_publisher: $primary_publisher.name,
+      avg_usr_rating: $average_user_rating,
+      primary_designer: $primary_designer.name
+    }
+  )<-[:published]-(b)
+   RETURN g`
   const cypher = `MERGE (n: Game
       {
         name: $name,
@@ -63,7 +92,7 @@ const addUserGame = (userId, gameInfo, cb) => {
         primary_designer: $primary_designer.name
       }
     ) RETURN n`
-  const resultPromise = session.writeTransaction(tx => tx.run(cypher, gameInfo));
+  const resultPromise = session.writeTransaction(tx => tx.run(altCypher, gameInfo));
 
   resultPromise.then(result => {
     const singleRecord = result.records[0]
