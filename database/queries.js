@@ -5,6 +5,20 @@ const session = driver.session()
 
 
 
+/////////////// CREATE USER, STORE GAMES TO USER, AND USER PREFERENCES QUERIES ////////////
+// Create a new user
+const addNewUser = (userInfo) => {
+  const query = `MERGE (a: User {name: $name, players: $players})`
+  session.writeTransaction(tx => tx.run(cypher))
+  .then(result => console.log(result))
+  .catch(error => console.log(error));
+}
+
+// Connect user to game
+const addGameToUserCollection;
+
+
+
 /////////////// COLLECTION READ AND WRITE QUERIES ////////////
 
 // Get user info to load collection
@@ -112,9 +126,11 @@ const changeSuggestions = (id, preferences) => {
   //     });
 }
 
-module.exports.getUserInfo = getUserInfo;
-module.exports.addUserGame = addUserGame;
-
+module.exports = {
+  getUserInfo: getUserInfo,
+  addUserGame: addUserGame,
+  addNewUser: addNewUser
+}
 
 
 
@@ -128,40 +144,5 @@ CREATE p =(andy { name:'Andy' })-[:WORKS_AT]->(neo)<-[:WORKS_AT]-(michael { name
 MATCH (a:Designer) WHERE a.name="Isaac Childress" CREATE n=(:Game {name: "Testing"})-[:Designed]->(a)
 
 
-///// CREATE A NEW NODE WITH RELATIONSHIP TO EXISTING NODE OR TO NEW NODE IF NODE DOESN'T EXIST ///////
-
-MERGE (p:Person{name:"Marina"})
-
-MERGE (l:Game{name:"fim"}) return l
-
-MERGE (l:Game{name:"fim"})
-CREATE (n:Game {name:"new test"})-[:tested]->(l)
 
 
-
-IDEA
-Create node
-.then
-Get match to ....
-.then
-if result.length >0
-  create relationship to node
-else
-  create relationship and node
-.then
-Get match to .....
-REPEAT
-
-
-
-
-ACTUALLY
-Merge all the potentially existing nodes
-Create the new game connected to those nodes
-SO
-MERGE (a:designer{name:"fim"})
-MERGE (b:publisher{name:"fam"})
-MERGE (c:game{name:"flam"})
-MERGE (a)-[:designed]->(c)
-MERGE (b)-[:published]->(c)
-*/
