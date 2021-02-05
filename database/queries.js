@@ -15,7 +15,9 @@ const addNewUser = (userInfo) => {
 }
 
 // Connect user to game
-const addGameToUserCollection;
+const addGameToUserCollection = () => {
+
+};
 
 
 
@@ -133,15 +135,11 @@ module.exports = {
 }
 
 
-
-/* Query Parameters
-
-
 //// CREATE A FULL PATH ////
-CREATE p =(andy { name:'Andy' })-[:WORKS_AT]->(neo)<-[:WORKS_AT]-(michael { name: 'Michael' })
+// CREATE p =(andy { name:'Andy' })-[:WORKS_AT]->(neo)<-[:WORKS_AT]-(michael { name: 'Michael' })
 
 ///// CREATE A NEW NODE WITH RELATIONSHIP FOR EVERY EXISTING MATCHED NODE ///////
-MATCH (a:Designer) WHERE a.name="Isaac Childress" CREATE n=(:Game {name: "Testing"})-[:Designed]->(a)
+// MATCH (a:Designer) WHERE a.name="Isaac Childress" CREATE n=(:Game {name: "Testing"})-[:Designed]->(a)
 
 
 

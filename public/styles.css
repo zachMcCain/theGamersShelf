@@ -3,13 +3,13 @@ font-family: 'Montserrat', sans-serif; */
 
 
 body {
-  background-color: rgb(32, 31, 31);
+  background-color: #280004;
   font-family: 'Montserrat', sans-serif;
 }
 
 h1 {
   font-size: 50px;
-  color: rgb(200, 182, 137);
+  color: #AF4319;
   text-align: center;
   font-family: 'Bangers', cursive;
 }
@@ -20,19 +20,25 @@ h1 {
 
 h4 {
   border-bottom: 5px solid;
-  border-color: whitesmoke;
+  border-color: #C8C6AF;
   font-size: 35px;
   font-family: 'Montserrat', sans-serif, Tahoma, Geneva, Verdana, sans-serif;
-  color: whitesmoke;
+  color: #2C497F;
   text-align: center;
   cursor: pointer;
+}
+
+#topbar {
+  width: 100%;
+  height: 100px;
+  background-color: #5C6F68;
 }
 
 #shelf {
   margin: auto;
   min-width: 275px;
   max-width: 700px;
-  border: 5px solid whitesmoke;
+  border: 5px solid #C8C6AF;
   border-radius: 5px;
 }
 
@@ -45,7 +51,7 @@ h4 {
 }
 
 .addGameButton {
-  color: whitesmoke;
+  color: #C8C6AF;
   font-size: large;
   border: solid;
   border-radius: 5px;
@@ -89,7 +95,7 @@ img {
   padding: 10px;
   border: solid;
   margin: 5px;
-  border-color: whitesmoke;
+  border-color:#C8C6AF;
   width: auto;
   max-width: 80%;
   height: 350px;
@@ -105,7 +111,7 @@ img {
 }
 
 .gameTitle {
-  color: whitesmoke;
+  color: #C8C6AF;
   font-size: 40px;
 }
 /*
@@ -126,7 +132,7 @@ img {
 
 .modal-main {
   position:absolute;
-  background: white;
+  background: #C8C6AF;
   width: 80%;
   height: auto;
   min-height: 500px;

@@ -108,7 +108,15 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <h1 className="site_title" onClick={this.openShelf}>Game On!</h1>
+        <div id="topbar">
+          <h1 className="site_title" onClick={this.openShelf}>Game On!</h1>
+        </div>
+        {/* <div>
+          <form>
+            <input type='text'/>
+            <button>Submit</button>
+          </form>
+        </div> */}
         <div id="shelf">
           <h4
           onClick={this.renderCollection}>My Collection</h4>
