@@ -1,23 +1,10 @@
 const db = require('./connect.js');
 
-/////////////// CREATE USER, STORE GAMES TO USER, AND USER PREFERENCES QUERIES ////////////
-// Create a new user
-const addNewUser = (userInfo) => {
-  const query = `MERGE (a: User {name: $name, players: $players})`
-  db.writeTransaction(tx => tx.run(cypher))
-  .then(result => console.log(result))
-  .catch(error => console.log(error));
-}
-
-// Connect user to game
-const addGameToUserCollection = () => {
-
-};
-
-
 
 /////////////// COLLECTION READ AND WRITE QUERIES ////////////
 
+
+///////////// READ //////////////
 // Get user info to load collection
 const getUserInfo = (id, cb) => {
   const cypher = "MATCH (n:Game) RETURN n";
@@ -35,6 +22,7 @@ const getUserInfo = (id, cb) => {
   })
 };
 
+////////////// CREATE ///////////////////////////
 // Add a game to the database
 const addGameToDatabase = (gameInfo, cb) => {
   let players = ''
@@ -101,32 +89,12 @@ const addGameToDatabase = (gameInfo, cb) => {
 
 
 
-/////////////// SUGGESTIONS READ AND WRITE QUERIES ///////////
 
-// Get user info to load suggestions
-const getSuggestions = (id) => {
 
-}
-
-// Change suggestions based on new preferences
-const changeSuggestions = (id, preferences) => {
-  // const tx = db.beginTransaction();
-  // tx.run("CREATE (p:Person { name: $name })", { name: "Adam" })
-  //     .then(res => {
-  //         // Run another query with the tx variable...
-  //     })
-  //     .then(() => {
-  //         // Everything is OK, the transaction will be committed
-  //     })
-  //     .catch(e => {
-  //         // The transaction will be rolled back, now handle the error.
-  //     });
-}
 
 module.exports = {
   getUserInfo: getUserInfo,
   addGameToDatabase: addGameToDatabase,
-  addNewUser: addNewUser
 }
 
 
