@@ -1,7 +1,8 @@
 import React from 'react'
 import Collection from './modules/Collection.jsx';
 import Suggestions from './modules/Suggestions.jsx';
-import Preferences from './modules/Preferences.jsx'
+import Preferences from './modules/Preferences.jsx';
+import Login from './modules/Login.jsx'
 import axios from 'axios';
 
 class App extends React.Component {
@@ -111,12 +112,7 @@ class App extends React.Component {
         <div id="topbar">
           <span className="site_title" onClick={this.openShelf}>Game On!</span>
         </div>
-        {/* <div>
-          <form>
-            <input type='text'/>
-            <button>Submit</button>
-          </form>
-        </div> */}
+        <Login />
         <div id="shelf">
           <h4
           onClick={this.renderCollection}>My Collection</h4>

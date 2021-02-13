@@ -14,7 +14,7 @@ app.use(bodyParser.json())
 //////// LOGIN ROUTES /////////
 app.get('/login', (req, res) => {
   console.log('login request body: ', req.body)
-  res.send(`<h1>Welcome to the login page!</h1>`)
+  // res.send(express.static(path.join(__dirname, '../public/login')))
 })
 
 app.post('/login', (req, res) => {
