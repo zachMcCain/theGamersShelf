@@ -40,8 +40,8 @@ const getUserInfo = (id, cb) => {
   })
 };
 
-// Add a game to a user's collection
-const addUserGame = (userId, gameInfo, cb) => {
+// Add a game to the database
+const addGameToDatabase = (gameInfo, cb) => {
   let players = ''
   let identifierIndex = 112
   for (let i = gameInfo.min_players; i <= gameInfo.max_players; i++) {
@@ -130,8 +130,9 @@ const changeSuggestions = (id, preferences) => {
 
 module.exports = {
   getUserInfo: getUserInfo,
-  addUserGame: addUserGame,
-  addNewUser: addNewUser
+  addGameToDatabase: addGameToDatabase,
+  addNewUser: addNewUser,
+  db: session
 }
 
 

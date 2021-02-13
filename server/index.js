@@ -3,7 +3,7 @@ const express = require('express');
 const path = require('path');
 const app = express();
 const port = 3000
-const db = require('../database/queries.js')
+const db = require('../database/games.js')
 const bodyParser = require('body-parser');
 
 app.use('/', express.static(path.join(__dirname, '../public')))
@@ -37,7 +37,7 @@ app.post('/signup', (req, res) => {
 
 app.post('/api/addToUserCollection', function(req, res) {
   console.log('The data sent: ', req.body);
-  db.addUserGame(1, req.body, (result => res.send(result)));
+  db.addGameToDatabase(req.body, (result => res.send(result)));
   // res.send('Hello world');
 })
 

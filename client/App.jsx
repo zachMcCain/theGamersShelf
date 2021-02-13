@@ -14,7 +14,8 @@ class App extends React.Component {
       preferences: false,
       ownedGames: [
         // {name: 'Gloomhaven', id: '123', images: {thumb: "www"}}, {name: 'Scyth', id: '324', images: {medium: "www"}}
-      ]
+      ],
+      loggedIn: false
     }
     this.openShelf = this.openShelf.bind(this);
     this.renderCollection = this.renderCollection.bind(this);
@@ -107,12 +108,17 @@ class App extends React.Component {
   }
 
   render() {
+    let login = <Login />
+    if (this.state.loggedIn) {
+      login = <div></div>
+    }
     return (
       <div>
         <div id="topbar">
           <span className="site_title" onClick={this.openShelf}>Game On!</span>
+
+          {login}
         </div>
-        <Login />
         <div id="shelf">
           <h4
           onClick={this.renderCollection}>My Collection</h4>
