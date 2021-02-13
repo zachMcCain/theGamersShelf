@@ -109,7 +109,7 @@ class App extends React.Component {
     return (
       <div>
         <div id="topbar">
-          <h1 className="site_title" onClick={this.openShelf}>Game On!</h1>
+          <span className="site_title" onClick={this.openShelf}>Game On!</span>
         </div>
         {/* <div>
           <form>

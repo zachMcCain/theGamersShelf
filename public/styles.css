@@ -3,42 +3,65 @@ font-family: 'Montserrat', sans-serif; */
 
 
 body {
-  background-color: #280004;
+  background-color: #272B26;
   font-family: 'Montserrat', sans-serif;
+  margin: 0;
 }
 
 h1 {
   font-size: 50px;
+  margin: 0;
+  /* margin-left: 100px; */
   color: #AF4319;
-  text-align: center;
+  /* text-align: left; */
   font-family: 'Bangers', cursive;
 }
 
 .site_title {
   cursor: pointer;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  grid-column-start: 2;
+  font-size: 50px;
+  margin: 0;
+  /* margin-left: 100px; */
+  color: #AF4319;
+  /* text-align: left; */
+  font-family: 'Bangers', cursive;
 }
 
 h4 {
   border-bottom: 5px solid;
-  border-color: #C8C6AF;
+  border-color: #C3DBE9;
   font-size: 35px;
   font-family: 'Montserrat', sans-serif, Tahoma, Geneva, Verdana, sans-serif;
-  color: #2C497F;
+  color: #F7B538;
   text-align: center;
   cursor: pointer;
 }
 
 #topbar {
+  /* width: 200px; */
   width: 100%;
-  height: 100px;
-  background-color: #5C6F68;
+  /* min-width: 200px; */
+  /* max-width: 500px; */
+  /* border-bottom-left-radius: 5px; */
+  /* border-bottom-right-radius: 5px; */
+  height: 75px;
+  /* margin: auto; */
+  margin-top: 0px;
+  background-color: #0FA3B1;
+  display: grid;
+  grid-template-columns: 20%, 20%, 20%, 20%, 20%;
+  grid-template-rows: 20%, 20%, 20%, 20%, 20%;
 }
 
 #shelf {
   margin: auto;
+  margin-top: 20px;
   min-width: 275px;
   max-width: 700px;
-  border: 5px solid #C8C6AF;
+  border: 5px solid #C3DBE9;
   border-radius: 5px;
 }
 
