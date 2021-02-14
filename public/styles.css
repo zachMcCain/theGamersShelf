@@ -17,19 +17,6 @@ h1 {
   font-family: 'Bangers', cursive;
 }
 
-.site_title {
-  cursor: pointer;
-  padding-top: 15px;
-  padding-bottom: 15px;
-  grid-column-start: 2;
-  font-size: 50px;
-  margin: 0;
-  /* margin-left: 100px; */
-  color: #AF4319;
-  /* text-align: left; */
-  font-family: 'Bangers', cursive;
-}
-
 h4 {
   border-bottom: 5px solid;
   border-color: #C3DBE9;
@@ -54,6 +41,23 @@ h4 {
   display: grid;
   grid-template-columns: 20%, 20%, 20%, 20%, 20%;
   grid-template-rows: 20%, 20%, 20%, 20%, 20%;
+}
+
+.site_title {
+  cursor: pointer;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  grid-column-start: 1;
+  font-size: 50px;
+  margin: 0;
+  /* margin-left: 100px; */
+  color: #AF4319;
+  /* text-align: left; */
+  font-family: 'Bangers', cursive;
+}
+
+.signup_container {
+  grid-column: 9;
 }
 
 #shelf {

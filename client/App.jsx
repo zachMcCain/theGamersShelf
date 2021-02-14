@@ -2,7 +2,8 @@ import React from 'react'
 import Collection from './modules/Collection.jsx';
 import Suggestions from './modules/Suggestions.jsx';
 import Preferences from './modules/Preferences.jsx';
-import Login from './modules/Login.jsx'
+import Login from './modules/Login.jsx';
+import Signup from './modules/Signup.jsx';
 import axios from 'axios';
 
 class App extends React.Component {
@@ -12,10 +13,9 @@ class App extends React.Component {
       collection: false,
       suggestions: false,
       preferences: false,
-      ownedGames: [
-        // {name: 'Gloomhaven', id: '123', images: {thumb: "www"}}, {name: 'Scyth', id: '324', images: {medium: "www"}}
-      ],
-      loggedIn: false
+      ownedGames: [],
+      loggedIn: false,
+      signup: true
     }
     this.openShelf = this.openShelf.bind(this);
     this.renderCollection = this.renderCollection.bind(this);
@@ -65,7 +65,6 @@ class App extends React.Component {
   }
 
   handleRemoveGame(gameId) {
-
     var games = [];
     for (var i = 0; i < this.state.ownedGames.length; i++) {
       if (this.state.ownedGames[i].id !== gameId) {
@@ -108,15 +107,18 @@ class App extends React.Component {
   }
 
   render() {
+
     let login = <Login />
     if (this.state.loggedIn) {
       login = <div></div>
+    } else if (this.state.signup) {
+      login = <Signup />
     }
+
     return (
       <div>
         <div id="topbar">
           <span className="site_title" onClick={this.openShelf}>Game On!</span>
-
           {login}
         </div>
         <div id="shelf">
