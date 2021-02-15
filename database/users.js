@@ -12,7 +12,7 @@ const compareUser = (userInfo, cb) => {
 
 /////////////// CREATE USER, STORE GAMES TO USER, AND USER PREFERENCES QUERIES ////////////
 // Create a new user
-const addNewUser = (userInfo, cb) => {
+const addNewUser = ({name, players, passwordHash, salt}, cb) => {
   // console.log('Adding a new user', userInfo, cb)
   const query = `MERGE (a: User {name: $name, players: $players, passwordHash: $passwordHash, salt: $salt})`
   db.writeTransaction(tx => tx.run(query, userInfo))
