@@ -20,7 +20,7 @@ app.get('/login', (req, res) => {
 
 app.post('/login', (req, res) => {
   console.log('login POST request body: ', req.body);
-  users.compareUser(req.body, (err, result) => {
+  users.checkUserCredentials(req.body, (err, result) => {
     if (err) {
       res.send(err)
     } else {
