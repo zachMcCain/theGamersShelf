@@ -5,17 +5,30 @@ const crypto = require('./auth/crypto.js')
 /////////////// CREATE USER, STORE GAMES TO USER, AND USER PREFERENCES QUERIES ////////////
 // Create a new user
 const addNewUser = ({name, password, players}, cb) => {
-  // Generate salt
-  const salt = crypto.createRandom32String();
-  // hash the password
-  const hash = crypto.createHash(password, salt);
 
-  const params = {name, hash, salt, players}
-  // console.log('Adding a new user', userInfo, cb)
-  const query = `MERGE (a: User {name: $name, players: $players, passwordHash: $hash, salt: $salt})`
-  db.writeTransaction(tx => tx.run(query, params))
-  .then(result => cb(null, result))
-  .catch(error => cb(error));
+  // FIRST CHECK TO SEE IF USER ALREADY EXISTS
+  checkUserName(name)
+  .then(result => {
+    console.log('logging the result of check user name in add new user block: ', result.records.length)
+
+    if (!result.records.length) {
+      const salt = crypto.createRandom32String();
+      // hash the password
+      const hash = crypto.createHash(password, salt);
+
+      const params = {name, hash, salt, players}
+      // console.log('Adding a new user', userInfo, cb)
+      const query = `MERGE (a: User {name: $name, players: $players, passwordHash: $hash, salt: $salt})`
+      db.writeTransaction(tx => tx.run(query, params))
+      .then(result => cb(null, result))
+      .catch(error => cb(error));
+    }
+    else {
+      cb('Error: User already exists')
+    }
+  })
+
+  // Generate salt
 }
 
 // Check if username exists and grab salt
