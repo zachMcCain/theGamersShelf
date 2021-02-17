@@ -1,6 +1,6 @@
 const db = require('./connect.js');
 
-
+console.log('Whole games file ran')
 /////////////// COLLECTION READ AND WRITE QUERIES ////////////
 
 
@@ -26,6 +26,7 @@ const getUserInfo = (id, cb) => {
 // Add a game to the database
 const addGameToDatabase = (gameInfo, cb) => {
   let players = ''
+  console.log('game information: ', gameInfo)
   let identifierIndex = 112
   for (let i = gameInfo.min_players; i <= gameInfo.max_players; i++) {
     players = players + ` MERGE (${String.fromCharCode(identifierIndex)}: Players {number: ${i}})
@@ -74,14 +75,14 @@ const addGameToDatabase = (gameInfo, cb) => {
   MERGE (i)-[:MIN_AGE]->(g)
    RETURN g`
 
-  const resultPromise = db.writeTransaction(tx => tx.run(cypher, gameInfo));
-
-  resultPromise.then(result => {
+   return db.writeTransaction(tx => tx.run(cypher, gameInfo))
+  .then(result => {
     const singleRecord = result.records[0]
     const game = singleRecord.get(0);
     cb(game);
   })
   .then(result => {
+    console.log('add game ran')
     // db.close();
     // driver.close();
   })
