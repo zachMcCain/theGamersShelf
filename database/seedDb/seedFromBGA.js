@@ -21,25 +21,51 @@ const addGameToDatabase = (gameInfo, cb) => {
   let designerRelationship = '';
   let gameDesigner = '';
   if (gameInfo.primary_designer) {
-    designer = `MERGE (a: Designer {name: $primary_designer.name})`;
-    designerRelationship = `MERGE (a)-[:DESIGNED]->(g)<-[:PUBLISHED]-(b)`;
-    gameDesigner = `, primary_designer: $primary_designer.name`
-  }
+    if (gameInfo.primary_designer.name) {
+      designer = `MERGE (a: Designer {name: $primary_designer.name})`;
+      designerRelationship = `MERGE (a)-[:DESIGNED]->(g)<-[:PUBLISHED]-(b)`;
+      gameDesigner = `, primary_designer: $primary_designer.name`
+    }
 
+  }
+  let year = '';
+  if (gameInfo.year_published) {
+    year = `year_published: $year_published,`
+  }
+  let name = ''
+  if (gameInfo.name) {
+    name = 'name: $name,'
+  }
+  let price = '';
+  if (gameInfo.msrps) {
+    price = 'price_US: $msrps[0].price,'
+  }
+  let age = ''
+  if (gameInfo.min_age) {
+    age = 'min_age: $min_age,'
+  }
+  let minPlaytime = ''
+  if (gameInfo.min_playtime) {
+    minPlaytime = 'min_playtime: $min_playtime,'
+  }
+  let maxPlaytime = '';
+  if (gameInfo.max_playtime) {
+    maxPlaytime = 'max_playtime: $max_playtime,'
+  }
 
   const cypher =
     `${designer}
     MERGE (b: Publisher {name: $primary_publisher.name})
     MERGE (g: Game {
-      name: $name,
+      ${name}
       id: $id,
       url: $url,
-      year_published: $year_published,
+      ${year}
       min_players: $min_players,
       max_players: $max_players,
-      min_playtime: $min_playtime,
-      max_playtime: $max_playtime,
-      min_age: $min_age,
+      ${minPlaytime}
+      ${maxPlaytime}
+      ${age}
       description: $description,
       description_preview: $description_preview,
       image_url: $image_url,
@@ -48,7 +74,7 @@ const addGameToDatabase = (gameInfo, cb) => {
       images_medium: $images.medium,
       images_large: $images.large,
       images_original: $images.original,
-      price_US: $msrps[0].price,
+      ${price}
       primary_publisher: $primary_publisher.name,
       avg_usr_rating: $average_user_rating
       ${gameDesigner}
@@ -83,8 +109,9 @@ const addGameToDatabase = (gameInfo, cb) => {
 }
 
 // Retrieve Board Game Info from Board Game Atlas API
+let searchTerm = '9'
 
-axios.get('https://api.boardgameatlas.com/api/search?name=Catan&client_id=qkHJZ2akQa&limit=25')
+axios.get(`https://api.boardgameatlas.com/api/search?name=${searchTerm}&client_id=qkHJZ2akQa&limit=25`)
 // // Reformat Data from BGA
 .then((results) => {
   let gameList = results.data.games;
