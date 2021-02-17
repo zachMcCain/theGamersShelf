@@ -78,17 +78,10 @@ const checkUserCredentials = ({name, password}, cb) => {
     }
     // cb(node.properties);
   })
-
-  ////////// Need to wait on checkUser to execute ////////
-  // const hash = crypto.createHash(userInfo.password, checkUser.salt);
-  // const query = `Match (a: User {name: $name, passwordHash: $hash, salt: $salt}) RETURN a`
-  // db.writeTransaction(tx => tx.run(query, userInfo))
-  // .then(result => cb(null, result))
-  // .catch(error => cb(error, null))
 }
 
 // Connect user to game
-const addGameToUserCollection = (user, game, cb) => {
+const addGameToUserCollection = ({user, game}, cb) => {
   const params = {name: user};
   const query = `MATCH (a:User) where a.name = $name`
   db.readTransaction(query, params)
@@ -99,7 +92,10 @@ const addGameToUserCollection = (user, game, cb) => {
   .then((record) => {
     const name = record.properties.name;
     const params = {name: name, game: game};
-    const query = `MERGE (a:User {name: $name})-[:OWNS]->(b:Game {name: $game})`
+    const query = `MATCH (a:User) where a.name = $name
+      MATCH (b:Game) where b.name = $game
+      MERGE (a)-[:OWNS]->(b)`
+    // const query = `MERGE (a:User {name: $name})-[:OWNS]->(b:Game {name: $game})`
     return db.writeTransaction(query, params)
   })
   .then(result => {
