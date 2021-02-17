@@ -26,32 +26,13 @@ const addGameToDatabase = (gameInfo, cb) => {
       designerRelationship = `MERGE (a)-[:DESIGNED]->(g)<-[:PUBLISHED]-(b)`;
       gameDesigner = `, primary_designer: $primary_designer.name`
     }
-
   }
-  let year = '';
-  if (gameInfo.year_published) {
-    year = `year_published: $year_published,`
-  }
-  let name = ''
-  if (gameInfo.name) {
-    name = 'name: $name,'
-  }
-  let price = '';
-  if (gameInfo.msrps) {
-    price = 'price_US: $msrps[0].price,'
-  }
-  let age = ''
-  if (gameInfo.min_age) {
-    age = 'min_age: $min_age,'
-  }
-  let minPlaytime = ''
-  if (gameInfo.min_playtime) {
-    minPlaytime = 'min_playtime: $min_playtime,'
-  }
-  let maxPlaytime = '';
-  if (gameInfo.max_playtime) {
-    maxPlaytime = 'max_playtime: $max_playtime,'
-  }
+  let year = gameInfo.year_published ? 'year_published: $year_published,' : '';
+  let name = gameInfo.name ? 'name: $name,' : '';
+  let price = gameInfo.msrps ? 'price_US: $msrps[0].price,' : '';
+  let minAge = gameInfo.min_age ? 'min_age: $min_age,' : ''
+  let minPlaytime = gameInfo.min_playtime ? 'min_playtime: $min_playtime,' : '';
+  let maxPlaytime = gameInfo.max_playtime ? 'max_playtime: $max_playtime,' : '';
 
   const cypher =
     `${designer}
@@ -65,7 +46,7 @@ const addGameToDatabase = (gameInfo, cb) => {
       max_players: $max_players,
       ${minPlaytime}
       ${maxPlaytime}
-      ${age}
+      ${minAge}
       description: $description,
       description_preview: $description_preview,
       image_url: $image_url,
@@ -109,14 +90,14 @@ const addGameToDatabase = (gameInfo, cb) => {
 }
 
 // Retrieve Board Game Info from Board Game Atlas API
-let searchTerm = '9'
+let searchTerm = 'a'
 
 axios.get(`https://api.boardgameatlas.com/api/search?name=${searchTerm}&client_id=qkHJZ2akQa&limit=25`)
 // // Reformat Data from BGA
 .then((results) => {
+  let i = 0
   let gameList = results.data.games;
   Promise.each(gameList, (game) => {
-    let i = 0
     return addGameToDatabase(game, (result) => {
       i++
       console.log(`logged ${i} games`)
