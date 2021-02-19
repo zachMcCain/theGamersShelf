@@ -58,7 +58,7 @@ app.post('/api/addToUserCollection', function(req, res) {
 })
 
 app.get('/api/getUserCollection', function(req, res) {
-  games.getUserInfo(1, (result) => {
+  games.getUserInfo('Test', (result) => {
     res.send(result);
   })
 })

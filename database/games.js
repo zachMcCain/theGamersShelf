@@ -6,10 +6,11 @@ console.log('Whole games file ran')
 
 ///////////// READ //////////////
 // Get user info to load collection
-const getUserInfo = (id, cb) => {
-  const cypher = "MATCH (n:Game) RETURN n";
-  // EX: const params = { name: "Adam" };
-  const resultPromise = db.writeTransaction(tx => tx.run(cypher));
+const getUserInfo = (name, cb) => {
+  // const cypher = "MATCH (n:Game) RETURN n";
+  const cypher = `Match (a:User {name: $name})-[r]-(b) RETURN b`
+  const params = { name: name };
+  const resultPromise = db.writeTransaction(tx => tx.run(cypher, params));
 
   resultPromise.then(result => {
     // const singleRecord = result.records[0]
