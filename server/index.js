@@ -12,23 +12,6 @@ app.use('/', express.static(path.join(__dirname, '../public')))
 app.use(bodyParser.json())
 
 
-//////// LOGIN ROUTES /////////
-app.get('/login', (req, res) => {
-  console.log('login GET request body: ', req.body)
-  // res.send(express.static(path.join(__dirname, '../public/login')))
-})
-
-app.post('/login', (req, res) => {
-  console.log('login POST request body: ', req.body);
-  users.checkUserCredentials(req.body, (err, result) => {
-    if (err) {
-      res.send(err)
-    } else {
-      res.send(result);
-    }
-  })
-});
-
 
 //////// SIGNUP ROUTES /////////
 app.get('/signup', (req, res) => {
@@ -46,6 +29,25 @@ app.post('/signup', (req, res) => {
     }
   });
 });
+
+
+//////// LOGIN ROUTES /////////
+app.get('/login', (req, res) => {
+  console.log('login GET request body: ', req.body)
+  // res.send(express.static(path.join(__dirname, '../public/login')))
+})
+
+app.post('/login', (req, res) => {
+  console.log('login POST request body: ', req.body);
+  users.checkUserCredentials(req.body, (err, result) => {
+    if (err) {
+      res.send(err)
+    } else {
+      res.send(result);
+    }
+  })
+});
+
 
 
 /////// COLLECTION ROUTES ///////

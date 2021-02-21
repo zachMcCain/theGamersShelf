@@ -12,7 +12,7 @@ const getUserInfo = (name, cb) => {
   const params = { name: name };
   const resultPromise = db.writeTransaction(tx => tx.run(cypher, params));
 
-  resultPromise.then(result => {
+  return resultPromise.then(result => {
     // const singleRecord = result.records[0]
     // const game = singleRecord.get(0);
     cb(result);

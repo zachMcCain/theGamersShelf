@@ -5,6 +5,10 @@ import Preferences from './modules/Preferences.jsx';
 import Login from './modules/Login.jsx';
 import Signup from './modules/Signup.jsx';
 import axios from 'axios';
+import render from './utils/render.js'
+import auth from './utils/auth.js';
+import collection from './utils/collection.js';
+import suggestions from './utils/suggestions.js';
 
 class App extends React.Component {
   constructor(props) {
@@ -15,7 +19,8 @@ class App extends React.Component {
       preferences: false,
       ownedGames: [],
       loggedIn: false,
-      signup: true
+      signup: true,
+      user: null
     }
     this.openShelf = this.openShelf.bind(this);
     this.renderCollection = this.renderCollection.bind(this);
@@ -47,27 +52,13 @@ class App extends React.Component {
   }
 
   handleAddGame(game) {
-    let games = this.state.ownedGames;
-    let gameOwned = false;
-    for (var i = 0; i < games.length; i++) {
-      if (games[i].id === game.id) {
-        gameOwned = true;
-      }
-    }
-    if (!gameOwned) {
-      game.images_medium = game.images.medium;
-      games.unshift(game);
-      axios.post('http://localhost:3000/api/addToUserCollection', game)
-      this.setState({ownedGames: games})
-    } else {
-      window.alert('Error: Game already in collection!')
-    }
+    collection.addGame.call(this, game);
   }
 
-  handleRemoveGame(gameId) {
+  handleRemoveGame(game) {
     var games = [];
     for (var i = 0; i < this.state.ownedGames.length; i++) {
-      if (this.state.ownedGames[i].id !== gameId) {
+      if (this.state.ownedGames[i].id !== game) {
         games.push(this.state.ownedGames[i]);
       }
     }

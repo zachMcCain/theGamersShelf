@@ -14,7 +14,7 @@ const addGameToDatabase = (gameInfo, cb) => {
   let maxPlayers = '';
   // console.log('game information: ', gameInfo)
   let identifierIndex = 112
-  if (gameInfo.min_players && gameInfo.max_players < 10) {
+  if (gameInfo.min_players && gameInfo.max_players < 10 && gameInfo.min_players > 0) {
     for (let i = gameInfo.min_players; i <= gameInfo.max_players; i++) {
       players = players + ` MERGE (${String.fromCharCode(identifierIndex)}: Players {number: ${i}})
       MERGE (${String.fromCharCode(identifierIndex)})-[:PLAYABLE_WITH]->(g) `
@@ -30,7 +30,7 @@ const addGameToDatabase = (gameInfo, cb) => {
     if (gameInfo.primary_designer.name) {
       designer = ` MERGE (a: Designer {name: $primary_designer.name})`;
       designerRelationship = ` MERGE (a)-[:DESIGNED]->(g)`;
-      gameDesigner = `, primary_designer: $primary_designer.name`
+      gameDesigner = ` primary_designer: $primary_designer.name, `
     }
   }
   let publisher = '';
@@ -44,7 +44,7 @@ const addGameToDatabase = (gameInfo, cb) => {
     }
   }
   let year = gameInfo.year_published ? 'year_published: $year_published,' : '';
-  let name = gameInfo.name ? ' name: $name,' : 'name: N/A,';
+  let name = gameInfo.name ? ' name: $name' : 'name: N/A';
   let price = gameInfo.msrps ? ' price_US: $msrps[0].price,' : '';
   let minAge = gameInfo.min_age ? ' min_age: $min_age,' : ''
   let minPlaytime = gameInfo.min_playtime ? ' min_playtime: $min_playtime,' : '';
@@ -54,14 +54,14 @@ const addGameToDatabase = (gameInfo, cb) => {
   let learn = gameInfo.average_learning_complexity ? 'MERGE (e: LearnComplexity {number: $average_learning_complexity}) MERGE (e)-[:LEARNING_CURVE]->(g)' : '';
   let strategy = gameInfo.average_strategy_complexity ? ' MERGE (f: StrategyComplexity {number: $average_strategy_complexity}) MERGE (f)-[:STRATEGY_COMPLEXITY]->(g)' : ''
   let age = gameInfo.min_age ? ' MERGE (i: Age {number: $min_age}) MERGE (i)-[:MIN_AGE]->(g)' : ''
-
+  let userRatingRelationship = gameInfo.average_user_rating ? ' MERGE (h: UserRating {number: $average_user_rating}) MERGE (h)-[:USER_RATING]->(g)' : ''
+  let userRating = gameInfo.average_user_rating ? ' avg_usr_rating: $average_user_rating, ' : ''
 
   const cypher =
     `${designer}
     ${publisher}
 
     MERGE (g: Game {
-      ${name}
       id: $id,
       url: $url,
       ${year}
@@ -80,8 +80,9 @@ const addGameToDatabase = (gameInfo, cb) => {
       images_original: $images.original,
       ${price}
       ${gamePublisher}
-      avg_usr_rating: $average_user_rating
+      ${userRating}
       ${gameDesigner}
+      ${name}
     })
     ${designerRelationship}
     ${publisherRelationship}
@@ -90,8 +91,7 @@ const addGameToDatabase = (gameInfo, cb) => {
     ${maxPlayable}
     ${learn}
     ${strategy}
-    MERGE (h: UserRating {number: $average_user_rating})
-    MERGE (h)-[:USER_RATING]->(g)
+    ${userRatingRelationship}
     ${age}
 
    RETURN g`
@@ -110,8 +110,8 @@ const addGameToDatabase = (gameInfo, cb) => {
 }
 
 // Retrieve Board Game Info from Board Game Atlas API
-let searchTerm = 'd'
-// Completed to 1k items through: ---d---
+let searchTerm = 'g'
+// Completed to 1k items through: ---f--- 223 for g
 
 axios.get(`https://api.boardgameatlas.com/api/search?name=${searchTerm}&client_id=qkHJZ2akQa&limit=1000`)
 // // Reformat Data from BGA
@@ -121,7 +121,7 @@ axios.get(`https://api.boardgameatlas.com/api/search?name=${searchTerm}&client_i
   Promise.each(gameList, (game) => {
     return addGameToDatabase(game, (result) => {
       i++
-      console.log(`logged ${i} games`)
+      console.log(`logged ${i} games from ${searchTerm}`)
     });
   })
 })
