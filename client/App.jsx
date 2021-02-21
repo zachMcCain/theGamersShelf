@@ -5,9 +5,9 @@ import Preferences from './modules/Preferences.jsx';
 import Login from './modules/Login.jsx';
 import Signup from './modules/Signup.jsx';
 import axios from 'axios';
-import render from './utils/render.js'
+import {openShelf, renderCollection, renderSuggestions, renderPreferences} from './utils/render.js'
 import auth from './utils/auth.js';
-import collection from './utils/collection.js';
+import {addGame, removeGame} from './utils/collection.js';
 import suggestions from './utils/suggestions.js';
 
 class App extends React.Component {
@@ -22,65 +22,25 @@ class App extends React.Component {
       signup: true,
       user: null
     }
-    this.openShelf = this.openShelf.bind(this);
-    this.renderCollection = this.renderCollection.bind(this);
-    this.renderSuggestions = this.renderSuggestions.bind(this);
-    this.renderPreferences = this.renderPreferences.bind(this);
+    this.openShelf = openShelf.bind(this);
+    this.renderCollection = renderCollection.bind(this);
+    this.renderSuggestions = renderSuggestions.bind(this);
+    this.renderPreferences = renderPreferences.bind(this);
     this.handleAddGame = this.handleAddGame.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleRemoveGame = this.handleRemoveGame.bind(this);
   }
 
-  openShelf(e) {
-    let shelf = document.getElementById('shelf');
-    if (shelf.style.display === "none") {
-      shelf.style.display = "block";
-      let collection = document.getElementById('collection');
-      collection.style.display = "none"
-      let suggestions = document.getElementById('suggestions');
-      suggestions.style.display = "none"
-      let preferences = document.getElementById('preferences');
-      preferences.style.display = "none"
-    } else {
-      shelf.style.display = "none";
-    }
-  }
-
   handleChange(e) {
-    console.log(e.target.value);
     this.setState({name: e.target.value})
   }
 
   handleAddGame(game) {
-    collection.addGame.call(this, game);
+    addGame.call(this, game);
   }
 
   handleRemoveGame(game) {
-    var games = [];
-    for (var i = 0; i < this.state.ownedGames.length; i++) {
-      if (this.state.ownedGames[i].id !== game) {
-        games.push(this.state.ownedGames[i]);
-      }
-    }
-    this.setState({ownedGames: games});
-  }
-
-  renderCollection(e) {
-    this.openShelf();
-    let collection = document.getElementById('collection');
-      collection.style.display = "block"
-  }
-
-  renderSuggestions(e) {
-    this.openShelf();
-    let suggestions = document.getElementById('suggestions');
-    suggestions.style.display = "block"
-  }
-
-  renderPreferences(e) {
-    this.openShelf();
-    let preferences = document.getElementById('preferences');
-    preferences.style.display = "block"
+    removeGame.call(this, game);
   }
 
   componentDidMount() {
@@ -120,17 +80,17 @@ class App extends React.Component {
         </div>
 
           <Collection
-          games={this.state.ownedGames}
-          open={this.state.collection}
-          addGame={this.handleAddGame}
-          changeSearch={this.handleChange}
-          removeGame={this.handleRemoveGame}/>
+            games={this.state.ownedGames}
+            open={this.state.collection}
+            addGame={this.handleAddGame}
+            changeSearch={this.handleChange}
+            removeGame={this.handleRemoveGame}/>
 
           <Suggestions
-          open={this.state.suggestions}/>
+            open={this.state.suggestions}/>
 
           <Preferences
-          open={this.state.preferences}/>
+            open={this.state.preferences}/>
       </div>
     )
   }

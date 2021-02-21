@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const addGame = (game) => {
+const addGame = function (game) {
   let games = this.state.ownedGames;
     let gameOwned = false;
     for (var i = 0; i < games.length; i++) {
@@ -16,10 +16,18 @@ const addGame = (game) => {
     } else {
       window.alert('Error: Game already in collection!')
     }
-  console.log('coll.addgame ran')
 }
 
-
-export {
-  addGame
+const removeGame = function (game) {
+  var games = [];
+  for (var i = 0; i < this.state.ownedGames.length; i++) {
+    if (this.state.ownedGames[i].id !== game) {
+      games.push(this.state.ownedGames[i]);
+    }
+  }
+  this.setState({ownedGames: games});
+  console.log('remove game ran')
 }
+
+export {addGame, removeGame}
+
