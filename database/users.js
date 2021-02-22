@@ -4,7 +4,7 @@ const crypto = require('./auth/crypto.js')
 
 /////////////// CREATE USER, STORE GAMES TO USER, AND USER PREFERENCES QUERIES ////////////
 // Create a new user
-const addNewUser = ({name, password, players}, cb) => {
+const addNewUser = ({name, password}, cb) => {
 
   // FIRST CHECK TO SEE IF USER ALREADY EXISTS
   checkUserName(name)
@@ -16,15 +16,15 @@ const addNewUser = ({name, password, players}, cb) => {
       // hash the password
       const hash = crypto.createHash(password, salt);
 
-      const params = {name, hash, salt, players}
+      const params = {name, hash, salt}
       // console.log('Adding a new user', userInfo, cb)
-      const query = `MERGE (a: User {name: $name, players: $players, passwordHash: $hash, salt: $salt})`
-      db.writeTransaction(tx => tx.run(query, params))
+      const query = `MERGE (a: User {name: $name, passwordHash: $hash, salt: $salt})`
+      return db.writeTransaction(tx => tx.run(query, params))
       .then(result => cb(null, result))
       .catch(error => cb(error));
     }
     else {
-      cb('Error: User already exists')
+      return 'Error: User already exists'
     }
   })
 

@@ -1,22 +1,56 @@
 import React from 'react';
 
-
 // Change state based on typing into fields
 // Grab that state when submitted and send in an axios request
 // If the response comes back good, change isloggedin state
 
 
-const Signup = (props) => {
+class Signup extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      username: '',
+      firstPassword: '',
+      secondPassword: ''
+    }
 
-  return (
-    <div className="signup_container">
-      <h5>Sign Up:</h5>
-      <input defaultValue="username" name='name' type="text"></input><br></br>
-      <input defaultValue="password" type="text"></input><br></br>
-      <input defaultValue="confirm password" type="text"></input><br></br>
-      <input type="submit" value="Sign Up"></input>
-    </div>
-  )
+    this.handleChange = this.handleChange.bind(this);
+
+  }
+
+  handleChange(e) {
+    this.setState({[e.target.name]: e.target.value.toString()})
+  }
+
+  render () {
+    return (
+      <div className="signup_container">
+        <h5>Sign Up:</h5>
+        <input
+          defaultValue="username"
+          onChange={this.handleChange}
+          name='username'
+          type="text"></input><br></br>
+        <input
+          defaultValue="password"
+          onChange={this.handleChange}
+          name='firstPassword'
+          type="text"></input><br></br>
+        <input
+          defaultValue="confirm password"
+          onChange={this.handleChange}
+          name='secondPassword'
+          type="text"></input><br></br>
+        <input
+          type="submit"
+          value="Sign Up"
+          onClick={this.props.signup.bind(this)}></input>
+        <button
+          onClick={this.props.login}>Go to Login</button>
+      </div>
+    )
+  }
+
 }
 
 export default Signup;

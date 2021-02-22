@@ -6,7 +6,7 @@ import Login from './modules/Login.jsx';
 import Signup from './modules/Signup.jsx';
 import axios from 'axios';
 import {openShelf, renderCollection, renderSuggestions, renderPreferences} from './utils/render.js'
-import auth from './utils/auth.js';
+import {signupUser} from './utils/auth.js';
 import {addGame, removeGame} from './utils/collection.js';
 import suggestions from './utils/suggestions.js';
 
@@ -19,9 +19,10 @@ class App extends React.Component {
       preferences: false,
       ownedGames: [],
       loggedIn: false,
-      signup: true,
+      signup: false,
       user: null
     }
+
     this.openShelf = openShelf.bind(this);
     this.renderCollection = renderCollection.bind(this);
     this.renderSuggestions = renderSuggestions.bind(this);
@@ -29,6 +30,8 @@ class App extends React.Component {
     this.handleAddGame = this.handleAddGame.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleRemoveGame = this.handleRemoveGame.bind(this);
+    this.goToSignUp = this.goToSignUp.bind(this);
+    this.goToLogin = this.goToLogin.bind(this);
   }
 
   handleChange(e) {
@@ -41,6 +44,14 @@ class App extends React.Component {
 
   handleRemoveGame(game) {
     removeGame.call(this, game);
+  }
+
+  goToSignUp() {
+    this.setState({signup: true})
+  }
+
+  goToLogin() {
+    this.setState({signup: false})
   }
 
   componentDidMount() {
@@ -59,11 +70,11 @@ class App extends React.Component {
 
   render() {
 
-    let login = <Login />
+    let login = <Login signup={this.goToSignUp}/>
     if (this.state.loggedIn) {
       login = <div></div>
     } else if (this.state.signup) {
-      login = <Signup />
+      login = <Signup signup={signupUser} login={this.goToLogin}/>
     }
 
     return (
