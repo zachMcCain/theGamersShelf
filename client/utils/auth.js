@@ -5,13 +5,14 @@ const signupUser = function (event) {
   let username = this.state.username;
   let password = this.state.firstPassword;
   let secondPass = this.state.secondPassword;
-
-  if (password === secondPass && password.length > 5) {
+  console.log('signup user ran')
+  console.log('password: ', password, ' second pass: ', secondPass)
+  if (password === secondPass /*&& password.length > 5*/) {
     let user = {name: username, password: password}
     axios.post('/signup', user)
     .then(result => console.log('result of signup: ', result))
   } else {
-    // alert that passwords do not match
+    console.log('Error in signup')
   }
   // console.log('user: ', user)
   // axios.post('/signup', user)
@@ -19,7 +20,13 @@ const signupUser = function (event) {
 }
 
 // LOGIN UTILS
-
+const loginUser = function (event) {
+  let username = this.state.username;
+  let password = this.state.password;
+  let user = {username, password}
+  axios.post('/login', user)
+  .then(result => console.log('result of login: ', result))
+}
 
 //
 

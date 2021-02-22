@@ -20,14 +20,9 @@ app.get('/signup', (req, res) => {
 })
 
 app.post('/signup', (req, res) => {
-  console.log('signup POST request body: ', req.body)
-  users.addNewUser(req.body, (error, response) => {
-    if (error) {
-      res.status(400).send(error);
-    } else {
-      res.send(response)
-    }
-  });
+  users.addNewUser(req.body)
+  .then(result => res.send(result))
+  .catch(error => res.send(error))
 });
 
 

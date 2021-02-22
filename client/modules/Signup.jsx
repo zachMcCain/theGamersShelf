@@ -26,18 +26,18 @@ class Signup extends React.Component {
     return (
       <div className="signup_container">
         <h5>Sign Up:</h5>
-        <input
-          defaultValue="username"
+        Username: <input
+          // defaultValue="username"
           onChange={this.handleChange}
           name='username'
           type="text"></input><br></br>
-        <input
-          defaultValue="password"
+        Password: <input
+          // defaultValue="password"
           onChange={this.handleChange}
           name='firstPassword'
           type="text"></input><br></br>
-        <input
-          defaultValue="confirm password"
+        Confirm Password: <input
+          // defaultValue="confirm password"
           onChange={this.handleChange}
           name='secondPassword'
           type="text"></input><br></br>
