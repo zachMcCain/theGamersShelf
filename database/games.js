@@ -1,8 +1,6 @@
 const db = require('./connect.js');
 
-console.log('Whole games file ran')
 /////////////// COLLECTION READ AND WRITE QUERIES ////////////
-
 
 ///////////// READ //////////////
 // Get user info to load collection

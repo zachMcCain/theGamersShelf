@@ -7,16 +7,20 @@ const signupUser = function (event) {
   let secondPass = this.state.secondPassword;
   console.log('signup user ran')
   console.log('password: ', password, ' second pass: ', secondPass)
-  if (password === secondPass /*&& password.length > 5*/) {
+  if (password === secondPass && password.length > 5) {
     let user = {name: username, password: password}
     axios.post('/signup', user)
-    .then(result => console.log('result of signup: ', result))
+    .then(result => {
+      if (!result.data) {
+        window.alert('Signup failed. User already exists')
+      } else {
+        window.alert('Signup Successful!')
+        // login as the new user based on the name provided
+      }
+    })
   } else {
     console.log('Error in signup')
   }
-  // console.log('user: ', user)
-  // axios.post('/signup', user)
-  // .then(result => console.log('result of post: ', result))
 }
 
 // LOGIN UTILS
@@ -30,4 +34,4 @@ const loginUser = function (event) {
 
 //
 
-export {signupUser}
+export {signupUser, loginUser}

@@ -21,8 +21,8 @@ app.get('/signup', (req, res) => {
 
 app.post('/signup', (req, res) => {
   users.addNewUser(req.body)
-  .then(result => res.send(result))
-  .catch(error => res.send(error))
+  .then(result => res.send(true))
+  .catch(error => res.send(false))
 });
 
 

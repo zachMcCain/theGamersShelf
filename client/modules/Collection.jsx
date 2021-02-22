@@ -26,7 +26,10 @@ class Collection extends React.Component {
     })
     let newGame;
     if (this.state.addGameWindow) {
-      newGame = <AddGame close={this.openAddGame} changeSearch={this.props.changeSearch} addGame={this.props.addGame}/>;
+      newGame = <AddGame
+        close={this.openAddGame}
+        changeSearch={this.props.changeSearch}
+        addGame={this.props.addGame}/>;
     }
 
     return (

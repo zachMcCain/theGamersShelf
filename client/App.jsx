@@ -6,7 +6,7 @@ import Login from './modules/Login.jsx';
 import Signup from './modules/Signup.jsx';
 import axios from 'axios';
 import {openShelf, renderCollection, renderSuggestions, renderPreferences} from './utils/render.js'
-import {signupUser} from './utils/auth.js';
+import {signupUser, loginUser} from './utils/auth.js';
 import {addGame, removeGame} from './utils/collection.js';
 import suggestions from './utils/suggestions.js';
 
@@ -70,7 +70,7 @@ class App extends React.Component {
 
   render() {
 
-    let login = <Login signup={this.goToSignUp}/>
+    let login = <Login login={loginUser} signup={this.goToSignUp}/>
     if (this.state.loggedIn) {
       login = <div></div>
     } else if (this.state.signup) {
