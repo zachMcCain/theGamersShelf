@@ -34,13 +34,14 @@ app.post('/signup', (req, res) => {
 
 app.post('/login', (req, res) => {
   console.log('login POST request body: ', req.body);
-  users.checkUserCredentials(req.body, (err, result) => {
-    if (err) {
-      res.send(err)
-    } else {
+  users.checkUserCredentials(req.body)
+  .then(result => {
+    return games.getUserInfo(req.body.name, (result) => {
       res.send(result);
-    }
+    })
+    res.send('success')
   })
+  .catch(result => res.send(null))
 });
 
 

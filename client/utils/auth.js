@@ -34,7 +34,12 @@ const loginUser = function (event) {
   let user = {name, password}
 
   axios.post('/login', user)
-  .then(result => console.log('result of login: ', result))
+  .then(result => {
+    console.log('result of login: ', result)
+    if (result) {
+      console.log('time to update games')
+    }
+  })
 }
 
 //

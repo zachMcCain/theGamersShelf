@@ -53,7 +53,7 @@ const checkUserName = (username) => {
 const checkUserCredentials = ({name, password}, cb) => {
   console.log('initial password value: ', password, ' with name: ', name)
   // Lookup the user name
-  const checkUser = checkUserName(name)
+  return checkUserName(name)
   .then(result => {
     // console.log('result of check user name call inside promise .then block: ', result);
     const singleRecord = result.records[0]
@@ -72,13 +72,10 @@ const checkUserCredentials = ({name, password}, cb) => {
     console.log('given password: ', password)
     console.log('node pass: ', node.properties.passwordHash, ' as compared to hash: ', hash);
     if (node.properties.passwordHash === hash) {
-      cb('login successful')
-      // login the user/call the user game getter
+      return node;
     } else {
-      cb('login credentials invalid')
-      // tell the user that name/password doesn't match
+      throw new Error;
     }
-    // cb(node.properties);
   })
 }
 
