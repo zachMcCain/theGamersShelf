@@ -10,11 +10,20 @@ class Login extends React.Component {
   }
   render () {
     return (
-      <div>Login:
+      <div>
+        <h5>Login:</h5>
         <form>
-          <input name='username' defaultValue='username' type="text"></input>
-          <input name='password' defaultValue='password' type="text"></input>
-          <input type='submit' defaultValue='Submit'></input>
+          Username:
+          <input
+            name='username'
+            type="text"></input>
+            Password:
+          <input
+            name='password'
+            type="text"></input>
+          <input
+            type='submit'
+            defaultValue='Submit'></input>
         </form>
         <div>
           <button onClick={this.props.signup}>Go to Sign Up</button>

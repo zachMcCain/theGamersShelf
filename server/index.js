@@ -14,10 +14,10 @@ app.use(bodyParser.json())
 
 
 //////// SIGNUP ROUTES /////////
-app.get('/signup', (req, res) => {
-  console.log('signup GET request body: ', req.body)
-  res.send(`<h1>Welcome to the signup page!</h1>`)
-})
+// app.get('/signup', (req, res) => {
+//   console.log('signup GET request body: ', req.body)
+//   res.send(`<h1>Welcome to the signup page!</h1>`)
+// })
 
 app.post('/signup', (req, res) => {
   users.addNewUser(req.body)
@@ -27,10 +27,10 @@ app.post('/signup', (req, res) => {
 
 
 //////// LOGIN ROUTES /////////
-app.get('/login', (req, res) => {
-  console.log('login GET request body: ', req.body)
-  // res.send(express.static(path.join(__dirname, '../public/login')))
-})
+// app.get('/login', (req, res) => {
+//   console.log('login GET request body: ', req.body)
+//   // res.send(express.static(path.join(__dirname, '../public/login')))
+// })
 
 app.post('/login', (req, res) => {
   console.log('login POST request body: ', req.body);

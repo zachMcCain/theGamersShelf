@@ -1,2 +1,22 @@
-Currently the database has to be manually initialized in the Neo4j Desktop. Need to research how to initialize it via the code in the app.
+Currently the database has to be manually initialized in the Neo4j Desktop.
+
+
+
+Steps:
+Connect signup form to server
+  Send signup info to database
+  If user already exists alert client
+  else create a new user and alert client
+Once alerted, client
+  On already exists, throws alert
+  On created, proceeds to login with credentials
+
+Connect login form to server
+  Send login info to database
+  If authenticated grab user's games and send to client
+  Otherwise alert client of failure
+
+On Client side,
+  set state to loggedin
+    thereby removing login/signup form
 

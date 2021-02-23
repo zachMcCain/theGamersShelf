@@ -25,6 +25,7 @@ const signupUser = function (event) {
 
 // LOGIN UTILS
 const loginUser = function (event) {
+  event.preventDefault();
   let username = this.state.username;
   let password = this.state.password;
   let user = {username, password}
