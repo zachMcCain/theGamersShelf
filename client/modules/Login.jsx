@@ -4,10 +4,17 @@ class Login extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      username: ''
+      username: '',
+      password: ''
     }
+    this.handleChange = this.handleChange.bind(this);
 
   }
+
+  handleChange(e) {
+    this.setState({[e.target.name]: e.target.value.toString()})
+  }
+
   render () {
     return (
       <div>
@@ -15,13 +22,16 @@ class Login extends React.Component {
         <form>
           Username:
           <input
+            onChange={this.handleChange}
             name='username'
             type="text"></input>
             Password:
           <input
+          onChange={this.handleChange}
             name='password'
             type="text"></input>
           <input
+            onClick={this.props.login.bind(this)}
             type='submit'
             defaultValue='Submit'></input>
         </form>

@@ -31,7 +31,7 @@ class App extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleRemoveGame = this.handleRemoveGame.bind(this);
     this.goToSignUp = this.goToSignUp.bind(this);
-    this.goToLogin = this.goToLogin.bind(this);
+    // this.goToLogin = this.goToLogin.bind(this);
   }
 
   handleChange(e) {

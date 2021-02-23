@@ -15,20 +15,24 @@ const signupUser = function (event) {
         window.alert('Signup failed. User already exists')
       } else {
         window.alert('Signup Successful!')
+        // loginUser.bind(this);
         // login as the new user based on the name provided
       }
     })
   } else {
+    window.alert('Username already exists')
     console.log('Error in signup')
   }
 }
 
 // LOGIN UTILS
 const loginUser = function (event) {
-  event.preventDefault();
-  let username = this.state.username;
+  console.log('login ran', this)
+  event ? event.preventDefault() : ''
+  let name = this.state.username;
   let password = this.state.password;
-  let user = {username, password}
+  let user = {name, password}
+
   axios.post('/login', user)
   .then(result => console.log('result of login: ', result))
 }

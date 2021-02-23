@@ -3,10 +3,12 @@ Currently the database has to be manually initialized in the Neo4j Desktop.
 
 
 Steps:
-Connect signup form to server
-  Send signup info to database
-  If user already exists alert client
-  else create a new user and alert client
+//////////   AUTH   /////////////
+Connect signup form to server - x
+  Send signup info to database - x
+  If user already exists alert client - x
+  else create a new user and alert client - x
+
 Once alerted, client
   On already exists, throws alert
   On created, proceeds to login with credentials
@@ -14,9 +16,23 @@ Once alerted, client
 Connect login form to server
   Send login info to database
   If authenticated grab user's games and send to client
+  (Once suggestions work, also change suggestions)
   Otherwise alert client of failure
 
 On Client side,
   set state to loggedin
     thereby removing login/signup form
+
+
+
+//////////  ADD GAMES TO USER  //////////
+
+
+
+
+
+///////// SETUP INITIAL PAGE GAMES  ////////
+Refactor client to show suggestions right off the bat
+  Have default suggestions for unlogged in
+  Change suggestions based on user upon login
 
