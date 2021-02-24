@@ -110,10 +110,10 @@ const addGameToDatabase = (gameInfo, cb) => {
 }
 
 // Retrieve Board Game Info from Board Game Atlas API
-let searchTerm = 'g'
+let searchTerm = 'dominion'
 // Completed to 1k items through: ---f--- 223 for g
 
-axios.get(`https://api.boardgameatlas.com/api/search?name=${searchTerm}&client_id=qkHJZ2akQa&limit=1000`)
+axios.get(`https://api.boardgameatlas.com/api/search?name=${searchTerm}&client_id=qkHJZ2akQa&limit=5`)
 // // Reformat Data from BGA
 .then((results) => {
   let i = 0

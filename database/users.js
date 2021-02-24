@@ -81,24 +81,30 @@ const checkUserCredentials = ({name, password}, cb) => {
 
 // Connect user to game
 const addGameToUserCollection = ({user, game}, cb) => {
-  const params = {name: user};
-  const query = `MATCH (a:User) where a.name = $name`
-  db.readTransaction(query, params)
+  console.log('in add game user: ', user, ' game: ', game)
+  let params = {name: user, game: game};
+  // const query = `MATCH (a:User) where a.name = $name`
+  const query = `MATCH (a:User {name: $name})
+  MATCH (b:Game {name: $game})
+  MERGE (a)-[:OWNS]->(b)`
+  db.writeTransaction(tx => tx.run(query, params))
   .then((result) => {
-    const singleRecord = result.records[0]
-    return singleRecord.get(0)
+    console.log('results of transaction: ', result)
+    cb(result)
+    // const singleRecord = result.records[0]
+    // return singleRecord.get(0)
   })
   .then((record) => {
-    const name = record.properties.name;
-    const params = {name: name, game: game};
-    const query = `MATCH (a:User) where a.name = $name
-      MATCH (b:Game) where b.name = $game
-      MERGE (a)-[:OWNS]->(b)`
-    // const query = `MERGE (a:User {name: $name})-[:OWNS]->(b:Game {name: $game})`
-    return db.writeTransaction(query, params)
+    // const name = record.properties.name;
+    // const params = {name: name, game: game};
+    // const query = `MATCH (a:User) where a.name = $name
+    //   MATCH (b:Game) where b.name = $game
+    //   MERGE (a)-[:OWNS]->(b)`
+    // // const query = `MERGE (a:User {name: $name})-[:OWNS]->(b:Game {name: $game})`
+    // return db.writeTransaction(query, params)
   })
   .then(result => {
-    cb(result);
+    // cb(result);
   })
   .catch(err => {
     console.log('error: ', err);

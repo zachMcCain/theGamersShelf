@@ -2,6 +2,7 @@ import axios from 'axios';
 
 const addGame = function (game) {
   let games = this.state.ownedGames;
+  let user = this.state.user;
     let gameOwned = false;
     for (var i = 0; i < games.length; i++) {
       if (games[i].id === game.id) {
@@ -11,7 +12,8 @@ const addGame = function (game) {
     if (!gameOwned) {
       game.images_medium = game.images.medium;
       games.unshift(game);
-      axios.post('http://localhost:3000/api/addToUserCollection', game)
+      let collection = {user: user, game: game.name}
+      axios.post('http://localhost:3000/api/addToUserCollection', collection)
       this.setState({ownedGames: games})
     } else {
       window.alert('Error: Game already in collection!')

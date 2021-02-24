@@ -50,8 +50,8 @@ app.post('/login', (req, res) => {
 
 app.post('/api/addToUserCollection', function(req, res) {
   console.log('The data sent: ', req.body);
-  games.addGameToDatabase(req.body, (result => res.send(result)));
-  // users.addGameToUserCollection(req.body, (result => res.send(result)));
+  // games.addGameToDatabase(req.body, (result => res.send(result)));
+  users.addGameToUserCollection(req.body, (result => res.send(result)));
   // res.send('Hello world');
 })
 

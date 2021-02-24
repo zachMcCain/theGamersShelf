@@ -32,6 +32,7 @@ class App extends React.Component {
     this.handleRemoveGame = this.handleRemoveGame.bind(this);
     this.goToSignUp = this.goToSignUp.bind(this);
     this.updateGameStateBasedOnUser = this.updateGameStateBasedOnUser.bind(this);
+    this.updateUser = this.updateUser.bind(this);
     // this.goToLogin = this.goToLogin.bind(this);
   }
 
@@ -59,6 +60,10 @@ class App extends React.Component {
     this.setState({ownedGames: gameInfo})
   }
 
+  updateUser(name) {
+    this.setState({user: name})
+  }
+
   componentDidMount() {
     axios.get('http://localhost:3000/api/getUserCollection')
     .then(result => {
@@ -78,7 +83,8 @@ class App extends React.Component {
     let login = <Login
       login={loginUser}
       signup={this.goToSignUp}
-      updateGames={this.updateGameStateBasedOnUser}/>
+      updateGames={this.updateGameStateBasedOnUser}
+      updateUser={this.updateUser}/>
     if (this.state.loggedIn) {
       login = <div></div>
     } else if (this.state.signup) {
