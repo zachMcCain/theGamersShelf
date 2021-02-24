@@ -7,7 +7,7 @@ class GameDetails extends React.Component {
   }
 
   remove() {
-    this.props.removeGame(this.props.game.id)
+    this.props.removeGame(this.props.game.name)
   }
 
   render() {

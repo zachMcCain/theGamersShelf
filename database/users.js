@@ -112,11 +112,18 @@ const addGameToUserCollection = ({user, game}, cb) => {
   })
 };
 
+const removeGameFromCollection = (user, game) => {
+  const query = `MATCH (a:User{name:$user})-[c:OWNS]->(b:Game {name: $game})
+  DELETE c`
+  let params = {user: user, game: game}
+  return db.writeTransaction(tx => tx.run(query, params))
+}
 
 
 
 module.exports = {
   addNewUser: addNewUser,
   checkUserCredentials: checkUserCredentials,
-  addGameToUserCollection: addGameToUserCollection
+  addGameToUserCollection: addGameToUserCollection,
+  removeGameFromCollection: removeGameFromCollection
 }

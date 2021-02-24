@@ -61,6 +61,19 @@ app.get('/api/getUserCollection', function(req, res) {
   })
 })
 
+app.post('/api/removeFromUserCollection', function(req, res) {
+  console.log('Connected to removal endpoint: ', req.body);
+  if (req.body.user) {
+    let user = req.body.user;
+    let game = req.body.game;
+    users.removeGameFromCollection(user, game)
+    .then(result => res.send(result))
+    .catch(error => res.send(error))
+  } else {
+    res.send('User not logged in')
+  }
+})
+
 app.listen(port, function() {
   console.log(`Listening on port ${port}`)
 })

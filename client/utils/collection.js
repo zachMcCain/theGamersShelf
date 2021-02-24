@@ -23,12 +23,14 @@ const addGame = function (game) {
 const removeGame = function (game) {
   var games = [];
   for (var i = 0; i < this.state.ownedGames.length; i++) {
-    if (this.state.ownedGames[i].id !== game) {
+    if (this.state.ownedGames[i].name !== game) {
       games.push(this.state.ownedGames[i]);
     }
   }
   this.setState({ownedGames: games});
-  console.log('remove game ran')
+  console.log('remove game ran', game)
+
+  axios.post('/api/removeFromUserCollection', {game: game, user: this.state.user});
 }
 
 export {addGame, removeGame}
