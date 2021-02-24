@@ -1,18 +1,16 @@
 import axios from 'axios'
 
 // SIGNUP UTILS
-const signupUser = function (event) {
-  let username = this.state.username;
-  let password = this.state.firstPassword;
-  let secondPass = this.state.secondPassword;
-  console.log('signup user ran')
-  console.log('password: ', password, ' second pass: ', secondPass)
-  if (password === secondPass && password.length > 5) {
-    let user = {name: username, password: password}
-    axios.post('/signup', user)
+
+// Unbound signup utility
+const signupUser = (username, firstPassword, secondPassword) => {
+  if (firstPassword === secondPassword && firstPassword.length > 5) {
+    let user = {name: username, password: firstPassword}
+    return axios.post('/signup', user)
     .then(result => {
       if (!result.data) {
         window.alert('Signup failed. User already exists')
+        throw new Error('User already exists');
       } else {
         window.alert('Signup Successful!')
         // loginUser.bind(this);
@@ -20,28 +18,37 @@ const signupUser = function (event) {
       }
     })
   } else {
-    window.alert('Username already exists')
+    window.alert('Password must be at least 6 characters long')
+    return Promise.reject('Password must be 6 characters long')
+    // return new Error('Password must be 6 characters long')
     console.log('Error in signup')
   }
 }
 
+
+
 // LOGIN UTILS
-const loginUser = function (event) {
-  console.log('login ran', this)
-  event ? event.preventDefault() : ''
-  let name = this.state.username;
-  let password = this.state.password;
+
+// unbound login utility
+const loginUser = (name, password) => {
   let user = {name, password}
 
-  axios.post('/login', user)
+  return axios.post('/login', user)
   .then(result => {
-    console.log('result of login: ', result)
-    if (result) {
+    console.log('result of login: ', result.data);
+    if (result.data) {
       console.log('time to update games')
+      let records = result.data.records;
+      let games = []
+      for (var i = 0; i < records.length; i++) {
+        games.push(records[i]._fields[0].properties);
+      }
+      return games;
+    } else {
+      window.alert('Login credentials invalid')
     }
   })
 }
 
-//
 
 export {signupUser, loginUser}

@@ -1,4 +1,5 @@
 import React from 'react';
+import {loginUser} from '../utils/auth.js'
 
 class Login extends React.Component {
   constructor(props) {
@@ -8,11 +9,22 @@ class Login extends React.Component {
       password: ''
     }
     this.handleChange = this.handleChange.bind(this);
-
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleChange(e) {
     this.setState({[e.target.name]: e.target.value.toString()})
+  }
+
+  handleSubmit(e) {
+    e.preventDefault();
+    let username = this.state.username;
+    let password = this.state.password;
+    loginUser(username, password)
+    .then((games) => {
+      console.log('Games from login: ', games)
+      this.props.updateGames(games);
+    })
   }
 
   render () {
@@ -31,7 +43,7 @@ class Login extends React.Component {
             name='password'
             type="text"></input>
           <input
-            onClick={this.props.login.bind(this)}
+            onClick={this.handleSubmit}
             type='submit'
             defaultValue='Submit'></input>
         </form>

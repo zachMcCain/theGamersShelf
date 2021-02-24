@@ -6,7 +6,7 @@ import Login from './modules/Login.jsx';
 import Signup from './modules/Signup.jsx';
 import axios from 'axios';
 import {openShelf, renderCollection, renderSuggestions, renderPreferences} from './utils/render.js'
-import {signupUser, loginUser} from './utils/auth.js';
+import {signupUser, loginUser} from './utils/auth.js'; /////
 import {addGame, removeGame} from './utils/collection.js';
 import suggestions from './utils/suggestions.js';
 
@@ -31,6 +31,7 @@ class App extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleRemoveGame = this.handleRemoveGame.bind(this);
     this.goToSignUp = this.goToSignUp.bind(this);
+    this.updateGameStateBasedOnUser = this.updateGameStateBasedOnUser.bind(this);
     // this.goToLogin = this.goToLogin.bind(this);
   }
 
@@ -54,6 +55,10 @@ class App extends React.Component {
     this.setState({signup: false})
   }
 
+  updateGameStateBasedOnUser(gameInfo) {
+    this.setState({ownedGames: gameInfo})
+  }
+
   componentDidMount() {
     axios.get('http://localhost:3000/api/getUserCollection')
     .then(result => {
@@ -70,7 +75,10 @@ class App extends React.Component {
 
   render() {
 
-    let login = <Login login={loginUser} signup={this.goToSignUp}/>
+    let login = <Login
+      login={loginUser}
+      signup={this.goToSignUp}
+      updateGames={this.updateGameStateBasedOnUser}/>
     if (this.state.loggedIn) {
       login = <div></div>
     } else if (this.state.signup) {
