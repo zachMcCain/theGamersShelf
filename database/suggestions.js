@@ -3,8 +3,14 @@ const db = require('./connect.js');
 /////////////// SUGGESTIONS READ AND WRITE QUERIES ///////////
 
 // Get user info to load suggestions
-const getSuggestions = (id) => {
-
+const getSuggestions = (user) => {
+  const query = `MATCH (:User{name:$user})-[a:OWNS]->(:Game)-[b]-(c)-[d]-(rec)
+  WITH rec, COUNT(*) AS num ORDER BY num DESC
+  RETURN rec, num LIMIT 50`
+  const params = {user: "Zach"}
+  return db.readTransaction(tx => {
+    return tx.run(query, params)
+  })
 }
 
 // Change suggestions based on new preferences
@@ -20,4 +26,8 @@ const changeSuggestions = (id, preferences) => {
   //     .catch(e => {
   //         // The transaction will be rolled back, now handle the error.
   //     });
+}
+
+module.exports = {
+  getSuggestions: getSuggestions
 }

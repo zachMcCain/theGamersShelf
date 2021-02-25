@@ -5,6 +5,7 @@ const app = express();
 const port = 3000
 const games = require('../database/games.js');
 const users = require('../database/users.js');
+const suggestions = require('../database/suggestions.js');
 const bodyParser = require('body-parser');
 
 app.use('/', express.static(path.join(__dirname, '../public')))
@@ -36,10 +37,20 @@ app.post('/login', (req, res) => {
   console.log('login POST request body: ', req.body);
   users.checkUserCredentials(req.body)
   .then(result => {
-    return games.getUserInfo(req.body.name, (result) => {
-      res.send(result);
+    suggestions.getSuggestions(req.body.name)
+    .then(result => {
+      let suggestions = {suggestions: result}
+      console.log('Suggestions result: ', suggestions)
+      // res.write(suggestions)
+      return suggestions
     })
-    res.send('success')
+    .then(suggestions => {
+      return games.getUserInfo(req.body.name, (collection) => {
+        let info = {collection: collection, suggestions: suggestions}
+        res.send(info);
+      })
+      res.send('success')
+    })
   })
   .catch(result => res.send(null))
 });
@@ -73,6 +84,18 @@ app.post('/api/removeFromUserCollection', function(req, res) {
     res.send('User not logged in')
   }
 })
+
+////// SUGGESTIONS ROUTES
+app.post('/api/getUsersSuggestions', (req, res) => {
+  console.log('hit suggestions')
+  suggestions.getSuggestions(req.body.user)
+  .then(result => {
+    console.log('result of suggestions: ', result)
+  })
+  res.send('hit suggestions')
+});
+
+
 
 app.listen(port, function() {
   console.log(`Listening on port ${port}`)

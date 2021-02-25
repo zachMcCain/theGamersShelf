@@ -18,6 +18,7 @@ class App extends React.Component {
       suggestions: false,
       preferences: false,
       ownedGames: [],
+      suggestedGames: [],
       loggedIn: false,
       signup: false,
       user: null
@@ -33,6 +34,7 @@ class App extends React.Component {
     this.goToSignUp = this.goToSignUp.bind(this);
     this.updateGameStateBasedOnUser = this.updateGameStateBasedOnUser.bind(this);
     this.updateUser = this.updateUser.bind(this);
+    this.updateSuggestionsStateBasedOnUser = this.updateSuggestionsStateBasedOnUser.bind(this);
     // this.goToLogin = this.goToLogin.bind(this);
   }
 
@@ -60,6 +62,10 @@ class App extends React.Component {
     this.setState({ownedGames: gameInfo})
   }
 
+  updateSuggestionsStateBasedOnUser(suggestions) {
+    this.setState({suggestedGames: suggestions})
+  }
+
   updateUser(name) {
     this.setState({user: name})
   }
@@ -84,6 +90,7 @@ class App extends React.Component {
       login={loginUser}
       signup={this.goToSignUp}
       updateGames={this.updateGameStateBasedOnUser}
+      updateSuggestions={this.updateSuggestionsStateBasedOnUser}
       updateUser={this.updateUser}/>
     if (this.state.loggedIn) {
       login = <div></div>

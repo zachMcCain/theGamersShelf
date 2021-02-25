@@ -37,11 +37,18 @@ const loginUser = (name, password) => {
   .then(result => {
     console.log('result of login: ', result.data);
     if (result.data) {
-      console.log('time to update games')
-      let records = result.data.records;
-      let games = []
+      // console.log('time to update games', result.data)
+      let records = result.data.collection.records;
+      let suggestions = result.data.suggestions.suggestions.records;
+      console.log('records: ', result.data)
+      let games = {};
+      games.games = []
+      games.suggestions = []
       for (var i = 0; i < records.length; i++) {
-        games.push(records[i]._fields[0].properties);
+        games.games.push(records[i]._fields[0].properties);
+      }
+      for (var i = 0; i < suggestions.length; i++) {
+        games.suggestions.push(suggestions[i]._fields[0].properties);
       }
       return games;
     } else {

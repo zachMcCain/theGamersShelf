@@ -23,7 +23,8 @@ class Login extends React.Component {
     loginUser(username, password)
     .then((games) => {
       console.log('Games from login: ', games)
-      return this.props.updateGames(games);
+      this.props.updateSuggestions(games.suggestions);
+      return this.props.updateGames(games.games);
     })
     .then(result => {
       this.props.updateUser(username)
