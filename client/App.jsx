@@ -119,7 +119,8 @@ class App extends React.Component {
             removeGame={this.handleRemoveGame}/>
 
           <Suggestions
-            open={this.state.suggestions}/>
+            open={this.state.suggestions}
+            games={this.state.suggestedGames}/>
 
           <Preferences
             open={this.state.preferences}/>
