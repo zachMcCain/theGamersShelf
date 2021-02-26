@@ -4,9 +4,10 @@ module.exports = {
   entry: path.resolve(__dirname, 'client/index.js'),
   watch: true,
   mode: 'development',
+  resolve: { extensions: ['.js', '.jsx'] },
   output: {
     path: path.resolve(__dirname, 'public/dist'),
-    filename: 'bundle.js'
+    filename: 'bundle.js',
   },
   module: {
     rules: [
@@ -19,13 +20,13 @@ module.exports = {
           options: {
             presets: [
               ['@babel/preset-env', {
-                "targets": "defaults"
+                targets: 'defaults',
               }],
-              '@babel/preset-react'
-            ]
-          }
-        }]
-      }
-    ]
-  }
-}
+              '@babel/preset-react',
+            ],
+          },
+        }],
+      },
+    ],
+  },
+};

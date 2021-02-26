@@ -1,14 +1,15 @@
-import React from 'react'
-import Collection from './modules/Collection.jsx';
-import Suggestions from './modules/Suggestions.jsx';
-import Preferences from './modules/Preferences.jsx';
-import Login from './modules/Login.jsx';
-import Signup from './modules/Signup.jsx';
+import React from 'react';
 import axios from 'axios';
-import {openShelf, renderCollection, renderSuggestions, renderPreferences} from './utils/render.js'
-import {signupUser, loginUser} from './utils/auth.js'; /////
-import {addGame, removeGame} from './utils/collection.js';
-import suggestions from './utils/suggestions.js';
+import Collection from './modules/Collection';
+import Suggestions from './modules/Suggestions';
+import Preferences from './modules/Preferences';
+import Login from './modules/Login';
+import Signup from './modules/Signup';
+import {
+  openShelf, renderCollection, renderSuggestions, renderPreferences,
+} from './utils/render';
+import { signupUser, loginUser } from './utils/auth'; /////
+import { addGame, removeGame } from './utils/collection';
 
 class App extends React.Component {
   constructor(props) {
