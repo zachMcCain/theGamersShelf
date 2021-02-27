@@ -1,3 +1,7 @@
+/* eslint-disable jsx-a11y/interactive-supports-focus */
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable prefer-const */
 import React from 'react';
 import axios from 'axios';
 import Collection from './modules/Collection';
@@ -22,7 +26,8 @@ class App extends React.Component {
       suggestedGames: [],
       loggedIn: false,
       signup: false,
-      user: null
+      // eslint-disable-next-line react/no-unused-state
+      user: null,
     };
 
     this.openShelf = openShelf.bind(this);
@@ -32,6 +37,7 @@ class App extends React.Component {
     this.handleAddGame = this.handleAddGame.bind(this);
     this.handleRemoveGame = this.handleRemoveGame.bind(this);
     this.goToSignUp = this.goToSignUp.bind(this);
+    this.goToLogin = this.goToLogin.bind(this);
     this.updateGameStateBasedOnUser = this.updateGameStateBasedOnUser.bind(this);
     this.updateUser = this.updateUser.bind(this);
     this.updateSuggestionsStateBasedOnUser = this.updateSuggestionsStateBasedOnUser.bind(this);
@@ -45,6 +51,7 @@ class App extends React.Component {
         let { records } = result.data;
         let games = [];
         for (let i = 0; i < records.length; i += 1) {
+          // eslint-disable-next-line no-underscore-dangle
           games.push(records[i]._fields[0].properties);
         }
         this.setState({ ownedGames: games });
@@ -61,15 +68,15 @@ class App extends React.Component {
   }
 
   goToSignUp() {
-    this.setState({signup: true})
+    this.setState({ signup: true });
   }
 
   goToLogin() {
-    this.setState({signup: false})
+    this.setState({ signup: false });
   }
 
   updateGameStateBasedOnUser(gameInfo) {
-    this.setState({ownedGames: gameInfo})
+    this.setState({ ownedGames: gameInfo });
   }
 
   updateSuggestionsStateBasedOnUser(suggestions) {
@@ -77,6 +84,7 @@ class App extends React.Component {
   }
 
   updateUser(name) {
+    // eslint-disable-next-line react/no-unused-state
     this.setState({ user: name });
   }
 
@@ -90,37 +98,46 @@ class App extends React.Component {
         updateUser={this.updateUser}
       />
     );
-    if (this.state.loggedIn) {
+    let {
+      loggedIn, signup, ownedGames, collection, suggestions, suggestedGames, preferences,
+    } = this.state;
+    if (loggedIn) {
       login = <div />;
-    } else if (this.state.signup) {
-      login = <Signup signup={signupUser} login={this.goToLogin}/>
+    } else if (signup) {
+      login = <Signup signup={signupUser} login={this.goToLogin} />;
     }
 
     return (
       <div>
         <div id="topbar">
-          <span className="site_title" onClick={this.openShelf}>Game On!</span>
+          <span className="site_title" role="button" onClick={this.openShelf}>Game On!</span>
           {login}
         </div>
         <div id="shelf">
           <h4
-            onClick={this.renderCollection}>My Collection</h4>
+            onClick={this.renderCollection}
+          >
+            My Collection
+          </h4>
           <h4 onClick={this.renderSuggestions}>Suggestions</h4>
           <h4 onClick={this.renderPreferences}>Preferences</h4>
         </div>
 
         <Collection
-          games={this.state.ownedGames}
-          open={this.state.collection}
+          games={ownedGames}
+          open={collection}
           addGame={this.handleAddGame}
-          removeGame={this.handleRemoveGame}/>
+          removeGame={this.handleRemoveGame}
+        />
 
         <Suggestions
-          open={this.state.suggestions}
-          games={this.state.suggestedGames}/>
+          open={suggestions}
+          games={suggestedGames}
+        />
 
-          <Preferences
-            open={this.state.preferences}/>
+        <Preferences
+          open={preferences}
+        />
       </div>
     );
   }

@@ -1,34 +1,43 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable prefer-const */
 import React from 'react';
-import Game from './collection/Game.jsx'
-import AddGame from './collection/AddGame.jsx';
+import Game from './collection/Game';
+import AddGame from './collection/AddGame';
 
 class Collection extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      addGameWindow: false
-    }
+      addGameWindow: false,
+    };
     this.openAddGame = this.openAddGame.bind(this);
   }
 
   openAddGame() {
-    this.setState({addGameWindow: !this.state.addGameWindow})
+    let { addGameWindow } = this.state;
+    this.setState({ addGameWindow: !addGameWindow });
   }
 
   render() {
-    let games = this.props.games.map((game) => {
-      return <Game
+    let { games, removeGame, addGame } = this.props;
+    let { addGameWindow } = this.state;
+    games = games.map((game) => (
+      <Game
         game={game}
         key={game.id}
         image={game.images_medium}
         description={game.description_preview}
-        removeGame={this.props.removeGame}/>;
-    })
+        removeGame={removeGame}
+      />
+    ));
     let newGame;
-    if (this.state.addGameWindow) {
-      newGame = <AddGame
-        close={this.openAddGame}
-        addGame={this.props.addGame}/>;
+    if (addGameWindow) {
+      newGame = (
+        <AddGame
+          close={this.openAddGame}
+          addGame={addGame}
+        />
+      );
     }
 
     return (
@@ -36,7 +45,7 @@ class Collection extends React.Component {
         <div>
           <h4>My Collection</h4>
           <div className="centeringDiv">
-            <button className="addGameButton" onClick={this.openAddGame}>Add Game</button>
+            <button type="button" className="addGameButton" onClick={this.openAddGame}>Add Game</button>
             {newGame}
           </div>
           <div className="gameContainer">
@@ -44,9 +53,8 @@ class Collection extends React.Component {
           </div>
         </div>
       </div>
-    )
+    );
   }
 }
-
 
 export default Collection;

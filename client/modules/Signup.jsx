@@ -1,61 +1,75 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable prefer-const */
 import React from 'react';
-import {signupUser} from '../utils/auth.js'
+import { signupUser } from '../utils/auth';
 
 // If the response comes back good, change isloggedin state
 
 class Signup extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       username: '',
       firstPassword: '',
-      secondPassword: ''
-    }
+      secondPassword: '',
+    };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleChange(e) {
-    this.setState({[e.target.name]: e.target.value.toString()})
+    this.setState({ [e.target.name]: e.target.value.toString() });
   }
 
   handleSubmit(e) {
     e.preventDefault();
-    let username = this.state.username;
-    let firstPassword = this.state.firstPassword;
-    let secondPassword = this.state.secondPassword;
+    let { username, firstPassword, secondPassword } = this.state;
     signupUser(username, firstPassword, secondPassword)
-    .then(result => console.log('submit ran'))
-    .catch(result => console.log('submit failed', result))
+      .then(() => console.log('submit ran'))
+      .catch((result) => console.log('submit failed', result));
   }
 
-  render () {
+  render() {
+    let { login } = this.props;
     return (
       <div className="signup_container">
         <h5>Sign Up:</h5>
-        Username: <input
+        Username:
+        <input
           onChange={this.handleChange}
-          name='username'
-          type="text"></input><br></br>
-        Password: <input
+          name="username"
+          type="text"
+        />
+        <br />
+        Password:
+        <input
           onChange={this.handleChange}
-          name='firstPassword'
-          type="text"></input><br></br>
-        Confirm Password: <input
+          name="firstPassword"
+          type="text"
+        />
+        <br />
+        Confirm Password:
+        <input
           onChange={this.handleChange}
-          name='secondPassword'
-          type="text"></input><br></br>
+          name="secondPassword"
+          type="text"
+        />
+        <br />
         <input
           type="submit"
           value="Sign Up"
-          onClick={this.handleSubmit}></input>
+          onClick={this.handleSubmit}
+        />
         <button
-          onClick={this.props.login}>Go to Login</button>
+          type="button"
+          onClick={login}
+        >
+          Go to Login
+        </button>
       </div>
-    )
+    );
   }
-
 }
 
 export default Signup;
