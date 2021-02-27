@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable react/prop-types */
 /* eslint-disable prefer-const */
 import React from 'react';
@@ -20,7 +22,9 @@ class Game extends React.Component {
   render() {
     let detailsPanel;
     let { gameDetails } = this.state;
-    let { game, removeGame, image } = this.props;
+    let {
+      game, removeGame, image, name,
+    } = this.props;
     if (gameDetails) {
       detailsPanel = (
         <GameDetails
@@ -35,12 +39,13 @@ class Game extends React.Component {
 
     return (
       <div className="game">
-      {/* //   <span className="gameTitle">{this.props.game.name}</span>
+        {/* //   <span className="gameTitle">{this.props.game.name}</span>
       //   <span onClick={this.openDetails}>details</span> */}
         {/* <div className="gameDescription">{this.props.description}</div> */}
         <img
           onClick={this.openDetails}
           src={image}
+          alt={name}
         />
         {detailsPanel}
       </div>
