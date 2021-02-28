@@ -1,7 +1,7 @@
 const path = require('path');
 
 module.exports = {
-  entry: path.resolve(__dirname, 'client/index.js'),
+  entry: path.resolve(__dirname, 'client2/index.js'),
   watch: true,
   mode: 'development',
   resolve: { extensions: ['.js', '.jsx'] },

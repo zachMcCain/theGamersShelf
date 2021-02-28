@@ -1,0 +1,59 @@
+body {
+  margin: 0;
+}
+
+#header {
+  height: 80px;
+  background-color: aquamarine;
+}
+
+#title {
+  margin: 0;
+  position: absolute;
+  left: 110px;
+  display: inline;
+}
+
+#profile {
+  display: inline;
+  right: 110px;
+  position: absolute;
+  margin: 18px;
+  height: 37px;
+}
+
+#username {
+  margin: 0;
+  display: inline-block;
+  text-align: right;
+}
+
+.login {
+  margin: 0;
+  display: inline-block;
+  text-align: right;
+  margin: 3px;
+  font-size: 15px;
+}
+
+.loginButton {
+  background: none;
+  font-weight: 900;
+  /* background-color: none; */
+  /* border: 1px solid; */
+  /* border-radius: 5px; */
+  border: none;
+}
+
+#spacer {
+  width: 10px;
+  display: inline-block;
+}
+
+#profilePic {
+  border: 1px solid;
+  border-radius: 50%;
+  height: 37px;
+  width: 37px;
+  display: inline-block;
+}

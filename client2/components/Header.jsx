@@ -3,8 +3,8 @@ import Profile from './header/Profile';
 
 const Header = (props) => (
   <div id="header">
-    <div>
-      <h1>The Gamer's Shelf</h1>
+    <div id="title">
+      <h1>The Gamer&apos;s Shelf</h1>
     </div>
     <div>
       <Profile />
