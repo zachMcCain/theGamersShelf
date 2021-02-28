@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable prefer-const */
 import React from 'react';
 import { loginUser } from '../utils/auth';
 
@@ -13,25 +15,26 @@ class Login extends React.Component {
   }
 
   handleChange(e) {
-    this.setState({[e.target.name]: e.target.value.toString()})
+    this.setState({ [e.target.name]: e.target.value.toString() });
   }
 
   handleSubmit(e) {
     e.preventDefault();
-    let { username } = this.state;
-    let password = this.state.password;
+    let { username, password } = this.state;
+    let { updateGames, updateSuggestions, updateUser } = this.props;
     loginUser(username, password)
-    .then((games) => {
-      console.log('Games from login: ', games)
-      this.props.updateSuggestions(games.suggestions);
-      return this.props.updateGames(games.games);
-    })
-    .then((result) => {
-      this.props.updateUser(username);
-    })
+      .then((games) => {
+        console.log('Games from login: ', games);
+        updateSuggestions(games.suggestions);
+        return updateGames(games.games);
+      })
+      .then(() => {
+        updateUser(username);
+      });
   }
 
   render() {
+    let { signup } = this.props;
     return (
       <div>
         <h5>Login:</h5>
@@ -55,7 +58,7 @@ class Login extends React.Component {
           />
         </form>
         <div>
-          <button onClick={this.props.signup}>Go to Sign Up</button>
+          <button type="button" onClick={signup}>Go to Sign Up</button>
         </div>
       </div>
     );
