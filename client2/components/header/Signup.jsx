@@ -11,11 +11,21 @@ class Signup extends React.Component {
       secondPassword: '',
     };
     this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleChange(e) {
     let input = e.target.value;
     this.setState({ [e.target.name]: input });
+  }
+
+  handleSubmit() {
+    let { signupUser } = this.props;
+    let { name, password, secondPassword } = this.state;
+    signupUser(name, password, secondPassword)
+      .then((result) => {
+        console.log('result of signup', result);
+      });
   }
 
   render() {
@@ -31,7 +41,7 @@ class Signup extends React.Component {
         <button type="button" name="login" className="switchDropdown" onClick={switchDrop}>
           login
         </button>
-        <button type="submit" name="signup">
+        <button type="submit" name="signup" onClick={this.handleSubmit}>
           Signup
         </button>
       </div>

@@ -21,9 +21,12 @@ class App extends React.Component {
     this.state = {
       loginDropdown: false,
       signupDropdown: false,
+      collection: [],
+      user: null,
     };
     this.handleDropdown = this.handleDropdown.bind(this);
     this.handleSwitchDropdown = this.handleSwitchDropdown.bind(this);
+    this.updateUserAndCollection = this.updateUserAndCollection.bind(this);
   }
 
   handleDropdown() {
@@ -48,8 +51,12 @@ class App extends React.Component {
     });
   }
 
+  updateUserAndCollection(user, games) {
+    this.setState({ user, collection: games});
+  }
+
   render() {
-    let { loginDropdown, signupDropdown } = this.state;
+    let { loginDropdown, signupDropdown, collection } = this.state;
     return (
       <div>
         <Header
@@ -57,12 +64,13 @@ class App extends React.Component {
           signup={signupDropdown}
           drop={this.handleDropdown}
           switchDrop={this.handleSwitchDropdown}
-          singupUser={signupUser}
+          signupUser={signupUser}
           loginUser={loginUser}
+          updateUserAndCollection={this.updateUserAndCollection}
         />
         <div id="bodyContainer">
           <LeftSideBar />
-          <GameDisplay />
+          <GameDisplay collection={collection} />
           <RightSideBar />
         </div>
         <Footer />

@@ -113,6 +113,14 @@ body {
   grid-template-rows: 1fr 1fr 1fr 1fr;
 }
 
+#gameCard {
+  margin: 5px;
+}
+
+#gameCard img {
+  width: 13vw;
+}
+
 #rightSideBar {
   grid-column: 3;
   padding: 10px;

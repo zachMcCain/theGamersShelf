@@ -1,13 +1,34 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 import Login from './Login';
 import Signup from './Signup';
 
-const Profile = ({ login, signup, drop, switchDrop }) => {
+const Profile = ({
+  login,
+  signup,
+  drop,
+  switchDrop,
+  loginUser,
+  signupUser,
+  updateUserAndCollection,
+}) => {
   let dropdown = <div />;
   if (login) {
-    dropdown = <Login switchDrop={switchDrop} />;
+    dropdown = (
+      <Login
+        switchDrop={switchDrop}
+        loginUser={loginUser}
+        updateUserAndCollection={updateUserAndCollection}
+      />
+    );
   } else if (signup) {
-    dropdown = <Signup switchDrop={switchDrop} />;
+    dropdown = (
+      <Signup
+        switchDrop={switchDrop}
+        signupUser={signupUser}
+        updateUserAndCollection={updateUserAndCollection}
+      />
+    );
   }
 
   return (

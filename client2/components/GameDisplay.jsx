@@ -1,9 +1,16 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable prefer-const */
 import React from 'react';
-import GameCard from './gameDisplay/GameCard'
+import GameCard from './gameDisplay/GameCard';
 
-const GameDisplay = (props) => {
-  let gameCards = <GameCard />;
+const GameDisplay = ({ collection }) => {
+  let gameCards = <div />;
+  if (collection.length) {
+    gameCards = collection.map((game) => (
+      <GameCard game={game} />
+    ));
+  }
+
   return (
     <div id="gameDisplayArea">
       {gameCards}

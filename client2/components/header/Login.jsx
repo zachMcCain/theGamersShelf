@@ -10,11 +10,25 @@ class Login extends React.Component {
       password: '',
     };
     this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleChange(e) {
     let input = e.target.value;
     this.setState({ [e.target.name]: input });
+  }
+
+  handleSubmit() {
+    let { loginUser, updateUserAndCollection } = this.props;
+    let { name, password } = this.state;
+    loginUser(name, password)
+      .then((games) => {
+        console.log('games at login: ', games);
+        updateUserAndCollection(name, games.games);
+      })
+      .catch((error) => {
+        console.log('error at login: ', error);
+      });
   }
 
   render() {
@@ -28,7 +42,7 @@ class Login extends React.Component {
         <button type="button" name="signup" className="switchDropdown" onClick={switchDrop}>
           signup
         </button>
-        <button type="submit" name="login">
+        <button type="submit" name="login" onClick={this.handleSubmit}>
           Login
         </button>
       </div>

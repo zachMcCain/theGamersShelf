@@ -1,9 +1,10 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 
-const GameCard = () => (
-  <div>
-    <img alt="board game" src="https://picsum.photos/200" />
-    <p>Lorem ipsum dolores est.</p>
+const GameCard = ({ game }) => (
+  <div id="gameCard">
+    <img alt="board game" src={game.images_medium} />
+    <p>{game.name}</p>
   </div>
 );
 
