@@ -19,80 +19,41 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      // collection: false,
-      // suggestions: false,
-      // preferences: false,
-      // ownedGames: [],
-      // suggestedGames: [],
-      // loggedIn: false,
-      // signup: false,
-      // user: null,
+      loginDropdown: false,
+      signupDropdown: false,
     };
-
-    // this.renderCollection = renderCollection.bind(this);
-    // this.renderSuggestions = renderSuggestions.bind(this);
-    // this.renderPreferences = renderPreferences.bind(this);
-    // this.handleAddGame = this.handleAddGame.bind(this);
-    // this.handleRemoveGame = this.handleRemoveGame.bind(this);
-    // this.goToSignUp = this.goToSignUp.bind(this);
-    // this.goToLogin = this.goToLogin.bind(this);
-    // this.updateGameStateBasedOnUser = this.updateGameStateBasedOnUser.bind(this);
-    // this.updateUser = this.updateUser.bind(this);
-    // this.updateSuggestionsStateBasedOnUser = this.updateSuggestionsStateBasedOnUser.bind(this);
-    // this.goToLogin = this.goToLogin.bind(this);
+    this.handleDropdown = this.handleDropdown.bind(this);
+    this.handleSwitchDropdown = this.handleSwitchDropdown.bind(this);
   }
 
-  // componentDidMount() {
-  //   axios.get('http://localhost:3000/api/getUserCollection')
-  //     .then((result) => {
-  //       console.log(result.data.records);
-  //       let { records } = result.data;
-  //       let games = [];
-  //       for (let i = 0; i < records.length; i += 1) {
-  //         // eslint-disable-next-line no-underscore-dangle
-  //         games.push(records[i]._fields[0].properties);
-  //       }
-  //       this.setState({ ownedGames: games });
-  //     // Each record is stored at result.data.records[i]._fields[0].properties
-  //     });
-  // }
+  handleDropdown() {
+    let { loginDropdown } = this.state;
+    this.setState({ loginDropdown: !loginDropdown });
+  }
 
-  // handleAddGame(game) {
-  //   addGame.call(this, game);
-  // }
-
-  // handleRemoveGame(game) {
-  //   removeGame.call(this, game);
-  // }
-
-  // goToSignUp() {
-  //   this.setState({ signup: true });
-  // }
-
-  // goToLogin() {
-  //   this.setState({ signup: false });
-  // }
-
-  // updateGameStateBasedOnUser(gameInfo) {
-  //   this.setState({ ownedGames: gameInfo });
-  // }
-
-  // updateSuggestionsStateBasedOnUser(suggestions) {
-  //   this.setState({ suggestedGames: suggestions });
-  // }
-
-  // updateUser(name) {
-  //   // eslint-disable-next-line react/no-unused-state
-  //   this.setState({ user: name });
-  // }
+  handleSwitchDropdown() {
+    let { loginDropdown, signupDropdown } = this.state;
+    this.setState({
+      loginDropdown: !loginDropdown,
+      signupDropdown: !signupDropdown,
+    });
+  }
 
   render() {
+    let { loginDropdown, signupDropdown } = this.state;
     return (
       <div>
-        <Header />
-        <LeftSideBar />
-        <GameDisplay />
-        <RightSideBar />
+        <Header
+          login={loginDropdown}
+          signup={signupDropdown}
+          drop={this.handleDropdown}
+          switchDrop={this.handleSwitchDropdown}
+        />
+        <div id="bodyContainer">
+          <LeftSideBar />
+          <GameDisplay />
+          <RightSideBar />
+        </div>
         <Footer />
       </div>
     );

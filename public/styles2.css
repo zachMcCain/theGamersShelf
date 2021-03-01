@@ -32,16 +32,13 @@ body {
   margin: 0;
   display: inline-block;
   text-align: right;
-  margin: 3px;
+  /* margin: 3px; */
   font-size: 15px;
 }
 
 .loginButton {
   background: none;
   font-weight: 900;
-  /* background-color: none; */
-  /* border: 1px solid; */
-  /* border-radius: 5px; */
   border: none;
   padding: 0;
 }
@@ -57,4 +54,56 @@ body {
   height: 37px;
   width: 37px;
   display: inline-block;
+  background: brown;
+}
+
+#loginDropdown {
+  position: fixed;
+  border: 1px solid;
+  margin: 18px;
+  margin-top: 5px;
+  border-radius: 5px;
+  background-color: white;
+  text-align: center;
+  right: 110px;
+}
+
+#loginDropdown input {
+  margin: 7px;
+  margin-bottom: 0px;
+}
+
+#loginDropdown button {
+  margin: 7px;
+}
+
+.switchDropdown {
+  border: none;
+  color: blue;
+  background: none;
+}
+
+#bodyContainer {
+  display: grid;
+  grid-template-columns: 200px 1fr 200px;
+  height: 500px;
+}
+
+#leftSideBar {
+  grid-column: 1;
+  padding: 10px;
+}
+
+#gameDisplayArea {
+  grid-column: 2;
+  /* border: 1px solid; */
+  border-top: none;
+  border-bottom: none;
+  padding: 10px;
+  box-shadow: 3px 0 2px lightgray, -3px 0 2px lightgray;
+}
+
+#rightSideBar {
+  grid-column: 3;
+  padding: 10px;
 }
