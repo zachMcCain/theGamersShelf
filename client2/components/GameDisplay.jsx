@@ -1,7 +1,7 @@
 import React from 'react';
 
 const GameDisplay = (props) => (
-  <div>Game Display</div>
+  <div id="gameDisplayArea">Game Display</div>
 );
 
 export default GameDisplay;

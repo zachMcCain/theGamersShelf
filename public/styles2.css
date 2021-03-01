@@ -32,7 +32,7 @@ body {
   margin: 0;
   display: inline-block;
   text-align: right;
-  margin: 3px;
+  /* margin: 3px; */
   font-size: 15px;
 }
 
@@ -54,6 +54,7 @@ body {
   height: 37px;
   width: 37px;
   display: inline-block;
+  background: brown;
 }
 
 #loginDropdown {
@@ -80,4 +81,29 @@ body {
   border: none;
   color: blue;
   background: none;
+}
+
+#bodyContainer {
+  display: grid;
+  grid-template-columns: 200px 1fr 200px;
+  height: 500px;
+}
+
+#leftSideBar {
+  grid-column: 1;
+  padding: 10px;
+}
+
+#gameDisplayArea {
+  grid-column: 2;
+  /* border: 1px solid; */
+  border-top: none;
+  border-bottom: none;
+  padding: 10px;
+  box-shadow: 3px 0 2px lightgray, -3px 0 2px lightgray;
+}
+
+#rightSideBar {
+  grid-column: 3;
+  padding: 10px;
 }

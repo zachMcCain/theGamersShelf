@@ -49,9 +49,11 @@ class App extends React.Component {
           drop={this.handleDropdown}
           switchDrop={this.handleSwitchDropdown}
         />
-        <LeftSideBar />
-        <GameDisplay />
-        <RightSideBar />
+        <div id="bodyContainer">
+          <LeftSideBar />
+          <GameDisplay />
+          <RightSideBar />
+        </div>
         <Footer />
       </div>
     );
