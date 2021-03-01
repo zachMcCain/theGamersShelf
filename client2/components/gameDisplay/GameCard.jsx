@@ -3,8 +3,8 @@ import React from 'react';
 
 const GameCard = ({ game }) => (
   <div id="gameCard">
-    <img alt="board game" src={game.images_medium} />
     <p>{game.name}</p>
+    <img alt="board game" src={game.images_medium} />
     <p id="gameInfo">
       {game.description_preview.slice(0, 200)}
       ... more

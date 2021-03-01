@@ -4,13 +4,10 @@ import Login from './Login';
 import Signup from './Signup';
 
 const Profile = ({
-  login,
-  signup,
-  drop,
-  switchDrop,
-  loginUser,
-  signupUser,
-  updateUserAndCollection,
+  login, signup,
+  drop, switchDrop,
+  loginUser, signupUser,
+  updateUserAndCollection, user,
 }) => {
   let dropdown = <div />;
   if (login) {
@@ -31,11 +28,13 @@ const Profile = ({
     );
   }
 
+  let name = user ? user : 'Guest'
+
   return (
     <div id="profile">
       <div id="username">
         <h5 className="login">
-          Welcome Guest!
+          Welcome {name}!
         </h5>
         <br />
         <h5 className="login">

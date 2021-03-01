@@ -81,6 +81,7 @@ class App extends React.Component {
       displayCollection, displaySuggestions,
       displayWishlist, collection,
       suggestions, wishlist,
+      user,
     } = this.state;
 
     let games = <div />;
@@ -103,6 +104,7 @@ class App extends React.Component {
           signupUser={signupUser}
           loginUser={loginUser}
           updateUserAndCollection={this.updateUserAndCollection}
+          user={user}
         />
         <div id="bodyContainer">
           <LeftSideBar
