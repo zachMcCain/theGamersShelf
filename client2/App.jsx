@@ -19,21 +19,27 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      loginDropdown: false,
-      signupDropdown: false,
-      collection: [],
-      suggestions: [],
-      wishlist: [],
-      user: null,
       displaySuggestions: true,
       displayCollection: false,
       displayWishlist: false,
+      displaySearchResults: false,
+      displayIndividual: false,
+      loginDropdown: false,
+      signupDropdown: false,
+      user: null,
+      suggestions: [],
+      collection: [],
+      wishlist: [],
+      searchResults: [],
+      selectedGame: {},
     };
 
     this.handleDropdown = this.handleDropdown.bind(this);
     this.handleSwitchDropdown = this.handleSwitchDropdown.bind(this);
     this.handleDisplay = this.handleDisplay.bind(this);
     this.updateUserAndCollection = this.updateUserAndCollection.bind(this);
+    this.handleSearch = this.handleSearch.bind(this);
+    this.handleSelection = this.handleSelection.bind(this);
   }
 
   handleDropdown() {
@@ -64,11 +70,32 @@ class App extends React.Component {
         displayCollection: false,
         displaySuggestions: false,
         displayWishlist: false,
+        displaySearchResults: false,
+        displayIndividual: false,
       },
       () => {
         this.setState({ [id]: true });
       },
     );
+  }
+
+  handleSearch(searchTerm) {
+    axios.get(
+      `https://api.boardgameatlas.com/api/search?name=${searchTerm}&client_id=qkHJZ2akQa&fuzzy_match=true&limit=24`,
+    )
+      .then((results) => {
+        console.log('Results of search: ', results);
+        let { games } = results.data;
+        games.forEach((game, i) => {
+          games[i].images_medium = game.images.medium;
+          games[i].images_large = game.images.large;
+        });
+        this.setState({ searchResults: games });
+      });
+  }
+
+  handleSelection(game) {
+    this.setState({ selectedGame: game });
   }
 
   updateUserAndCollection(user, collection, suggestions) {
@@ -79,8 +106,10 @@ class App extends React.Component {
     let {
       loginDropdown, signupDropdown,
       displayCollection, displaySuggestions,
-      displayWishlist, collection,
-      suggestions, wishlist,
+      displayWishlist, displaySearchResults,
+      displayIndividual, searchResults,
+      suggestions, collection,
+      wishlist, selectedGame,
       user,
     } = this.state;
 
@@ -92,6 +121,8 @@ class App extends React.Component {
       games = suggestions;
     } else if (displayWishlist) {
       games = wishlist;
+    } else if (displaySearchResults) {
+      games = searchResults;
     }
 
     return (
@@ -109,8 +140,17 @@ class App extends React.Component {
         <div id="bodyContainer">
           <LeftSideBar
             handleDisplay={this.handleDisplay}
+            handleSearch={this.handleSearch}
           />
-          <GameDisplay games={games} />
+          <GameDisplay
+            games={games}
+            handleDisplay={this.handleDisplay}
+            displayIndividual={displayIndividual}
+            handleSelection={this.handleSelection}
+            selectedGame={selectedGame}
+            addGame={addGame}
+            removeGame={removeGame}
+          />
           <RightSideBar />
         </div>
         <Footer />

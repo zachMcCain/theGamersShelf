@@ -1,3 +1,4 @@
+/* eslint-disable prefer-const */
 /* eslint-disable react/prop-types */
 import React from 'react';
 import Login from './Login';
@@ -28,12 +29,13 @@ const Profile = ({
     );
   }
 
-  let name = user ? user : 'Guest'
+  let name = user || 'Guest';
 
   return (
     <div id="profile">
       <div id="username">
         <h5 className="login">
+          {/* eslint-disable-next-line react/jsx-one-expression-per-line */}
           Welcome {name}!
         </h5>
         <br />
@@ -48,9 +50,9 @@ const Profile = ({
         </h5>
       </div>
       <div id="spacer" />
-      <div id="profilePic">
-        <div />
-      </div>
+      {/* <div id="profilePic"> */}
+      {/* <div /> */}
+      {/* </div> */}
       {dropdown}
     </div>
   );

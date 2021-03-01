@@ -67,14 +67,14 @@ body {
   height: 37px;
   width: 37px;
   display: inline-block;
-  background: brown;
+  background: #00a7e1;
 }
 
 #loginDropdown {
   position: fixed;
   border: 1px solid;
   margin: 18px;
-  margin-top: 5px;
+  margin-top: 25px;
   border-radius: 5px;
   background-color: white;
   text-align: center;
@@ -99,19 +99,26 @@ body {
 #bodyContainer {
   display: grid;
   grid-template-columns: 200px 1fr 200px;
-  height: 1200px;
+  height: fit-content;
+  min-height: 1200px;
+  margin-bottom: 30px;
 }
 
 #leftSideBar {
   grid-column: 1;
   padding: 10px;
   text-align: center;
+  background-color: #FBFBFB;
 }
 
 #leftSideBar button {
   border: none;
   background: none;
   padding: 15px;
+}
+
+#leftSideBar button:hover {
+  cursor:pointer;
 }
 
 #gameDisplayArea {
@@ -130,17 +137,56 @@ body {
   margin: 5px;
   text-align: center;
   border-bottom: 1px solid;
+  padding: 20px;
+}
+
+#gameCard:hover {
+  cursor: pointer;
 }
 
 #gameCard img {
   width: 13vw;
 }
 
+#gameDetailContainer {
+  text-align: center;
+}
+
+#gameDetail {
+  text-align: center;
+  margin: auto;
+  margin-bottom: 30px;
+  padding: 20px;
+  max-width: 1000px;
+}
+
+#gameDetail img {
+  max-height: 70vh;
+}
+
+#gameDetail p {
+  /* text-align: left; */
+  align-content: center;
+}
+
 #rightSideBar {
   grid-column: 3;
   padding: 10px;
+  background-color: #FBFBFB;
 }
 
 #gameInfo {
   justify-content: end;
+}
+
+#footer {
+  background-color: #1e2834;
+  padding: 15px;
+  color: white;
+  height: 30px;
+  position: fixed;
+  width: 100%;
+  left: 0;
+  bottom: 0;
+  text-align: center;
 }
