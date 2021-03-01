@@ -1,12 +1,33 @@
 import React from 'react';
 
-const LeftSideBar = (props) => (
+const LeftSideBar = ({ handleDisplay }) => (
   <div id="leftSideBar">
-    <button type="button">Suggestions</button>
+    <button
+      type="button"
+      onClick={() => {
+        handleDisplay('displaySuggestions');
+      }}
+    >
+      Suggestions
+    </button>
     <hr />
-    <button type="button">Collection</button>
+    <button
+      type="button"
+      onClick={() => {
+        handleDisplay('displayCollection');
+      }}
+    >
+      Collection
+    </button>
     <hr />
-    <button type="button">Wishlist</button>
+    <button
+      type="button"
+      onClick={() => {
+        handleDisplay('displayWishlist');
+      }}
+    >
+      Wishlist
+    </button>
     <hr />
   </div>
 );

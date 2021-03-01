@@ -1,18 +1,53 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable prefer-const */
 import React from 'react';
 
-const Login = ({ switchDrop }) => (
-  <div id="loginDropdown">
-    <input type="text" />
-    <br />
-    <input type="password" />
-    <br />
-    <button type="button" name="signup" className="switchDropdown" onClick={switchDrop}>
-      signup
-    </button>
-    <button type="submit" name="login">
-      Login
-    </button>
-  </div>
-);
+class Login extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: '',
+      password: '',
+    };
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleChange(e) {
+    let input = e.target.value;
+    this.setState({ [e.target.name]: input });
+  }
+
+  handleSubmit() {
+    let { loginUser, updateUserAndCollection } = this.props;
+    let { name, password } = this.state;
+    loginUser(name, password)
+      .then((userData) => {
+        let { games, suggestions } = userData;
+        updateUserAndCollection(name, games, suggestions);
+      })
+      .catch((error) => {
+        console.log('error at login: ', error);
+      });
+  }
+
+  render() {
+    let { switchDrop } = this.props;
+    return (
+      <div id="loginDropdown">
+        <input type="text" name="name" onChange={this.handleChange} />
+        <br />
+        <input type="password" name="password" onChange={this.handleChange} />
+        <br />
+        <button type="button" name="signup" className="switchDropdown" onClick={switchDrop}>
+          signup
+        </button>
+        <button type="submit" name="login" onClick={this.handleSubmit}>
+          Login
+        </button>
+      </div>
+    );
+  }
+}
 
 export default Login;

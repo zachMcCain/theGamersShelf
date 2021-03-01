@@ -21,14 +21,33 @@ class App extends React.Component {
     this.state = {
       loginDropdown: false,
       signupDropdown: false,
+      collection: [],
+      suggestions: [],
+      wishlist: [],
+      user: null,
+      displaySuggestions: true,
+      displayCollection: false,
+      displayWishlist: false,
     };
+
     this.handleDropdown = this.handleDropdown.bind(this);
     this.handleSwitchDropdown = this.handleSwitchDropdown.bind(this);
+    this.handleDisplay = this.handleDisplay.bind(this);
+    this.updateUserAndCollection = this.updateUserAndCollection.bind(this);
   }
 
   handleDropdown() {
-    let { loginDropdown } = this.state;
-    this.setState({ loginDropdown: !loginDropdown });
+    let { loginDropdown, signupDropdown } = this.state;
+    if (loginDropdown || signupDropdown) {
+      this.setState({
+        loginDropdown: false,
+        signupDropdown: false,
+      });
+    } else {
+      this.setState({
+        loginDropdown: true,
+      });
+    }
   }
 
   handleSwitchDropdown() {
@@ -39,8 +58,42 @@ class App extends React.Component {
     });
   }
 
+  handleDisplay(id) {
+    this.setState(
+      {
+        displayCollection: false,
+        displaySuggestions: false,
+        displayWishlist: false,
+      },
+      () => {
+        this.setState({ [id]: true });
+      },
+    );
+  }
+
+  updateUserAndCollection(user, collection, suggestions) {
+    this.setState({ user, collection, suggestions });
+  }
+
   render() {
-    let { loginDropdown, signupDropdown } = this.state;
+    let {
+      loginDropdown, signupDropdown,
+      displayCollection, displaySuggestions,
+      displayWishlist, collection,
+      suggestions, wishlist,
+      user,
+    } = this.state;
+
+    let games = <div />;
+
+    if (displayCollection) {
+      games = collection;
+    } else if (displaySuggestions) {
+      games = suggestions;
+    } else if (displayWishlist) {
+      games = wishlist;
+    }
+
     return (
       <div>
         <Header
@@ -48,10 +101,16 @@ class App extends React.Component {
           signup={signupDropdown}
           drop={this.handleDropdown}
           switchDrop={this.handleSwitchDropdown}
+          signupUser={signupUser}
+          loginUser={loginUser}
+          updateUserAndCollection={this.updateUserAndCollection}
+          user={user}
         />
         <div id="bodyContainer">
-          <LeftSideBar />
-          <GameDisplay />
+          <LeftSideBar
+            handleDisplay={this.handleDisplay}
+          />
+          <GameDisplay games={games} />
           <RightSideBar />
         </div>
         <Footer />

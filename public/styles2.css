@@ -1,10 +1,13 @@
 body {
   margin: 0;
+  font-family: 'Montserrat', sans-serif;
 }
 
 #header {
   height: 80px;
-  background-color: aquamarine;
+  /* background-color: #35524A; */
+  color: white;
+  background-color: #1e2834;
 }
 
 #title {
@@ -12,6 +15,15 @@ body {
   position: absolute;
   left: 110px;
   display: inline;
+  font-family: 'Bangers', cursive;
+  font-size: 30px;
+  padding: 0;
+}
+
+#title h1 {
+  font-size: 2.3em;
+  margin: 0;
+  color: #EAA448;
 }
 
 #profile {
@@ -41,6 +53,7 @@ body {
   font-weight: 900;
   border: none;
   padding: 0;
+  color: white;
 }
 
 #spacer {
@@ -86,7 +99,7 @@ body {
 #bodyContainer {
   display: grid;
   grid-template-columns: 200px 1fr 200px;
-  height: 500px;
+  height: 1200px;
 }
 
 #leftSideBar {
@@ -108,9 +121,26 @@ body {
   border-bottom: none;
   padding: 10px;
   box-shadow: 3px 0 2px lightgray, -3px 0 2px lightgray;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr;
+}
+
+#gameCard {
+  margin: 5px;
+  text-align: center;
+  border-bottom: 1px solid;
+}
+
+#gameCard img {
+  width: 13vw;
 }
 
 #rightSideBar {
   grid-column: 3;
   padding: 10px;
+}
+
+#gameInfo {
+  justify-content: end;
 }
