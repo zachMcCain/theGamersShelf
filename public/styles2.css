@@ -86,7 +86,7 @@ body {
 #bodyContainer {
   display: grid;
   grid-template-columns: 200px 1fr 200px;
-  height: 500px;
+  height: 1200px;
 }
 
 #leftSideBar {
@@ -108,6 +108,9 @@ body {
   border-bottom: none;
   padding: 10px;
   box-shadow: 3px 0 2px lightgray, -3px 0 2px lightgray;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr;
 }
 
 #rightSideBar {

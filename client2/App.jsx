@@ -27,8 +27,17 @@ class App extends React.Component {
   }
 
   handleDropdown() {
-    let { loginDropdown } = this.state;
-    this.setState({ loginDropdown: !loginDropdown });
+    let { loginDropdown, signupDropdown } = this.state;
+    if (loginDropdown || signupDropdown) {
+      this.setState({
+        loginDropdown: false,
+        signupDropdown: false,
+      });
+    } else {
+      this.setState({
+        loginDropdown: true,
+      });
+    }
   }
 
   handleSwitchDropdown() {
@@ -48,6 +57,8 @@ class App extends React.Component {
           signup={signupDropdown}
           drop={this.handleDropdown}
           switchDrop={this.handleSwitchDropdown}
+          singupUser={signupUser}
+          loginUser={loginUser}
         />
         <div id="bodyContainer">
           <LeftSideBar />
