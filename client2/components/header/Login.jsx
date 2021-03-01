@@ -22,9 +22,9 @@ class Login extends React.Component {
     let { loginUser, updateUserAndCollection } = this.props;
     let { name, password } = this.state;
     loginUser(name, password)
-      .then((games) => {
-        console.log('games at login: ', games);
-        updateUserAndCollection(name, games.games);
+      .then((userData) => {
+        let { games, suggestions } = userData;
+        updateUserAndCollection(name, games, suggestions);
       })
       .catch((error) => {
         console.log('error at login: ', error);

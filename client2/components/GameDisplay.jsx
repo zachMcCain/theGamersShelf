@@ -3,10 +3,10 @@
 import React from 'react';
 import GameCard from './gameDisplay/GameCard';
 
-const GameDisplay = ({ collection }) => {
+const GameDisplay = ({ games }) => {
   let gameCards = <div />;
-  if (collection.length) {
-    gameCards = collection.map((game) => (
+  if (games.length) {
+    gameCards = games.map((game) => (
       <GameCard game={game} />
     ));
   }

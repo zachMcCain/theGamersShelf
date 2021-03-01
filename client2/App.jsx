@@ -22,10 +22,17 @@ class App extends React.Component {
       loginDropdown: false,
       signupDropdown: false,
       collection: [],
+      suggestions: [],
+      wishlist: [],
       user: null,
+      displaySuggestions: true,
+      displayCollection: false,
+      displayWishlist: false,
     };
+
     this.handleDropdown = this.handleDropdown.bind(this);
     this.handleSwitchDropdown = this.handleSwitchDropdown.bind(this);
+    this.handleDisplay = this.handleDisplay.bind(this);
     this.updateUserAndCollection = this.updateUserAndCollection.bind(this);
   }
 
@@ -51,12 +58,41 @@ class App extends React.Component {
     });
   }
 
-  updateUserAndCollection(user, games) {
-    this.setState({ user, collection: games});
+  handleDisplay(id) {
+    this.setState(
+      {
+        displayCollection: false,
+        displaySuggestions: false,
+        displayWishlist: false,
+      },
+      () => {
+        this.setState({ [id]: true });
+      },
+    );
+  }
+
+  updateUserAndCollection(user, collection, suggestions) {
+    this.setState({ user, collection, suggestions });
   }
 
   render() {
-    let { loginDropdown, signupDropdown, collection } = this.state;
+    let {
+      loginDropdown, signupDropdown,
+      displayCollection, displaySuggestions,
+      displayWishlist, collection,
+      suggestions, wishlist,
+    } = this.state;
+
+    let games = <div />;
+
+    if (displayCollection) {
+      games = collection;
+    } else if (displaySuggestions) {
+      games = suggestions;
+    } else if (displayWishlist) {
+      games = wishlist;
+    }
+
     return (
       <div>
         <Header
@@ -69,8 +105,10 @@ class App extends React.Component {
           updateUserAndCollection={this.updateUserAndCollection}
         />
         <div id="bodyContainer">
-          <LeftSideBar />
-          <GameDisplay collection={collection} />
+          <LeftSideBar
+            handleDisplay={this.handleDisplay}
+          />
+          <GameDisplay games={games} />
           <RightSideBar />
         </div>
         <Footer />

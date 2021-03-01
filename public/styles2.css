@@ -115,6 +115,8 @@ body {
 
 #gameCard {
   margin: 5px;
+  text-align: center;
+  border-bottom: 1px solid;
 }
 
 #gameCard img {
@@ -124,4 +126,8 @@ body {
 #rightSideBar {
   grid-column: 3;
   padding: 10px;
+}
+
+#gameInfo {
+  justify-content: end;
 }
