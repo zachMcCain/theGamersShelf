@@ -92,6 +92,13 @@ body {
 #leftSideBar {
   grid-column: 1;
   padding: 10px;
+  text-align: center;
+}
+
+#leftSideBar button {
+  border: none;
+  background: none;
+  padding: 15px;
 }
 
 #gameDisplayArea {
