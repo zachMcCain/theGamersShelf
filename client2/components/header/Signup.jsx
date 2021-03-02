@@ -20,12 +20,13 @@ class Signup extends React.Component {
   }
 
   handleSubmit() {
-    let { signupUser } = this.props;
+    let { signupUser, drop, loginUser } = this.props;
     let { name, password, secondPassword } = this.state;
-    this.setState({ name: '', password: '', secondPassword: '' });
     signupUser(name, password, secondPassword)
       .then((result) => {
+        loginUser(name, password);
         console.log('result of signup', result);
+        drop();
       });
   }
 

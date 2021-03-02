@@ -1,3 +1,4 @@
+/* eslint-disable prefer-const */
 const crypto = require('crypto');
 
 exports.createHash = (data, salt = '') => {
@@ -6,10 +7,10 @@ exports.createHash = (data, salt = '') => {
   return shasum.digest('hex');
 };
 
-exports.compareHash = (attempted, stored, salt) => {
-  return stored === this.createHash(attempted, salt);
-};
+exports.compareHash = (attempted, stored, salt) => (
+  stored === this.createHash(attempted, salt)
+);
 
-exports.createRandom32String = () => {
-  return crypto.randomBytes(32).toString('hex');
-};
+exports.createRandom32String = () => (
+  crypto.randomBytes(32).toString('hex')
+);

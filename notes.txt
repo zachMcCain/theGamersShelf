@@ -23,16 +23,3 @@ On Client side,
   set state to loggedin
     thereby removing login/signup form
 
-
-
-//////////  ADD GAMES TO USER  //////////
-
-
-
-
-
-///////// SETUP INITIAL PAGE GAMES  ////////
-Refactor client to show suggestions right off the bat
-  Have default suggestions for unlogged in
-  Change suggestions based on user upon login
-

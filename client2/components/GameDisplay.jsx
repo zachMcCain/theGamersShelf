@@ -8,12 +8,27 @@ const GameDisplay = ({
   games, handleDisplay,
   displayIndividual, handleSelection,
   selectedGame, addGameToCollection,
-  removeGameFromCollection,
+  removeGameFromCollection, addGameToWishlist,
+  removeGameFromWishlist,
 }) => {
-  let gameCards = <div />;
+  let gameCards = (
+    <div>
+      <div />
+      <div id="suggestSearch">
+        <h5>
+          Search for games to begin adding them to your list and recieve personalized suggestions!
+        </h5>
+      </div>
+    </div>
+  );
   if (games.length) {
     gameCards = games.map((game) => (
-      <GameCard game={game} handleDisplay={handleDisplay} handleSelection={handleSelection} />
+      <GameCard
+        game={game}
+        handleDisplay={handleDisplay}
+        handleSelection={handleSelection}
+        key={game.id}
+      />
     ));
   }
 
@@ -23,6 +38,8 @@ const GameDisplay = ({
         game={selectedGame}
         addGameToCollection={addGameToCollection}
         removeGameFromCollection={removeGameFromCollection}
+        addGameToWishlist={addGameToWishlist}
+        removeGameFromWishlist={removeGameFromWishlist}
       />
     );
   }

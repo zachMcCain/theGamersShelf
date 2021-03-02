@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 /* eslint-disable prefer-const */
 import axios from 'axios';
 
@@ -19,7 +20,7 @@ const addGameToCollection = function (game) {
     axios.post('http://localhost:3000/api/addToUserCollection', collection);
     this.setState({ collection: games });
   } else {
-    window.alert('Error: Game already in collection!')
+    window.alert('Error: Game already in collection!');
   }
 };
 
@@ -32,7 +33,6 @@ const removeGameFromCollection = function (game) {
     }
   }
   this.setState({ collection: games });
-  console.log('remove game ran', game);
 
   axios.post('/api/removeFromUserCollection', { game, user: this.state.user });
 };

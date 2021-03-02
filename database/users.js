@@ -23,6 +23,7 @@ const addNewUser = ({ name, password }) => (
   checkUserName(name)
     .then((result) => {
       if (!result.records.length) {
+        console.log('here are the result records from add new user: ', result.records);
         const salt = crypto.createRandom32String();
         // hash the password
         const hash = crypto.createHash(password, salt);
@@ -30,7 +31,7 @@ const addNewUser = ({ name, password }) => (
         const params = { name, hash, salt };
         // console.log('Adding a new user', userInfo)
         const query = 'MERGE (a: User {name: $name, passwordHash: $hash, salt: $salt})';
-        return db.writeTransaction((tx) => tx.run(query, params));
+        // return db.writeTransaction((tx) => tx.run(query, params));
       }
       return Promise.reject(new Error());
     })
@@ -57,34 +58,7 @@ const checkUserCredentials = ({ name, password }, cb) => (
     })
 );
 
-// Connect user to game
-const addGameToUserCollection = ({ user, game }, cb) => {
-  let params = { name: user, game };
-  // const query = `MATCH (a:User) where a.name = $name`
-  const query = `MATCH (a:User {name: $name})
-  MATCH (b:Game {name: $game})
-  MERGE (a)-[:OWNS]->(b)`;
-  db.writeTransaction((tx) => tx.run(query, params))
-    .then((result) => {
-      cb(result);
-    })
-    .catch((err) => {
-      cb(err);
-    });
-};
-
-const removeGameFromCollection = (user, game) => {
-  let { name } = game;
-  console.log('remove game in db ran with user: ', user, ' and game: ', game.name);
-  const query = `MATCH (a:User{name:$user})-[c:OWNS]->(b:Game {name: $name})
-  DETACH DELETE c`;
-  let params = { user, name };
-  return db.writeTransaction((tx) => tx.run(query, params));
-};
-
 module.exports = {
   addNewUser,
   checkUserCredentials,
-  addGameToUserCollection,
-  removeGameFromCollection,
 };

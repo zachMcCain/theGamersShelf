@@ -17,6 +17,7 @@ const Profile = ({
         switchDrop={switchDrop}
         loginUser={loginUser}
         updateUserAndCollection={updateUserAndCollection}
+        drop={drop}
       />
     );
   } else if (signup) {
@@ -24,7 +25,9 @@ const Profile = ({
       <Signup
         switchDrop={switchDrop}
         signupUser={signupUser}
+        loginUser={loginUser}
         updateUserAndCollection={updateUserAndCollection}
+        drop={drop}
       />
     );
   }

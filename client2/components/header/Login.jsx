@@ -19,13 +19,14 @@ class Login extends React.Component {
   }
 
   handleSubmit() {
-    let { loginUser, updateUserAndCollection } = this.props;
+    let { loginUser, updateUserAndCollection, drop } = this.props;
     let { name, password } = this.state;
-    this.setState({ name: '', password: '' });
     loginUser(name, password)
       .then((userData) => {
+        console.log('Handle submit made it to then block', userData)
         let { games, suggestions } = userData;
         updateUserAndCollection(name, games, suggestions);
+        drop();
       })
       .catch((error) => {
         console.log('error at login: ', error);

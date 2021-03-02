@@ -50,10 +50,8 @@ app.post('/login', (req, res) => {
 /// //// COLLECTION ROUTES ///////
 
 app.post('/api/addToUserCollection', (req, res) => {
-  console.log('The data sent: ', req.body);
-  // games.addGameToDatabase(req.body, (result => res.send(result)));
-  users.addGameToUserCollection(req.body, ((result) => res.send(result)));
-  // res.send('Hello world');
+  // console.log('The data sent: ', req.body);
+  games.addGameToUserCollection(req.body, ((result) => res.send(result)));
 });
 
 app.get('/api/getUserCollection', (req, res) => {
@@ -63,10 +61,9 @@ app.get('/api/getUserCollection', (req, res) => {
 });
 
 app.post('/api/removeFromUserCollection', (req, res) => {
-  console.log('Connected to removal endpoint: ', req.body);
   if (req.body.user) {
     let { user, game } = req.body;
-    users.removeGameFromCollection(user, game)
+    games.removeGameFromCollection(user, game)
       .then((result) => res.send(result))
       .catch((error) => res.send(error));
   } else {
@@ -76,7 +73,6 @@ app.post('/api/removeFromUserCollection', (req, res) => {
 
 /// /// SUGGESTIONS ROUTES //////
 app.post('/api/getUsersSuggestions', (req, res) => {
-  console.log('hit suggestions', req.body.user);
   suggestions.getSuggestions(req.body.user)
     .then((result) => {
       // console.log('result of suggestions: ', result);
@@ -90,11 +86,16 @@ app.listen(port, () => {
 
 /// /// WISHLIST ROUTES /// ///
 app.post('/api/addToWishlist', (req, res) => {
-  console.log('hit add to wishlist: ', req.body);
-  res.send('Hit add to wishlist route');
+  games.addGameToUserWishlist(req.body, ((result) => res.send(result)));
 });
 
 app.post('/api/removeFromWishlist', (req, res) => {
-  console.log('hit remove from wishlist: ', req.body);
-  res.send('Hit remove from wishlist route');
+  if (req.body.user) {
+    let { user, game } = req.body;
+    games.removeGameFromWishlist(user, game)
+      .then((result) => res.send(result))
+      .catch((error) => res.send(error));
+  } else {
+    res.send('User not logged in');
+  }
 });

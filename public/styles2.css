@@ -133,6 +133,12 @@ body {
   grid-template-rows: 1fr 1fr 1fr 1fr;
 }
 
+#suggestSearch {
+  text-align: center;
+  width: 60%;
+  font-size: 40px;
+}
+
 #gameCard {
   margin: 5px;
   text-align: center;

@@ -105,18 +105,29 @@ const addGameToDatabase = (gameInfo, cb) => {
 };
 
 // Retrieve Board Game Info from Board Game Atlas API
-let searchTerm = 'dominion';
+// let searchTerm = 'i';
 // Completed to 1k items through: ---f--- 223 for g
+// Completed to 100 items through: i
+let terms = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
 
-axios.get(`https://api.boardgameatlas.com/api/search?name=${searchTerm}&client_id=qkHJZ2akQa&limit=5`)
-  .then((results) => {
-    let i = 0;
-    let gameList = results.data.games;
-    Promise.each(gameList, (game) => (addGameToDatabase(game, () => {
-      i += 1;
-      console.log(`logged ${i} games from ${searchTerm}`);
-    })));
-  })
-  .catch((err) => {
-    console.log('Error in seeding: ', err);
-  });
+const seedDb = (searchTerm) => (
+  axios.get(`https://api.boardgameatlas.com/api/search?name=${searchTerm}&client_id=qkHJZ2akQa&limit=100`)
+    .then((results) => {
+      let i = 0;
+      let gameList = results.data.games;
+      return Promise.each(gameList, (game) => (addGameToDatabase(game, () => {
+        i += 1;
+        console.log(`logged ${i} games from ${searchTerm}`);
+      })))
+        .then(() => {
+          console.log('Seeding script complete');
+        });
+    })
+    .catch((err) => {
+      console.log('Error in seeding: ', err);
+    })
+);
+
+Promise.each(terms, (searchTerm) => (
+  seedDb(searchTerm)
+));

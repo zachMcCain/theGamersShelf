@@ -1,3 +1,5 @@
+/* eslint-disable no-underscore-dangle */
+/* eslint-disable no-alert */
 /* eslint-disable prefer-const */
 import axios from 'axios';
 
@@ -31,12 +33,10 @@ const loginUser = (name, password) => {
 
   return axios.post('/login', user)
     .then((result) => {
-      console.log('result of login: ', result.data);
       if (result.data) {
         // console.log('time to update games', result.data)
         let { records } = result.data.collection;
         let suggestions = result.data.suggestions.suggestions.records;
-        console.log('records: ', result.data);
         let games = {};
         games.games = [];
         games.suggestions = [];
@@ -49,7 +49,7 @@ const loginUser = (name, password) => {
         return games;
       }
       window.alert('Login credentials invalid');
-      return new Error();
+      throw new Error();
     });
 };
 

@@ -15,7 +15,9 @@ const GameCard = ({ game, handleDisplay, handleSelection }) => (
     <img alt="board game" src={game.images_medium} />
     <p id="gameInfo">
       {game.description_preview.slice(0, 200)}
-      ... more
+      <br />
+      <br />
+      ... see more
     </p>
   </div>
 );
