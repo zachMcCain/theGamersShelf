@@ -74,9 +74,11 @@ const addGameToUserCollection = ({ user, game }, cb) => {
 };
 
 const removeGameFromCollection = (user, game) => {
-  const query = `MATCH (a:User{name:$user})-[c:OWNS]->(b:Game {name: $game})
-  DELETE c`;
-  let params = { user, game };
+  let { name } = game;
+  console.log('remove game in db ran with user: ', user, ' and game: ', game.name);
+  const query = `MATCH (a:User{name:$user})-[c:OWNS]->(b:Game {name: $name})
+  DETACH DELETE c`;
+  let params = { user, name };
   return db.writeTransaction((tx) => tx.run(query, params));
 };
 

@@ -87,3 +87,14 @@ app.post('/api/getUsersSuggestions', (req, res) => {
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);
 });
+
+/// /// WISHLIST ROUTES /// ///
+app.post('/api/addToWishlist', (req, res) => {
+  console.log('hit add to wishlist: ', req.body);
+  res.send('Hit add to wishlist route');
+});
+
+app.post('/api/removeFromWishlist', (req, res) => {
+  console.log('hit remove from wishlist: ', req.body);
+  res.send('Hit remove from wishlist route');
+});

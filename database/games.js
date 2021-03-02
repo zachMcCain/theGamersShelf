@@ -5,7 +5,7 @@ const db = require('./connect.js');
 /// ////////// READ //////////////
 // Get user info to load collection
 const getUserInfo = (name, cb) => {
-  const cypher = 'Match (a:User {name: $name})-[r]-(b) RETURN b';
+  const cypher = 'Match (a:User {name: $name})-[r:OWNS]-(b) RETURN b';
   const params = { name };
   const resultPromise = db.writeTransaction((tx) => tx.run(cypher, params));
 

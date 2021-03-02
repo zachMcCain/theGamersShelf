@@ -11,7 +11,9 @@ const addGameToCollection = function (game) {
     }
   }
   if (!gameOwned) {
-    game.images_medium = game.images.medium;
+    if (game.images) {
+      game.images_medium = game.images.medium;
+    }
     games.unshift(game);
     let collection = { user, game: game.name };
     axios.post('http://localhost:3000/api/addToUserCollection', collection);
@@ -22,11 +24,10 @@ const addGameToCollection = function (game) {
 };
 
 const removeGameFromCollection = function (game) {
-  console.log('Remove is running');
   let games = [];
   let { collection } = this.state;
   for (let i = 0; i < collection.length; i += 1) {
-    if (collection[i].name !== game) {
+    if (collection[i].name !== game.name) {
       games.push(collection[i]);
     }
   }

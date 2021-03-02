@@ -19,10 +19,10 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      displaySuggestions: true,
+      displaySuggestions: false,
       displayCollection: false,
       displayWishlist: false,
-      displaySearchResults: false,
+      displaySearchResults: true,
       displayIndividual: false,
       loginDropdown: false,
       signupDropdown: false,
@@ -40,6 +40,10 @@ class App extends React.Component {
     this.updateUserAndCollection = this.updateUserAndCollection.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
     this.handleSelection = this.handleSelection.bind(this);
+  }
+
+  componentDidMount() {
+    this.handleSearch('');
   }
 
   handleDropdown() {

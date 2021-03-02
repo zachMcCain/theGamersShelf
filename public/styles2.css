@@ -155,7 +155,7 @@ body {
 #gameDetail {
   text-align: center;
   margin: auto;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   padding: 20px;
   max-width: 1000px;
 }
@@ -183,7 +183,7 @@ body {
   background-color: #1e2834;
   padding: 15px;
   color: white;
-  height: 30px;
+  height: 20px;
   position: fixed;
   width: 100%;
   left: 0;
