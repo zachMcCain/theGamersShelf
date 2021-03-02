@@ -1,7 +1,7 @@
 /* eslint-disable prefer-const */
 import axios from 'axios';
 
-const addGameToWishlist = (game) => {
+const addGameToWishlist = function (game) {
   let { user } = this.state;
   let games = this.state.wishlist;
   let gameOnList = false;
@@ -23,7 +23,7 @@ const addGameToWishlist = (game) => {
   }
 };
 
-const removeGameFromWishlist = (user, game) => {
+const removeGameFromWishlist = function (user, game) {
   let games = [];
   let { wishlist } = this.state;
   for (let i = 0; i < wishlist.length; i += 1) {

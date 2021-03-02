@@ -27,22 +27,27 @@ app.post('/signup', (req, res) => {
 
 app.post('/login', (req, res) => {
   console.log('login POST request body: ', req.body);
+  let { name } = req.body;
+  let userGames = {};
   users.checkUserCredentials(req.body)
-    .then(() => {
-      suggestions.getSuggestions(req.body.name)
-        .then((result) => {
-          let suggestions = { suggestions: result };
-          console.log('Suggestions result: ', suggestions);
-          // res.write(suggestions)
-          return suggestions;
-        })
-        .then((suggestions) => (
-          games.getUserInfo(req.body.name, (collection) => {
-            let info = { collection, suggestions };
-            res.send(info);
-          })
-          // res.send('success');
-        ));
+    .then(() => (
+      suggestions.getSuggestions(name)
+    ))
+    .then((suggestedGames) => {
+      userGames.suggestions = suggestedGames.records;
+      console.log('made it to suggested games');
+      return games.getUserCollection(name);
+    })
+    .then((collection) => {
+      console.log('made it to collection section');
+      userGames.collection = collection.records;
+      return games.getUserWishlist(name);
+    })
+    .then((wishlist) => {
+      console.log('Made it to wishlist section');
+      userGames.wishlist = wishlist.records;
+      console.log('here are the user\'s games: ', userGames);
+      res.send(userGames);
     })
     .catch(() => res.send(null));
 });

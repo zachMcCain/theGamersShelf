@@ -23,9 +23,9 @@ class Login extends React.Component {
     let { name, password } = this.state;
     loginUser(name, password)
       .then((userData) => {
-        console.log('Handle submit made it to then block', userData)
-        let { games, suggestions } = userData;
-        updateUserAndCollection(name, games, suggestions);
+        console.log('Handle submit made it to then block', userData);
+        let { games, suggestions, wishlist } = userData;
+        updateUserAndCollection(name, games, suggestions, wishlist);
         drop();
       })
       .catch((error) => {

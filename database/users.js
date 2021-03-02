@@ -31,7 +31,7 @@ const addNewUser = ({ name, password }) => (
         const params = { name, hash, salt };
         // console.log('Adding a new user', userInfo)
         const query = 'MERGE (a: User {name: $name, passwordHash: $hash, salt: $salt})';
-        // return db.writeTransaction((tx) => tx.run(query, params));
+        return db.writeTransaction((tx) => tx.run(query, params));
       }
       return Promise.reject(new Error());
     })

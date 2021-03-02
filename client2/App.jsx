@@ -4,9 +4,6 @@
 /* eslint-disable prefer-const */
 import React from 'react';
 import axios from 'axios';
-// import {
-//   renderCollection, renderSuggestions, renderPreferences,
-// } from './utils/render';
 import { signupUser, loginUser } from './utils/auth';
 import { addGameToCollection, removeGameFromCollection } from './utils/collection';
 import { addGameToWishlist, removeGameFromWishlist } from './utils/wishlist';
@@ -104,8 +101,8 @@ class App extends React.Component {
     this.setState({ selectedGame: game });
   }
 
-  updateUserAndCollection(user, collection, suggestions) {
-    this.setState({ user, collection, suggestions });
+  updateUserAndCollection(user, collection, suggestions, wishlist) {
+    this.setState({ user, collection, suggestions, wishlist });
   }
 
   updateWishlist(games) {

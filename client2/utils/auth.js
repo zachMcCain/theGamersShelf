@@ -34,17 +34,22 @@ const loginUser = (name, password) => {
   return axios.post('/login', user)
     .then((result) => {
       if (result.data) {
-        // console.log('time to update games', result.data)
-        let { records } = result.data.collection;
-        let suggestions = result.data.suggestions.suggestions.records;
+        console.log('time to update games', result.data);
+        let { collection, suggestions, wishlist } = result.data;
+        // let {suggestions} = result.data.suggestions.records;
+        // let wishlist = result.data.wishlist.records;
         let games = {};
         games.games = [];
         games.suggestions = [];
-        for (let i = 0; i < records.length; i += 1) {
-          games.games.push(records[i]._fields[0].properties);
+        games.wishlist = [];
+        for (let i = 0; i < collection.length; i += 1) {
+          games.games.push(collection[i]._fields[0].properties);
         }
         for (let i = 0; i < suggestions.length; i += 1) {
           games.suggestions.push(suggestions[i]._fields[0].properties);
+        }
+        for (let i = 0; i < wishlist.length; i += 1) {
+          games.wishlist.push(wishlist[i]._fields[0].properties);
         }
         return games;
       }

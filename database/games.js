@@ -4,14 +4,24 @@ const db = require('./connect.js');
 
 /// ////////// READ //////////////
 // Get user info to load collection
-const getUserInfo = (name, cb) => {
+const getUserCollection = (name) => {
   const cypher = 'Match (a:User {name: $name})-[r:OWNS]-(b) RETURN b';
   const params = { name };
-  const resultPromise = db.writeTransaction((tx) => tx.run(cypher, params));
+  console.log('Getting user info');
+  // const resultPromise =
+  return db.writeTransaction((tx) => tx.run(cypher, params));
 
-  return resultPromise.then((result) => {
-    cb(result);
-  });
+  // return resultPromise.then((result) => {
+  //   cb(result);
+};
+//   );
+// };
+
+const getUserWishlist = (name) => {
+  const cypher = 'Match (a:User {name: $name})-[r:WANTS]-(b) RETURN b';
+  const params = { name };
+  console.log('Getting wishlist');
+  return db.writeTransaction((tx) => tx.run(cypher, params));
 };
 
 /// //////// UPDATE COLLECTION /////////////
@@ -71,9 +81,10 @@ const removeGameFromWishlist = (user, game) => {
 };
 
 module.exports = {
-  getUserInfo,
+  getUserCollection,
   addGameToUserCollection,
   removeGameFromCollection,
   addGameToUserWishlist,
   removeGameFromWishlist,
+  getUserWishlist,
 };
