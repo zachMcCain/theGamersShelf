@@ -1,109 +1,90 @@
 const db = require('./connect.js');
 
-/////////////// COLLECTION READ AND WRITE QUERIES ////////////
+/// //////////// COLLECTION READ AND WRITE QUERIES ////////////
 
-///////////// READ //////////////
+/// ////////// READ //////////////
 // Get user info to load collection
-const getUserInfo = (name, cb) => {
-  // const cypher = "MATCH (n:Game) RETURN n";
-  const cypher = `Match (a:User {name: $name})-[r]-(b) RETURN b`
-  const params = { name: name };
-  const resultPromise = db.writeTransaction(tx => tx.run(cypher, params));
+const getUserCollection = (name) => {
+  const cypher = 'Match (a:User {name: $name})-[r:OWNS]-(b) RETURN b';
+  const params = { name };
+  console.log('Getting user info');
+  // const resultPromise =
+  return db.writeTransaction((tx) => tx.run(cypher, params));
 
-  return resultPromise.then(result => {
-    // const singleRecord = result.records[0]
-    // const game = singleRecord.get(0);
-    cb(result);
-  })
-  .then(result => {
-    // db.close();
-    // driver.close();
-  })
+  // return resultPromise.then((result) => {
+  //   cb(result);
+};
+//   );
+// };
+
+const getUserWishlist = (name) => {
+  const cypher = 'Match (a:User {name: $name})-[r:WANTS]-(b) RETURN b';
+  const params = { name };
+  console.log('Getting wishlist');
+  return db.writeTransaction((tx) => tx.run(cypher, params));
 };
 
-////////////// CREATE ///////////////////////////
-// Add a game to the database
-const addGameToDatabase = (gameInfo, cb) => {
-  let players = ''
-  console.log('game information: ', gameInfo)
-  let identifierIndex = 112
-  for (let i = gameInfo.min_players; i <= gameInfo.max_players; i++) {
-    players = players + ` MERGE (${String.fromCharCode(identifierIndex)}: Players {number: ${i}})
-    MERGE (${String.fromCharCode(identifierIndex)})-[:PLAYABLE_WITH]->(g) `
-    identifierIndex++
-  }
+/// //////// UPDATE COLLECTION /////////////
 
-  const cypher = `MERGE (a: Designer {name: $primary_designer.name})
-  MERGE (b: Publisher {name: $primary_publisher.name})
-  MERGE (g: Game {
-    name: $name,
-    id: $id,
-    url: $url,
-    year_published: $year_published,
-    min_players: $min_players,
-    max_players: $max_players,
-    min_playtime: $min_playtime,
-    max_playtime: $max_playtime,
-    min_age: $min_age,
-    description: $description,
-    description_preview: $description_preview,
-    image_url: $image_url,
-    images_thumb: $images.thumb,
-    images_small: $images.small,
-    images_medium: $images.medium,
-    images_large: $images.large,
-    images_original: $images.original,
-    price_US: $msrps[0].price,
-    primary_publisher: $primary_publisher.name,
-    avg_usr_rating: $average_user_rating,
-    primary_designer: $primary_designer.name
-  })
-  MERGE (a)-[:DESIGNED]->(g)<-[:PUBLISHED]-(b)
-  ${players}
-  MERGE (c: MinPlaytime {number: $min_playtime})
-  MERGE(c)-[:PLAYABLE_IN]->(g)
-  MERGE (d: MaxPlaytime {number: $max_playtime})
-  MERGE (d)-[:PLAYABLE_IN]->(g)
-  MERGE (e: LearnComplexity {number: ${gameInfo.average_learning_complexity}})
-  MERGE (e)-[:LEARNING_CURVE]->(g)
-  MERGE (f: StrategyComplexity {number: ${gameInfo.average_strategy_complexity}})
-  MERGE (f)-[:STRATEGY_COMPLEXITY]->(g)
-  MERGE (h: UserRating {number: $average_user_rating})
-  MERGE (h)-[:USER_RATING]->(g)
-  MERGE (i: Age {number: $min_age})
-  MERGE (i)-[:MIN_AGE]->(g)
-   RETURN g`
+// Connect user to game
+const addGameToUserCollection = ({ user, game }, cb) => {
+  let params = { name: user, game };
+  console.log('Add game to collection of: ', user, ' ran with game: ', game);
+  // const query = `MATCH (a:User) where a.name = $name`
+  const query = `MATCH (a:User {name: $name})
+  MATCH (b:Game {name: $game})
+  MERGE (a)-[:OWNS]->(b)`;
+  db.writeTransaction((tx) => tx.run(query, params))
+    .then((result) => {
+      cb(result);
+    })
+    .catch((err) => {
+      cb(err);
+    });
+};
 
-   return db.writeTransaction(tx => tx.run(cypher, gameInfo))
-  .then(result => {
-    const singleRecord = result.records[0]
-    const game = singleRecord.get(0);
-    cb(game);
-  })
-  .then(result => {
-    console.log('add game ran')
-    // db.close();
-    // driver.close();
-  })
-}
+const removeGameFromCollection = (user, game) => {
+  let { name } = game;
+  console.log('remove game in db ran with user: ', user, ' and game: ', game.name);
+  const query = `MATCH (a:User{name:$user})-[c:OWNS]->(b:Game {name: $name})
+  DETACH DELETE c`;
+  let params = { user, name };
+  return db.writeTransaction((tx) => tx.run(query, params));
+};
 
+/// //////// UPDATE WISHLIST /////////////
 
+// Connect user's wishlist to game
+const addGameToUserWishlist = ({ user, game }, cb) => {
+  let params = { name: user, game };
+  console.log('Add game to wishlist of: ', user, ' ran with game: ', game);
+  // const query = `MATCH (a:User) where a.name = $name`
+  const query = `MATCH (a:User {name: $name})
+  MATCH (b:Game {name: $game})
+  MERGE (a)-[:WANTS]->(b)`;
+  db.writeTransaction((tx) => tx.run(query, params))
+    .then((result) => {
+      cb(result);
+    })
+    .catch((err) => {
+      cb(err);
+    });
+};
 
-
-
+const removeGameFromWishlist = (user, game) => {
+  let { name } = game;
+  console.log('remove game in db ran with user: ', user, ' and game: ', game.name);
+  const query = `MATCH (a:User{name:$user})-[c:WANTS]->(b:Game {name: $name})
+  DETACH DELETE c`;
+  let params = { user, name };
+  return db.writeTransaction((tx) => tx.run(query, params));
+};
 
 module.exports = {
-  getUserInfo: getUserInfo,
-  addGameToDatabase: addGameToDatabase,
-}
-
-
-//// CREATE A FULL PATH ////
-// CREATE p =(andy { name:'Andy' })-[:WORKS_AT]->(neo)<-[:WORKS_AT]-(michael { name: 'Michael' })
-
-///// CREATE A NEW NODE WITH RELATIONSHIP FOR EVERY EXISTING MATCHED NODE ///////
-// MATCH (a:Designer) WHERE a.name="Isaac Childress" CREATE n=(:Game {name: "Testing"})-[:Designed]->(a)
-
-
-
-
+  getUserCollection,
+  addGameToUserCollection,
+  removeGameFromCollection,
+  addGameToUserWishlist,
+  removeGameFromWishlist,
+  getUserWishlist,
+};

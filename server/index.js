@@ -27,22 +27,27 @@ app.post('/signup', (req, res) => {
 
 app.post('/login', (req, res) => {
   console.log('login POST request body: ', req.body);
+  let { name } = req.body;
+  let userGames = {};
   users.checkUserCredentials(req.body)
-    .then(() => {
-      suggestions.getSuggestions(req.body.name)
-        .then((result) => {
-          let suggestions = { suggestions: result };
-          console.log('Suggestions result: ', suggestions);
-          // res.write(suggestions)
-          return suggestions;
-        })
-        .then((suggestions) => (
-          games.getUserInfo(req.body.name, (collection) => {
-            let info = { collection, suggestions };
-            res.send(info);
-          })
-          // res.send('success');
-        ));
+    .then(() => (
+      suggestions.getSuggestions(name)
+    ))
+    .then((suggestedGames) => {
+      userGames.suggestions = suggestedGames.records;
+      console.log('made it to suggested games');
+      return games.getUserCollection(name);
+    })
+    .then((collection) => {
+      console.log('made it to collection section');
+      userGames.collection = collection.records;
+      return games.getUserWishlist(name);
+    })
+    .then((wishlist) => {
+      console.log('Made it to wishlist section');
+      userGames.wishlist = wishlist.records;
+      console.log('here are the user\'s games: ', userGames);
+      res.send(userGames);
     })
     .catch(() => res.send(null));
 });
@@ -50,10 +55,8 @@ app.post('/login', (req, res) => {
 /// //// COLLECTION ROUTES ///////
 
 app.post('/api/addToUserCollection', (req, res) => {
-  console.log('The data sent: ', req.body);
-  // games.addGameToDatabase(req.body, (result => res.send(result)));
-  users.addGameToUserCollection(req.body, ((result) => res.send(result)));
-  // res.send('Hello world');
+  // console.log('The data sent: ', req.body);
+  games.addGameToUserCollection(req.body, ((result) => res.send(result)));
 });
 
 app.get('/api/getUserCollection', (req, res) => {
@@ -63,10 +66,9 @@ app.get('/api/getUserCollection', (req, res) => {
 });
 
 app.post('/api/removeFromUserCollection', (req, res) => {
-  console.log('Connected to removal endpoint: ', req.body);
   if (req.body.user) {
     let { user, game } = req.body;
-    users.removeGameFromCollection(user, game)
+    games.removeGameFromCollection(user, game)
       .then((result) => res.send(result))
       .catch((error) => res.send(error));
   } else {
@@ -76,14 +78,29 @@ app.post('/api/removeFromUserCollection', (req, res) => {
 
 /// /// SUGGESTIONS ROUTES //////
 app.post('/api/getUsersSuggestions', (req, res) => {
-  console.log('hit suggestions');
   suggestions.getSuggestions(req.body.user)
     .then((result) => {
-      console.log('result of suggestions: ', result);
+      // console.log('result of suggestions: ', result);
     });
   res.send('hit suggestions');
 });
 
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);
+});
+
+/// /// WISHLIST ROUTES /// ///
+app.post('/api/addToWishlist', (req, res) => {
+  games.addGameToUserWishlist(req.body, ((result) => res.send(result)));
+});
+
+app.post('/api/removeFromWishlist', (req, res) => {
+  if (req.body.user) {
+    let { user, game } = req.body;
+    games.removeGameFromWishlist(user, game)
+      .then((result) => res.send(result))
+      .catch((error) => res.send(error));
+  } else {
+    res.send('User not logged in');
+  }
 });

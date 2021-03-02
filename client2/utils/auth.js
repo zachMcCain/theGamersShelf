@@ -1,3 +1,5 @@
+/* eslint-disable no-underscore-dangle */
+/* eslint-disable no-alert */
 /* eslint-disable prefer-const */
 import axios from 'axios';
 
@@ -8,22 +10,19 @@ const signupUser = (username, firstPassword, secondPassword) => {
   if (firstPassword === secondPassword && firstPassword.length > 5) {
     let user = { name: username, password: firstPassword };
     return axios.post('/signup', user)
-      .then(result => {
+      .then((result) => {
         if (!result.data) {
-          window.alert('Signup failed. User already exists')
+          window.alert('Signup failed. User already exists');
           throw new Error('User already exists');
         } else {
-          window.alert('Signup Successful!')
+          window.alert('Signup Successful!');
           // loginUser.bind(this);
           // login as the new user based on the name provided
         }
       });
-  } else {
-    window.alert('Password must be at least 6 characters long')
-    return Promise.reject('Password must be 6 characters long')
-    // return new Error('Password must be 6 characters long')
-    console.log('Error in signup')
   }
+  window.alert('Password must be at least 6 characters long');
+  return Promise.reject(new Error());
 };
 
 // LOGIN UTILS
@@ -34,25 +33,28 @@ const loginUser = (name, password) => {
 
   return axios.post('/login', user)
     .then((result) => {
-      console.log('result of login: ', result.data);
       if (result.data) {
-        // console.log('time to update games', result.data)
-        let { records } = result.data.collection;
-        let suggestions = result.data.suggestions.suggestions.records;
-        console.log('records: ', result.data);
+        console.log('time to update games', result.data);
+        let { collection, suggestions, wishlist } = result.data;
+        // let {suggestions} = result.data.suggestions.records;
+        // let wishlist = result.data.wishlist.records;
         let games = {};
         games.games = [];
         games.suggestions = [];
-        for (let i = 0; i < records.length; i += 1) {
-          games.games.push(records[i]._fields[0].properties);
+        games.wishlist = [];
+        for (let i = 0; i < collection.length; i += 1) {
+          games.games.push(collection[i]._fields[0].properties);
         }
         for (let i = 0; i < suggestions.length; i += 1) {
           games.suggestions.push(suggestions[i]._fields[0].properties);
         }
+        for (let i = 0; i < wishlist.length; i += 1) {
+          games.wishlist.push(wishlist[i]._fields[0].properties);
+        }
         return games;
-      } else {
-        window.alert('Login credentials invalid')
-     }
+      }
+      window.alert('Login credentials invalid');
+      throw new Error();
     });
 };
 

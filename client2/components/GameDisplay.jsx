@@ -4,16 +4,44 @@ import React from 'react';
 import GameCard from './gameDisplay/GameCard';
 import GameDetail from './gameDisplay/GameDetail';
 
-const GameDisplay = ({ games, handleDisplay, displayIndividual, handleSelection, selectedGame }) => {
-  let gameCards = <div />;
+const GameDisplay = ({
+  games, handleDisplay,
+  displayIndividual, handleSelection,
+  selectedGame, addGameToCollection,
+  removeGameFromCollection, addGameToWishlist,
+  removeGameFromWishlist,
+}) => {
+  let gameCards = (
+    <div>
+      <div />
+      <div id="suggestSearch">
+        <h5>
+          Search for games to begin adding them to your list and recieve personalized suggestions!
+        </h5>
+      </div>
+    </div>
+  );
   if (games.length) {
     gameCards = games.map((game) => (
-      <GameCard game={game} handleDisplay={handleDisplay} handleSelection={handleSelection} />
+      <GameCard
+        game={game}
+        handleDisplay={handleDisplay}
+        handleSelection={handleSelection}
+        key={game.id}
+      />
     ));
   }
 
   if (displayIndividual) {
-    return <GameDetail game={selectedGame} />;
+    return (
+      <GameDetail
+        game={selectedGame}
+        addGameToCollection={addGameToCollection}
+        removeGameFromCollection={removeGameFromCollection}
+        addGameToWishlist={addGameToWishlist}
+        removeGameFromWishlist={removeGameFromWishlist}
+      />
+    );
   }
   return (
     <div id="gameDisplayArea">

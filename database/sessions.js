@@ -1,2 +1,1 @@
-const db = require('./connect.js')
-
+const db = require('./connect.js');

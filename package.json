@@ -7,7 +7,8 @@
     "test": "test",
     "build": "npx webpack --config webpack.config.js",
     "start": "nodemon server/index.js",
-    "listen": "node server/index.js"
+    "listen": "node server/index.js",
+    "seed": "node database/seedDb/seedFromBGA.js"
   },
   "repository": {
     "type": "git",

@@ -4,11 +4,9 @@
 /* eslint-disable prefer-const */
 import React from 'react';
 import axios from 'axios';
-import {
-  renderCollection, renderSuggestions, renderPreferences,
-} from './utils/render';
 import { signupUser, loginUser } from './utils/auth';
-import { addGame, removeGame } from './utils/collection';
+import { addGameToCollection, removeGameFromCollection } from './utils/collection';
+import { addGameToWishlist, removeGameFromWishlist } from './utils/wishlist';
 import Header from './components/Header';
 import LeftSideBar from './components/LeftSideBar';
 import RightSideBar from './components/RightSideBar';
@@ -19,10 +17,10 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      displaySuggestions: true,
+      displaySuggestions: false,
       displayCollection: false,
       displayWishlist: false,
-      displaySearchResults: false,
+      displaySearchResults: true,
       displayIndividual: false,
       loginDropdown: false,
       signupDropdown: false,
@@ -37,9 +35,14 @@ class App extends React.Component {
     this.handleDropdown = this.handleDropdown.bind(this);
     this.handleSwitchDropdown = this.handleSwitchDropdown.bind(this);
     this.handleDisplay = this.handleDisplay.bind(this);
-    this.updateUserAndCollection = this.updateUserAndCollection.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
     this.handleSelection = this.handleSelection.bind(this);
+    this.updateUserAndCollection = this.updateUserAndCollection.bind(this);
+    this.updateWishlist = this.updateWishlist.bind(this);
+  }
+
+  componentDidMount() {
+    this.handleSearch('');
   }
 
   handleDropdown() {
@@ -98,8 +101,12 @@ class App extends React.Component {
     this.setState({ selectedGame: game });
   }
 
-  updateUserAndCollection(user, collection, suggestions) {
-    this.setState({ user, collection, suggestions });
+  updateUserAndCollection(user, collection, suggestions, wishlist) {
+    this.setState({ user, collection, suggestions, wishlist });
+  }
+
+  updateWishlist(games) {
+    this.setState({ wishlist: games });
   }
 
   render() {
@@ -148,8 +155,11 @@ class App extends React.Component {
             displayIndividual={displayIndividual}
             handleSelection={this.handleSelection}
             selectedGame={selectedGame}
-            addGame={addGame}
-            removeGame={removeGame}
+            // The below functions need to be decoupled from state
+            addGameToCollection={addGameToCollection.bind(this)}
+            removeGameFromCollection={removeGameFromCollection.bind(this)}
+            addGameToWishlist={addGameToWishlist.bind(this)}
+            removeGameFromWishlist={removeGameFromWishlist.bind(this)}
           />
           <RightSideBar />
         </div>

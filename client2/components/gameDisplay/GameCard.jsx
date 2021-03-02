@@ -11,11 +11,13 @@ const GameCard = ({ game, handleDisplay, handleSelection }) => (
       handleSelection(game);
     }}
   >
-    <p>{game.name}</p>
+    <h2>{game.name}</h2>
     <img alt="board game" src={game.images_medium} />
     <p id="gameInfo">
       {game.description_preview.slice(0, 200)}
-      ... more
+      <br />
+      <br />
+      ... see more
     </p>
   </div>
 );
