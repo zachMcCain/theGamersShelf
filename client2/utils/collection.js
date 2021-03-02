@@ -1,10 +1,11 @@
+/* eslint-disable prefer-const */
 import axios from 'axios';
 
-const addGame = function (game) {
-  let games = this.state.ownedGames;
-  let user = this.state.user;
+const addGameToCollection = function (game) {
+  let { user } = this.state;
+  let games = this.state.collection;
   let gameOwned = false;
-  for (var i = 0; i < games.length; i++) {
+  for (let i = 0; i < games.length; i += 1) {
     if (games[i].id === game.id) {
       gameOwned = true;
     }
@@ -12,25 +13,27 @@ const addGame = function (game) {
   if (!gameOwned) {
     game.images_medium = game.images.medium;
     games.unshift(game);
-    let collection = {user: user, game: game.name}
-    axios.post('http://localhost:3000/api/addToUserCollection', collection)
-    this.setState({ownedGames: games})
+    let collection = { user, game: game.name };
+    axios.post('http://localhost:3000/api/addToUserCollection', collection);
+    this.setState({ collection: games });
   } else {
     window.alert('Error: Game already in collection!')
   }
 };
 
-const removeGame = function (game) {
+const removeGameFromCollection = function (game) {
+  console.log('Remove is running');
   let games = [];
-  for (let i = 0; i < this.state.ownedGames.length; i++) {
-    if (this.state.ownedGames[i].name !== game) {
-      games.push(this.state.ownedGames[i]);
+  let { collection } = this.state;
+  for (let i = 0; i < collection.length; i += 1) {
+    if (collection[i].name !== game) {
+      games.push(collection[i]);
     }
   }
-  this.setState({ ownedGames: games });
+  this.setState({ collection: games });
   console.log('remove game ran', game);
 
-  axios.post('/api/removeFromUserCollection', {game: game, user: this.state.user});
+  axios.post('/api/removeFromUserCollection', { game, user: this.state.user });
 };
 
-export { addGame, removeGame };
+export { addGameToCollection, removeGameFromCollection };

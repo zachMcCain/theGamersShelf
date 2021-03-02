@@ -21,6 +21,7 @@ class Login extends React.Component {
   handleSubmit() {
     let { loginUser, updateUserAndCollection } = this.props;
     let { name, password } = this.state;
+    this.setState({ name: '', password: '' });
     loginUser(name, password)
       .then((userData) => {
         let { games, suggestions } = userData;

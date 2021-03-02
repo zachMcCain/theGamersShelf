@@ -1,36 +1,29 @@
 const db = require('./connect.js');
 
-/////////////// COLLECTION READ AND WRITE QUERIES ////////////
+/// //////////// COLLECTION READ AND WRITE QUERIES ////////////
 
-///////////// READ //////////////
+/// ////////// READ //////////////
 // Get user info to load collection
 const getUserInfo = (name, cb) => {
-  // const cypher = "MATCH (n:Game) RETURN n";
-  const cypher = `Match (a:User {name: $name})-[r]-(b) RETURN b`
-  const params = { name: name };
-  const resultPromise = db.writeTransaction(tx => tx.run(cypher, params));
+  const cypher = 'Match (a:User {name: $name})-[r]-(b) RETURN b';
+  const params = { name };
+  const resultPromise = db.writeTransaction((tx) => tx.run(cypher, params));
 
-  return resultPromise.then(result => {
-    // const singleRecord = result.records[0]
-    // const game = singleRecord.get(0);
+  return resultPromise.then((result) => {
     cb(result);
-  })
-  .then(result => {
-    // db.close();
-    // driver.close();
-  })
+  });
 };
 
-////////////// CREATE ///////////////////////////
+/// /////////// CREATE ///////////////////////////
 // Add a game to the database
 const addGameToDatabase = (gameInfo, cb) => {
-  let players = ''
-  console.log('game information: ', gameInfo)
-  let identifierIndex = 112
-  for (let i = gameInfo.min_players; i <= gameInfo.max_players; i++) {
-    players = players + ` MERGE (${String.fromCharCode(identifierIndex)}: Players {number: ${i}})
-    MERGE (${String.fromCharCode(identifierIndex)})-[:PLAYABLE_WITH]->(g) `
-    identifierIndex++
+  let players = '';
+  console.log('game information: ', gameInfo);
+  let identifierIndex = 112;
+  for (let i = gameInfo.min_players; i <= gameInfo.max_players; i += 1) {
+    players = `${players} MERGE (${String.fromCharCode(identifierIndex)}: Players {number: ${i}})
+    MERGE (${String.fromCharCode(identifierIndex)})-[:PLAYABLE_WITH]->(g) `;
+    identifierIndex += 1;
   }
 
   const cypher = `MERGE (a: Designer {name: $primary_designer.name})
@@ -72,38 +65,17 @@ const addGameToDatabase = (gameInfo, cb) => {
   MERGE (h)-[:USER_RATING]->(g)
   MERGE (i: Age {number: $min_age})
   MERGE (i)-[:MIN_AGE]->(g)
-   RETURN g`
+   RETURN g`;
 
-   return db.writeTransaction(tx => tx.run(cypher, gameInfo))
-  .then(result => {
-    const singleRecord = result.records[0]
-    const game = singleRecord.get(0);
-    cb(game);
-  })
-  .then(result => {
-    console.log('add game ran')
-    // db.close();
-    // driver.close();
-  })
-}
-
-
-
-
-
+  return db.writeTransaction((tx) => tx.run(cypher, gameInfo))
+    .then((result) => {
+      const singleRecord = result.records[0];
+      const game = singleRecord.get(0);
+      cb(game);
+    });
+};
 
 module.exports = {
-  getUserInfo: getUserInfo,
-  addGameToDatabase: addGameToDatabase,
-}
-
-
-//// CREATE A FULL PATH ////
-// CREATE p =(andy { name:'Andy' })-[:WORKS_AT]->(neo)<-[:WORKS_AT]-(michael { name: 'Michael' })
-
-///// CREATE A NEW NODE WITH RELATIONSHIP FOR EVERY EXISTING MATCHED NODE ///////
-// MATCH (a:Designer) WHERE a.name="Isaac Childress" CREATE n=(:Game {name: "Testing"})-[:Designed]->(a)
-
-
-
-
+  getUserInfo,
+  addGameToDatabase,
+};

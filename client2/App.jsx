@@ -4,11 +4,11 @@
 /* eslint-disable prefer-const */
 import React from 'react';
 import axios from 'axios';
-import {
-  renderCollection, renderSuggestions, renderPreferences,
-} from './utils/render';
+// import {
+//   renderCollection, renderSuggestions, renderPreferences,
+// } from './utils/render';
 import { signupUser, loginUser } from './utils/auth';
-import { addGame, removeGame } from './utils/collection';
+import { addGameToCollection, removeGameFromCollection } from './utils/collection';
 import Header from './components/Header';
 import LeftSideBar from './components/LeftSideBar';
 import RightSideBar from './components/RightSideBar';
@@ -125,6 +125,10 @@ class App extends React.Component {
       games = searchResults;
     }
 
+    // The below functions need to be decoupled from class state
+    // this.addGameToCollection = this.addGameToCollection.bind(this);
+    // this.removeGameFromCollection = this.removeGameFromCollection.bind(this);
+
     return (
       <div>
         <Header
@@ -148,8 +152,8 @@ class App extends React.Component {
             displayIndividual={displayIndividual}
             handleSelection={this.handleSelection}
             selectedGame={selectedGame}
-            addGame={addGame}
-            removeGame={removeGame}
+            addGameToCollection={addGameToCollection.bind(this)}
+            removeGameFromCollection={removeGameFromCollection.bind(this)}
           />
           <RightSideBar />
         </div>

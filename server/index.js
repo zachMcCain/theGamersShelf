@@ -76,10 +76,10 @@ app.post('/api/removeFromUserCollection', (req, res) => {
 
 /// /// SUGGESTIONS ROUTES //////
 app.post('/api/getUsersSuggestions', (req, res) => {
-  console.log('hit suggestions');
+  console.log('hit suggestions', req.body.user);
   suggestions.getSuggestions(req.body.user)
     .then((result) => {
-      console.log('result of suggestions: ', result);
+      // console.log('result of suggestions: ', result);
     });
   res.send('hit suggestions');
 });

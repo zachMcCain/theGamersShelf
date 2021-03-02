@@ -22,6 +22,7 @@ class Signup extends React.Component {
   handleSubmit() {
     let { signupUser } = this.props;
     let { name, password, secondPassword } = this.state;
+    this.setState({ name: '', password: '', secondPassword: '' });
     signupUser(name, password, secondPassword)
       .then((result) => {
         console.log('result of signup', result);

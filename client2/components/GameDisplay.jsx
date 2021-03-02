@@ -4,7 +4,12 @@ import React from 'react';
 import GameCard from './gameDisplay/GameCard';
 import GameDetail from './gameDisplay/GameDetail';
 
-const GameDisplay = ({ games, handleDisplay, displayIndividual, handleSelection, selectedGame }) => {
+const GameDisplay = ({
+  games, handleDisplay,
+  displayIndividual, handleSelection,
+  selectedGame, addGameToCollection,
+  removeGameFromCollection,
+}) => {
   let gameCards = <div />;
   if (games.length) {
     gameCards = games.map((game) => (
@@ -13,7 +18,13 @@ const GameDisplay = ({ games, handleDisplay, displayIndividual, handleSelection,
   }
 
   if (displayIndividual) {
-    return <GameDetail game={selectedGame} />;
+    return (
+      <GameDetail
+        game={selectedGame}
+        addGameToCollection={addGameToCollection}
+        removeGameFromCollection={removeGameFromCollection}
+      />
+    );
   }
   return (
     <div id="gameDisplayArea">

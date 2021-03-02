@@ -1,17 +1,31 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 
-const GameDetail = ({ game }) => (
+const GameDetail = ({ game, addGameToCollection, removeGameFromCollection }) => (
   <div id="gameDetailContainer">
     <div id="gameDetail">
       <h1>{game.name}</h1>
       <img alt={game.name} src={game.images_large} />
       <br />
-      <button type="button">Add to Collection</button>
+      <button
+        type="button"
+        onClick={() => {
+          addGameToCollection(game);
+        }}
+      >
+        Add to Collection
+      </button>
       <br />
       <button type="button">Add to Wishlist</button>
       <br />
-      <button type="button">Remove from Collection</button>
+      <button
+        type="button"
+        onClick={() => {
+          removeGameFromCollection(game);
+        }}
+      >
+        Remove from Collection
+      </button>
       <br />
       <button type="button">Remove from Wishlist</button>
       <p>{game.description_preview}</p>

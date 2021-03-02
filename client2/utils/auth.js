@@ -8,22 +8,19 @@ const signupUser = (username, firstPassword, secondPassword) => {
   if (firstPassword === secondPassword && firstPassword.length > 5) {
     let user = { name: username, password: firstPassword };
     return axios.post('/signup', user)
-      .then(result => {
+      .then((result) => {
         if (!result.data) {
-          window.alert('Signup failed. User already exists')
+          window.alert('Signup failed. User already exists');
           throw new Error('User already exists');
         } else {
-          window.alert('Signup Successful!')
+          window.alert('Signup Successful!');
           // loginUser.bind(this);
           // login as the new user based on the name provided
         }
       });
-  } else {
-    window.alert('Password must be at least 6 characters long')
-    return Promise.reject('Password must be 6 characters long')
-    // return new Error('Password must be 6 characters long')
-    console.log('Error in signup')
   }
+  window.alert('Password must be at least 6 characters long');
+  return Promise.reject(new Error());
 };
 
 // LOGIN UTILS
@@ -50,9 +47,9 @@ const loginUser = (name, password) => {
           games.suggestions.push(suggestions[i]._fields[0].properties);
         }
         return games;
-      } else {
-        window.alert('Login credentials invalid')
-     }
+      }
+      window.alert('Login credentials invalid');
+      return new Error();
     });
 };
 
