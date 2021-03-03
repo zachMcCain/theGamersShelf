@@ -18,3 +18,12 @@ Proceed to http://localhost:3000 in your browser and experience the power of The
 
 
 ![Alt Text](https://media.giphy.com/media/pJJdJ0JvmPtZH9XiER/giphy.gif)
+
+
+![Alt Text](https://media.giphy.com/media/OHmj6cUhvynqGmkvsj/giphy.gif)
+
+
+![Alt Text](https://media.giphy.com/media/ADyMZD6eoNUXUybube/giphy.gif)
+
+
+![Alt Text](https://media.giphy.com/media/rfB4phMSLNe6SYU3RA/giphy.gif)
