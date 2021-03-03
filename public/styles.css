@@ -170,6 +170,20 @@ body {
   max-height: 70vh;
 }
 
+#gameDetail button {
+  border: none;
+  background: #00a7e1;
+  display: inline-block;
+  margin: 10px;
+  border-radius: 5px;
+  padding: 10px;
+  color: white;
+}
+
+#gameDetail button:hover {
+  cursor: pointer;
+}
+
 #gameDetail p {
   /* text-align: left; */
   align-content: center;

@@ -19,16 +19,6 @@ const GameDetail = ({
       >
         Add to Collection
       </button>
-      <br />
-      <button
-        type="button"
-        onClick={() => {
-          addGameToWishlist(game);
-        }}
-      >
-        Add to Wishlist
-      </button>
-      <br />
       <button
         type="button"
         onClick={() => {
@@ -37,7 +27,14 @@ const GameDetail = ({
       >
         Remove from Collection
       </button>
-      <br />
+      <button
+        type="button"
+        onClick={() => {
+          addGameToWishlist(game);
+        }}
+      >
+        Add to Wishlist
+      </button>
       <button
         onClick={() => {
           removeGameFromWishlist(game);
