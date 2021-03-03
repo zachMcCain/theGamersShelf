@@ -15,3 +15,6 @@ Navigate to the directory './theGamersShelf' and run the following commands:
 Proceed to http://localhost:3000 in your browser and experience the power of The Gamer's Shelf.
 
 ![Alt Text](https://media.giphy.com/media/bw62pNSozErCLHoVla/giphy.gif)
+
+
+![Alt Text](https://media.giphy.com/media/pJJdJ0JvmPtZH9XiER/giphy.gif)
