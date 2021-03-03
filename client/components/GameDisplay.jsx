@@ -16,7 +16,7 @@ const GameDisplay = ({
       <div />
       <div id="suggestSearch">
         <h5>
-          Search for games to begin adding them to your list and recieve personalized suggestions!
+          Please login to see list!
         </h5>
       </div>
     </div>

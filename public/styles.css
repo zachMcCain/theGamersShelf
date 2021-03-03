@@ -72,7 +72,7 @@ body {
 
 #loginDropdown {
   position: fixed;
-  border: 1px solid;
+  border: 1px solid black;
   margin: 18px;
   margin-top: 25px;
   border-radius: 5px;
@@ -84,10 +84,18 @@ body {
 #loginDropdown input {
   margin: 7px;
   margin-bottom: 0px;
+  margin-top: 2px;
 }
 
 #loginDropdown button {
   margin: 7px;
+}
+
+#loginDropdown p {
+  margin-top: 3px;
+  margin-bottom: 0;
+  color: black;
+  font-size: small;
 }
 
 .switchDropdown {
