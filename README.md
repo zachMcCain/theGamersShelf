@@ -14,3 +14,4 @@ Navigate to the directory './theGamersShelf' and run the following commands:
 
 Proceed to http://localhost:3000 in your browser and experience the power of The Gamer's Shelf.
 
+    <div style="width:100%;height:0;padding-bottom:63%;position:relative;"><iframe src="https://giphy.com/embed/bw62pNSozErCLHoVla" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div><p><a href="https://giphy.com/gifs/bw62pNSozErCLHoVla">via GIPHY</a></p>
