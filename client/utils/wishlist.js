@@ -23,12 +23,12 @@ const addGameToWishlist = function (game) {
   }
 };
 
-const removeGameFromWishlist = function (user, game) {
+const removeGameFromWishlist = function (game) {
   let games = [];
   let { wishlist } = this.state;
   for (let i = 0; i < wishlist.length; i += 1) {
     if (wishlist[i].name !== game.name) {
-      games.push(collection[i]);
+      games.push(wishlist[i]);
     }
   }
   this.setState({ wishlist: games });

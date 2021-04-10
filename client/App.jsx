@@ -102,7 +102,9 @@ class App extends React.Component {
   }
 
   updateUserAndCollection(user, collection, suggestions, wishlist) {
-    this.setState({ user, collection, suggestions, wishlist });
+    this.setState({
+      user, collection, suggestions, wishlist,
+    });
   }
 
   updateWishlist(games) {
