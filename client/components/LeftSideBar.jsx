@@ -23,6 +23,7 @@ class LeftSideBar extends React.Component {
         <input
           onChange={this.handleChange}
           type="text"
+          placeholder="Search Term"
         />
         <button
           type="button"

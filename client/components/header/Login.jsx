@@ -38,10 +38,10 @@ class Login extends React.Component {
     return (
       <div id="loginDropdown">
         <p>Username</p>
-        <input type="text" name="name" onChange={this.handleChange} />
+        <input type="text" name="name" placeholder="Username" onChange={this.handleChange} />
         <br />
         <p>Password</p>
-        <input type="password" name="password" onChange={this.handleChange} />
+        <input type="password" name="password" placeholder="Password" onChange={this.handleChange} />
         <br />
         <button type="button" name="signup" className="switchDropdown" onClick={switchDrop}>
           signup
