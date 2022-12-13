@@ -29,7 +29,7 @@
     "bluebird": "^3.7.2",
     "body-parser": "^1.19.0",
     "dotenv": "^8.2.0",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "neo4j-driver": "^4.2.1",
     "nodemon": "^2.0.6",
     "react": "^17.0.1",
